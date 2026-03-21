@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Courtney Green</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Karla:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#06050a;--sw:#e8f0ff;
+  --gold:#c9a84c;--navy:#07080f;
+  --muted:#8a8fa8;--dim:#4a4f68;--pale:#c8cad8;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--navy);
+  font-family:'Cormorant Garamond',serif;-webkit-font-smoothing:antialiased;}
+
+#starfield{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.star{position:absolute;background:#fff;border-radius:50%;
+  animation:twinkle var(--dur,4s) ease-in-out infinite var(--delay,0s);opacity:var(--op,0.4);}
+@keyframes twinkle{0%,100%{opacity:var(--op,0.4);}50%{opacity:calc(var(--op,0.4)*0.25);}}
+
+#solar-view{
+  position:fixed;inset:0;z-index:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 0.8s ease,transform 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+#solar-view.zooming{opacity:0;transform:scale(4);pointer-events:none;}
+
+#name-header{
+  position:fixed;top:36px;left:50%;transform:translateX(-50%);
+  text-align:center;z-index:5;pointer-events:none;transition:opacity 0.5s ease;
+}
+#name-header h1{
+  font-family:'Cinzel',serif;font-size:clamp(14px,2.2vw,22px);font-weight:400;
+  letter-spacing:0.4em;color:var(--pale);text-transform:uppercase;
+}
+#name-header p{
+  margin-top:7px;font-family:'Karla',sans-serif;
+  font-size:9px;letter-spacing:0.3em;color:var(--dim);text-transform:uppercase;
+}
+#solar-hint{
+  position:fixed;bottom:40px;left:50%;transform:translateX(-50%);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:13px;letter-spacing:0.22em;color:rgba(201,168,76,0.45);
+  z-index:5;animation:hp 3s ease-in-out infinite;transition:opacity 0.5s ease;
+}
+@keyframes hp{0%,100%{opacity:.3;}50%{opacity:.85;}}
+
+#solar-system{position:relative;width:min(90vw,90vh);height:min(90vw,90vh);}
+
+/* Sun canvas centered */
+#sun-wrap{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  cursor:pointer;z-index:10;
+}
+#sun-wrap:hover #sun-canvas{filter:brightness(1.15);}
+#sun-canvas{display:block;border-radius:50%;transition:filter 0.4s;}
+
+#sun-label{
+  position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%);
+  font-family:'Karla',sans-serif;font-size:9px;font-weight:300;
+  letter-spacing:0.25em;color:var(--dim);text-transform:uppercase;
+  white-space:nowrap;opacity:0;transition:opacity 0.3s;pointer-events:none;
+}
+#sun-wrap:hover #sun-label{opacity:1;}
+
+.orbit-ring{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid rgba(138,143,168,0.1);pointer-events:none;
+}
+.planet-orbit{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;}
+.planet-wrapper{position:absolute;pointer-events:all;cursor:pointer;}
+.planet-wrapper:hover .planet-canvas{transform:scale(1.22);filter:brightness(1.2);}
+.planet-canvas{display:block;border-radius:50%;transition:transform 0.35s ease,filter 0.35s ease;}
+.planet-label{
+  position:absolute;left:50%;transform:translateX(-50%);
+  font-family:'Karla',sans-serif;font-size:9px;font-weight:300;
+  letter-spacing:0.22em;color:var(--muted);text-transform:uppercase;
+  white-space:nowrap;opacity:0;transition:opacity 0.3s;pointer-events:none;
+  top:calc(100% + 10px);
+}
+.planet-wrapper:hover .planet-label{opacity:1;}
+
+#veil{position:fixed;inset:0;background:var(--ink);opacity:0;pointer-events:none;transition:opacity .7s ease;z-index:40;}
+#veil.fade{opacity:1;}
+
+#cosmos{
+  position:fixed;inset:0;
+  background:radial-gradient(ellipse at 40% 35%,#1a0e40 0%,#0d0820 40%,#050310 100%);
+  opacity:0;pointer-events:none;z-index:30;overflow:hidden;
+}
+#cosmos.visible{opacity:1;pointer-events:all;}
+.neb{position:absolute;border-radius:50%;filter:blur(65px);opacity:0;transition:opacity 2s ease;mix-blend-mode:screen;}
+#cosmos.visible .neb{opacity:1;}
+.n1{width:700px;height:500px;top:-120px;left:-120px;background:radial-gradient(ellipse,rgba(80,30,160,.3),transparent 70%);animation:nd1 26s ease-in-out infinite;}
+.n2{width:520px;height:620px;bottom:-160px;right:-60px;background:radial-gradient(ellipse,rgba(20,80,180,.2),transparent 70%);animation:nd2 32s ease-in-out infinite;}
+.n3{width:420px;height:320px;top:28%;left:38%;background:radial-gradient(ellipse,rgba(120,40,100,.15),transparent 70%);animation:nd3 21s ease-in-out infinite;}
+@keyframes nd1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(42px,32px) scale(1.05)}66%{transform:translate(-22px,52px) scale(.97)}}
+@keyframes nd2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-65px,-42px) scale(1.08)}}
+@keyframes nd3{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}50%{transform:translate(32px,-22px) scale(1.1) rotate(11deg)}}
+#sc,#cc{position:absolute;inset:0;}
+#cosmos-hdr{
+  position:absolute;top:48px;left:50%;transform:translateX(-50%);
+  text-align:center;opacity:0;transition:opacity 1.5s ease .5s;
+  pointer-events:none;z-index:10;white-space:nowrap;
+}
+#cosmos.visible #cosmos-hdr{opacity:1;}
+#cosmos-hdr h1{
+  font-family:'Cinzel',serif;font-size:clamp(20px,4vw,36px);font-weight:400;
+  color:var(--sw);letter-spacing:8px;text-transform:uppercase;
+  text-shadow:0 0 30px rgba(201,168,76,.4),0 0 60px rgba(80,30,160,.3);
+}
+#cosmos-hdr p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:4px;color:rgba(201,168,76,.6);margin-top:8px;}
+.slbl{
+  position:absolute;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:12px;letter-spacing:2px;color:rgba(201,168,76,.5);
+  opacity:0;transition:opacity 1s ease,color .3s;white-space:nowrap;
+  cursor:pointer;pointer-events:all;
+}
+.slbl.show{opacity:1;}
+.slbl:hover{color:rgba(201,168,76,1);}
+#cosmos-back{
+  position:absolute;bottom:48px;left:50%;transform:translateX(-50%);
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;
+  color:rgba(201,168,76,.5);text-transform:uppercase;
+  background:none;border:1px solid rgba(201,168,76,.22);
+  cursor:pointer;padding:12px 24px;opacity:0;
+  transition:opacity 1s ease 1s,color .3s,border-color .3s;z-index:10;
+}
+#cosmos.visible #cosmos-back{opacity:1;}
+#cosmos-back:hover{color:rgba(201,168,76,.95);border-color:rgba(201,168,76,.55);}
+.ss{position:absolute;width:130px;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.85),transparent);border-radius:2px;opacity:0;pointer-events:none;}
+
+/* ══ OLD SECTION PANEL — retired, kept for fallback ══ */
+#section-panel{display:none;}
+
+/* ══════════════════════════════════
+   SHARED SECTION LAYER BASE
+══════════════════════════════════ */
+.sec-layer{
+  position:fixed;inset:0;z-index:48;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.7s ease;
+  overflow:hidden;
+}
+.sec-layer.visible{opacity:1;pointer-events:all;}
+
+.sec-back-btn{
+  position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;
+  color:rgba(200,202,216,0.4);text-transform:uppercase;
+  background:none;border:1px solid rgba(200,202,216,0.15);
+  cursor:pointer;padding:11px 24px;z-index:10;
+  transition:color .3s,border-color .3s;
+}
+.sec-back-btn:hover{color:rgba(200,202,216,0.9);border-color:rgba(200,202,216,0.45);}
+
+/* ══════════════════════════════════
+   1. ABOUT — THE OBSERVATORY
+══════════════════════════════════ */
+#about-layer{
+  background:radial-gradient(ellipse at 50% 50%,#0c0a1a 0%,#060410 60%,#020208 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+#obs-outer{
+  position:relative;
+  width:min(72vmin,620px);height:min(72vmin,620px);
+  border-radius:50%;
+}
+/* Degree ring */
+#obs-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(200,202,216,0.12);
+}
+#obs-ring-inner{
+  position:absolute;inset:14px;border-radius:50%;
+  border:1px solid rgba(200,202,216,0.06);
+}
+#obs-canvas{position:absolute;inset:0;border-radius:50%;pointer-events:none;}
+/* Aperture mask — the iris */
+#obs-aperture{
+  position:absolute;inset:28px;border-radius:50%;
+  background:rgba(8,6,18,0.0);
+  border:1px solid rgba(200,202,216,0.18);
+  overflow:hidden;
+  clip-path:circle(0% at 50% 50%);
+  transition:clip-path 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+#obs-aperture.open{clip-path:circle(50% at 50% 50%);}
+#obs-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:48px;text-align:center;
+}
+#obs-name{
+  font-family:'Cinzel',serif;font-size:clamp(16px,2.5vmin,22px);font-weight:400;
+  letter-spacing:0.38em;color:var(--sw);text-transform:uppercase;
+  margin-bottom:6px;
+  opacity:0;transition:opacity 1s ease 0.8s;
+}
+#obs-role{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(13px,1.8vmin,17px);letter-spacing:0.18em;
+  color:rgba(200,202,216,0.55);margin-bottom:32px;
+  opacity:0;transition:opacity 1s ease 1.0s;
+}
+#obs-aperture.open #obs-name,
+#obs-aperture.open #obs-role{opacity:1;}
+#obs-bio{
+  font-family:'Karla',sans-serif;font-size:clamp(11px,1.5vmin,13px);
+  line-height:1.9;color:rgba(170,175,205,0.8);font-weight:300;
+  max-width:380px;
+  opacity:0;transition:opacity 1.2s ease 1.3s;
+}
+#obs-aperture.open #obs-bio{opacity:1;}
+/* Orbital fact labels */
+.obs-fact{
+  position:absolute;
+  font-family:'Karla',sans-serif;font-size:10px;font-weight:300;
+  letter-spacing:0.22em;color:rgba(200,202,216,0.45);text-transform:uppercase;
+  white-space:nowrap;
+  opacity:0;transition:opacity 0.8s ease;
+}
+.obs-fact.show{opacity:1;}
+/* Tick marks on ring — drawn via canvas */
+
+/* ══════════════════════════════════
+   2. EXPERIENCE — THE ORRERY
+══════════════════════════════════ */
+#experience-layer{
+  background:radial-gradient(ellipse at 50% 50%,#0e0c10 0%,#080608 55%,#030204 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+#orrery-wrap{
+  position:relative;
+  width:min(88vmin,680px);height:min(88vmin,680px);
+}
+#orrery-canvas{position:absolute;inset:0;pointer-events:none;}
+/* Ring click zones */
+.orrery-ring-hit{
+  position:absolute;border-radius:50%;
+  cursor:pointer;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+}
+/* Expanded role card */
+#orrery-card{
+  position:absolute;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  width:clamp(220px,38vmin,300px);
+  text-align:center;
+  pointer-events:none;z-index:5;
+}
+#orrery-card-role{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(14px,2.2vmin,20px);font-weight:300;
+  color:var(--sw);line-height:1.3;margin-bottom:6px;
+  opacity:0;transition:opacity 0.5s ease;
+}
+#orrery-card-org{
+  font-family:'Cinzel',serif;font-size:clamp(7px,1vmin,9px);
+  letter-spacing:0.3em;color:rgba(201,168,76,0.6);
+  text-transform:uppercase;margin-bottom:10px;
+  opacity:0;transition:opacity 0.5s ease 0.1s;
+}
+#orrery-card-dates{
+  font-family:'Karla',sans-serif;font-size:clamp(9px,1.2vmin,11px);
+  letter-spacing:0.2em;color:rgba(200,202,216,0.35);margin-bottom:14px;
+  opacity:0;transition:opacity 0.5s ease 0.15s;
+}
+#orrery-card-desc{
+  font-family:'Karla',sans-serif;font-size:clamp(10px,1.3vmin,12px);
+  line-height:1.75;color:rgba(170,175,205,0.7);font-weight:300;
+  opacity:0;transition:opacity 0.5s ease 0.2s;
+}
+#orrery-card.active #orrery-card-role,
+#orrery-card.active #orrery-card-org,
+#orrery-card.active #orrery-card-dates,
+#orrery-card.active #orrery-card-desc{opacity:1;}
+#orrery-hint{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(11px,1.6vmin,14px);letter-spacing:0.2em;
+  color:rgba(200,202,216,0.28);text-align:center;pointer-events:none;
+  transition:opacity 0.4s;
+}
+
+/* ══════════════════════════════════
+   3. SKILLS — THE SPECTROGRAPH
+══════════════════════════════════ */
+#skills-layer{
+  background:radial-gradient(ellipse at 50% 48%,#060810 0%,#030408 55%,#010204 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+#spec-wrap{
+  position:relative;
+  width:min(92vw,880px);
+}
+#spec-eyebrow{
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;
+  color:rgba(200,202,216,0.3);text-transform:uppercase;
+  margin-bottom:32px;text-align:center;
+  opacity:0;transition:opacity 0.8s ease;
+}
+#spec-eyebrow.show{opacity:1;}
+#spec-canvas-wrap{
+  position:relative;width:100%;
+}
+#spec-canvas{display:block;width:100%;}
+#spec-tooltip{
+  position:absolute;
+  font-family:'Karla',sans-serif;font-size:11px;font-weight:300;
+  letter-spacing:0.15em;color:rgba(200,202,216,0.9);
+  background:rgba(6,8,16,0.92);
+  border:1px solid rgba(200,202,216,0.12);
+  padding:8px 14px;white-space:nowrap;
+  pointer-events:none;opacity:0;transition:opacity 0.2s;
+  transform:translateX(-50%);
+}
+#spec-groups{
+  display:flex;justify-content:space-between;
+  margin-top:16px;padding:0 2px;
+  opacity:0;transition:opacity 0.8s ease 0.4s;
+}
+#spec-groups.show{opacity:1;}
+.spec-group-lbl{
+  font-family:'Cinzel',serif;font-size:7px;letter-spacing:0.3em;
+  color:rgba(200,202,216,0.28);text-transform:uppercase;
+  text-align:center;flex:1;
+}
+
+/* ══════════════════════════════════
+   4. RESUME — THE TRANSMISSION
+══════════════════════════════════ */
+#resume-layer{
+  background:#020306;
+  display:flex;align-items:center;justify-content:center;
+}
+#tx-wrap{
+  position:relative;
+  width:min(88vw,660px);
+  max-height:85vh;overflow:hidden;
+}
+#tx-scan{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(120,200,120,0.4),transparent);
+  top:0;pointer-events:none;z-index:3;
+  transition:top 3.5s linear;
+}
+#tx-content{
+  position:relative;z-index:2;
+  font-family:'Karla',sans-serif;font-size:clamp(10px,1.4vmin,13px);
+  line-height:2;font-weight:300;
+  color:rgba(140,200,140,0.0);
+  letter-spacing:0.06em;
+}
+.tx-line{
+  display:block;
+  opacity:0;
+  transition:opacity 0.12s ease;
+}
+.tx-line.on{opacity:1;color:rgba(140,200,140,0.82);}
+.tx-head{
+  font-family:'Cinzel',serif;font-size:clamp(8px,1.1vmin,10px);
+  letter-spacing:0.45em;color:rgba(120,180,120,0.45);
+  text-transform:uppercase;
+}
+.tx-section{
+  font-family:'Cinzel',serif;font-size:clamp(7px,1vmin,9px);
+  letter-spacing:0.35em;color:rgba(120,180,120,0.4);
+  text-transform:uppercase;margin-top:0.5em;
+}
+.tx-dim{color:rgba(100,160,100,0.35) !important;}
+#tx-cursor{
+  display:inline-block;width:7px;height:1em;
+  background:rgba(140,200,140,0.7);
+  vertical-align:text-bottom;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+#tx-download{
+  display:block;margin:28px auto 0;
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;
+  color:rgba(120,180,120,0.5);text-transform:uppercase;
+  background:none;border:1px solid rgba(120,180,120,0.2);
+  cursor:pointer;padding:11px 24px;
+  opacity:0;transition:opacity 0.6s ease,color .3s,border-color .3s;
+}
+#tx-download.show{opacity:1;}
+#tx-download:hover{color:rgba(160,220,160,0.9);border-color:rgba(160,220,160,0.5);}
+/* Scanline overlay */
+#tx-overlay{
+  position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+}
+
+/* ══════════════════════════════════
+   5. FIELD NOTES — PERSONAL
+══════════════════════════════════ */
+#fieldnotes-layer{
+  background:radial-gradient(ellipse at 48% 52%,#080810 0%,#050508 60%,#020204 100%);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+#fn-stars-parallax{position:absolute;inset:-40px;pointer-events:none;}
+#fn-wrap{
+  position:relative;z-index:2;
+  width:min(88vw,560px);
+  max-height:82vh;overflow:hidden;
+}
+#fn-header{
+  margin-bottom:44px;
+  opacity:0;transition:opacity 1s ease;
+}
+#fn-header.show{opacity:1;}
+#fn-date{
+  font-family:'Karla',sans-serif;font-size:9px;font-weight:300;
+  letter-spacing:0.38em;color:rgba(200,202,216,0.25);
+  text-transform:uppercase;margin-bottom:14px;
+}
+#fn-title{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(28px,4vmin,40px);font-weight:300;
+  color:rgba(200,202,216,0.88);line-height:1.1;
+}
+.fn-entry{
+  margin-bottom:36px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 1s ease,transform 1s ease;
+}
+.fn-entry.show{opacity:1;transform:translateY(0);}
+.fn-rule{
+  width:32px;height:1px;
+  background:rgba(200,202,216,0.15);
+  margin-bottom:16px;
+}
+.fn-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(15px,2.2vmin,19px);
+  font-weight:300;line-height:1.75;
+  color:rgba(200,202,216,0.72);
+}
+.fn-text em{
+  font-style:italic;color:rgba(200,202,216,0.9);
+}
+#fn-sig{
+  margin-top:52px;
+  opacity:0;transition:opacity 1.2s ease;
+}
+#fn-sig.show{opacity:1;}
+#fn-sig-initials{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:22px;font-weight:300;color:rgba(200,202,216,0.4);
+  margin-bottom:4px;
+}
+#fn-sig-date{
+  font-family:'Karla',sans-serif;font-size:9px;font-weight:300;
+  letter-spacing:0.3em;color:rgba(200,202,216,0.2);text-transform:uppercase;
+}
+
+/* ══ PROJECTS COSMOS ══ */
+#projects-cosmos{
+  position:fixed;inset:0;
+  background:radial-gradient(ellipse at 52% 48%,#120a30 0%,#0a0618 38%,#04020e 100%);
+  opacity:0;pointer-events:none;z-index:35;overflow:hidden;
+  transition:opacity 0.9s ease;
+}
+#projects-cosmos.visible{opacity:1;pointer-events:all;}
+
+/* Nebula tones for projects — slightly warmer purple */
+.pneb{position:absolute;border-radius:50%;filter:blur(70px);opacity:0;transition:opacity 2.2s ease;mix-blend-mode:screen;}
+#projects-cosmos.visible .pneb{opacity:1;}
+.pn1{width:650px;height:440px;top:-80px;right:-80px;background:radial-gradient(ellipse,rgba(90,40,180,.28),transparent 70%);animation:nd1 28s ease-in-out infinite;}
+.pn2{width:500px;height:580px;bottom:-120px;left:-40px;background:radial-gradient(ellipse,rgba(30,60,160,.20),transparent 70%);animation:nd2 34s ease-in-out infinite;}
+.pn3{width:380px;height:300px;top:35%;left:42%;background:radial-gradient(ellipse,rgba(100,30,90,.14),transparent 70%);animation:nd3 22s ease-in-out infinite;}
+
+#psc,#pcc{position:absolute;inset:0;}
+
+#projects-hdr{
+  position:absolute;top:48px;left:50%;transform:translateX(-50%);
+  text-align:center;opacity:0;transition:opacity 1.5s ease .4s;
+  pointer-events:none;z-index:10;white-space:nowrap;
+}
+#projects-cosmos.visible #projects-hdr{opacity:1;}
+#projects-hdr h1{
+  font-family:'Cinzel',serif;font-size:clamp(16px,3vw,28px);font-weight:400;
+  color:var(--sw);letter-spacing:7px;text-transform:uppercase;
+  text-shadow:0 0 28px rgba(180,140,255,.35),0 0 55px rgba(80,30,160,.3);
+}
+#projects-hdr p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:13px;letter-spacing:4px;color:rgba(180,150,255,.55);margin-top:7px;
+}
+
+/* Constellation labels in projects view */
+.plbl{
+  position:absolute;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:11px;letter-spacing:2.5px;color:rgba(190,168,255,.45);
+  opacity:0;transition:opacity 1s ease,color .3s;white-space:nowrap;
+  cursor:pointer;pointer-events:all;
+}
+.plbl.show{opacity:1;}
+.plbl:hover{color:rgba(220,200,255,.95);}
+
+#projects-back{
+  position:absolute;bottom:48px;left:50%;transform:translateX(-50%);
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;
+  color:rgba(180,150,255,.45);text-transform:uppercase;
+  background:none;border:1px solid rgba(180,150,255,.18);
+  cursor:pointer;padding:11px 22px;opacity:0;
+  transition:opacity 1s ease 1.2s,color .3s,border-color .3s;z-index:10;
+}
+#projects-cosmos.visible #projects-back{opacity:1;}
+#projects-back:hover{color:rgba(210,185,255,.95);border-color:rgba(210,185,255,.5);}
+
+/* ══ PROJECT CARD ══ */
+#project-card{
+  position:fixed;
+  top:50%;left:50%;transform:translate(-50%,-50%) scale(0.94);
+  width:min(520px,90vw);
+  background:rgba(10,8,24,0.97);
+  border:1px solid rgba(180,150,255,0.14);
+  z-index:60;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.45s ease,transform 0.45s cubic-bezier(0.34,1.2,0.64,1);
+  display:flex;flex-direction:column;
+  max-height:88vh;overflow-y:auto;
+}
+#project-card.open{
+  opacity:1;pointer-events:all;
+  transform:translate(-50%,-50%) scale(1);
+}
+#project-card-img{
+  width:100%;aspect-ratio:16/7;
+  background:rgba(20,16,40,0.8);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid rgba(180,150,255,0.08);
+  flex-shrink:0;
+}
+#project-card-img img{
+  width:100%;height:100%;object-fit:cover;opacity:0.75;
+}
+#project-card-img .img-placeholder{
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;
+  color:rgba(180,150,255,0.25);text-transform:uppercase;
+}
+#project-card-body{padding:36px 40px 40px;}
+#project-card-eyebrow{
+  font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.38em;
+  text-transform:uppercase;color:rgba(180,150,255,0.45);margin-bottom:14px;
+}
+#project-card-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,32px);
+  font-weight:300;font-style:italic;color:var(--sw);line-height:1.15;
+  margin-bottom:18px;padding-bottom:18px;
+  border-bottom:1px solid rgba(180,150,255,0.10);
+}
+#project-card-desc{
+  font-family:'Karla',sans-serif;font-size:13px;line-height:1.85;
+  color:rgba(175,180,215,0.85);font-weight:300;margin-bottom:24px;
+}
+#project-card-tags{margin-bottom:26px;}
+.pc-tag{
+  display:inline-block;font-family:'Cinzel',serif;font-size:7px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(180,150,255,0.55);border:1px solid rgba(180,150,255,0.18);
+  padding:3px 9px;margin:3px 3px 0 0;border-radius:1px;
+}
+#project-card-link{
+  display:inline-block;
+  font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.28em;
+  text-transform:uppercase;color:rgba(180,150,255,0.65);
+  border-bottom:1px solid rgba(180,150,255,0.22);padding-bottom:3px;
+  text-decoration:none;cursor:pointer;
+  transition:color 0.3s,border-color 0.3s;
+}
+#project-card-link:hover{color:rgba(210,190,255,1);border-color:rgba(210,190,255,0.7);}
+#project-card-close{
+  position:absolute;top:16px;right:18px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.28em;
+  color:rgba(180,150,255,0.35);text-transform:uppercase;transition:color 0.3s;
+}
+#project-card-close:hover{color:rgba(210,190,255,0.9);}
+
+/* Dim backdrop behind card */
+#card-backdrop{
+  position:fixed;inset:0;z-index:55;
+  background:rgba(4,2,14,0.72);
+  opacity:0;pointer-events:none;transition:opacity 0.4s ease;
+}
+#card-backdrop.open{opacity:1;pointer-events:all;}
+</style>
+</head>
+<body>
+
+<div id="starfield"></div>
+<div id="name-header">
+  <h1>Courtney Green</h1>
+  <p>Data Scientist &amp; Researcher</p>
+</div>
+<div id="solar-hint">click the sun to enter &nbsp;·&nbsp; click a planet to explore</div>
+
+<div id="solar-view">
+  <div id="solar-system"></div>
+</div>
+
+<div id="veil"></div>
+
+<div id="cosmos">
+  <div class="neb n1"></div><div class="neb n2"></div><div class="neb n3"></div>
+  <canvas id="sc"></canvas>
+  <canvas id="cc"></canvas>
+  <div id="cosmos-hdr">
+    <h1>Courtney Green</h1>
+    <p>navigate by the constellations</p>
+  </div>
+  <button id="cosmos-back" onclick="returnToSolar()">&#8592; Solar System</button>
+</div>
+
+<!-- ══ PROJECTS COSMOS ══ -->
+<div id="projects-cosmos">
+  <div class="pneb pn1"></div><div class="pneb pn2"></div><div class="pneb pn3"></div>
+  <canvas id="psc"></canvas>
+  <canvas id="pcc"></canvas>
+  <div id="projects-hdr">
+    <h1>Projects</h1>
+    <p>click a constellation to explore</p>
+  </div>
+  <button id="projects-back" onclick="returnFromSection('projects')">&#8592; Solar System</button>
+</div>
+
+<!-- ══ CARD BACKDROP + PROJECT CARD ══ -->
+<div id="card-backdrop" onclick="closeProjectCard()"></div>
+<div id="project-card">
+  <button id="project-card-close" onclick="closeProjectCard()">Close</button>
+  <div id="project-card-img"><div class="img-placeholder">Preview</div></div>
+  <div id="project-card-body">
+    <div id="project-card-eyebrow"></div>
+    <div id="project-card-title"></div>
+    <div id="project-card-desc"></div>
+    <div id="project-card-tags"></div>
+    <a id="project-card-link" href="#" target="_blank"></a>
+  </div>
+</div>
+
+<!-- retired panel kept for DOM safety -->
+<div id="section-panel" style="display:none">
+  <div id="panel-eyebrow"></div><div id="panel-title"></div><div id="panel-body"></div>
+</div>
+
+<!-- ══ 1. ABOUT — THE OBSERVATORY ══ -->
+<div id="about-layer" class="sec-layer">
+  <div id="obs-outer">
+    <canvas id="obs-canvas"></canvas>
+    <div id="obs-ring"></div>
+    <div id="obs-ring-inner"></div>
+    <div id="obs-aperture">
+      <div id="obs-content">
+        <div id="obs-name">Courtney Green</div>
+        <div id="obs-role">Data Scientist &amp; Researcher</div>
+        <div id="obs-bio">I work at the intersection of statistical modeling, machine learning, and public policy — translating complex data into decisions that matter. My approach is methodical and curiosity-driven, living at the edges of disciplines where statistics meets narrative.<br><br>Based in Washington, D.C.</div>
+      </div>
+    </div>
+  </div>
+  <button class="sec-back-btn" onclick="returnFromSection('about')">&#8592; Solar System</button>
+</div>
+
+<!-- ══ 2. EXPERIENCE — THE ORRERY ══ -->
+<div id="experience-layer" class="sec-layer">
+  <div id="orrery-wrap">
+    <canvas id="orrery-canvas"></canvas>
+    <div id="orrery-hint">click a ring to explore</div>
+    <div id="orrery-card">
+      <div id="orrery-card-role"></div>
+      <div id="orrery-card-org"></div>
+      <div id="orrery-card-dates"></div>
+      <div id="orrery-card-desc"></div>
+    </div>
+  </div>
+  <button class="sec-back-btn" onclick="returnFromSection('experience')">&#8592; Solar System</button>
+</div>
+
+<!-- ══ 3. SKILLS — THE SPECTROGRAPH ══ -->
+<div id="skills-layer" class="sec-layer">
+  <div id="spec-wrap">
+    <div id="spec-eyebrow">Spectral Analysis &nbsp;·&nbsp; Skills &amp; Methods</div>
+    <div id="spec-canvas-wrap">
+      <canvas id="spec-canvas"></canvas>
+      <div id="spec-tooltip"></div>
+    </div>
+    <div id="spec-groups"></div>
+  </div>
+  <button class="sec-back-btn" onclick="returnFromSection('skills')">&#8592; Solar System</button>
+</div>
+
+<!-- ══ 4. RESUME — THE TRANSMISSION ══ -->
+<div id="resume-layer" class="sec-layer">
+  <div id="tx-wrap">
+    <div id="tx-overlay"></div>
+    <div id="tx-scan"></div>
+    <div id="tx-content"></div>
+    <button id="tx-download" onclick="window.open('mailto:courtney@example.com')">&#8964; Request Transmission</button>
+  </div>
+  <button class="sec-back-btn" onclick="returnFromSection('resume')">&#8592; Solar System</button>
+</div>
+
+<!-- ══ 5. FIELD NOTES — PERSONAL ══ -->
+<div id="fieldnotes-layer" class="sec-layer">
+  <canvas id="fn-stars-parallax"></canvas>
+  <div id="fn-wrap">
+    <div id="fn-header">
+      <div id="fn-date">Field Notes &nbsp;·&nbsp; Washington D.C.</div>
+      <div id="fn-title">Observations on<br>Work &amp; Wonder</div>
+    </div>
+    <div id="fn-entries"></div>
+    <div id="fn-sig">
+      <div id="fn-sig-initials">C.G.</div>
+      <div id="fn-sig-date">2024</div>
+    </div>
+  </div>
+  <button class="sec-back-btn" onclick="returnFromSection('fieldnotes')">&#8592; Solar System</button>
+</div>
+
+<script>
+/* ══ STAR FIELD ══ */
+(function(){
+  const sf=document.getElementById('starfield');
+  for(let i=0;i<280;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()<0.7?1:Math.random()<0.85?1.5:2;
+    const op=0.12+Math.random()*0.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${3+Math.random()*5}s;--delay:-${Math.random()*6}s;--op:${op};`;
+    sf.appendChild(s);
+  }
+})();
+
+/* ══ PLANET PAINTER — realistic 3-D sphere via canvas 2D ══
+   Each planet uses:
+   - base color + band colors painted as latitude strips
+   - radial gradient from limb (dark) to highlight
+   - specular highlight ellipse
+   - atmosphere rim glow
+   - optional ring system (Saturn)
+*/
+function paintSun(canvas, size) {
+  const R = size / 2;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.height = size;
+
+  // Core sphere — smooth warm gradient, off-center highlight for depth
+  const core = ctx.createRadialGradient(R*0.58, R*0.50, 0, R, R, R);
+  core.addColorStop(0,    '#fff4c2');
+  core.addColorStop(0.22, '#ffd966');
+  core.addColorStop(0.52, '#f0a020');
+  core.addColorStop(0.78, '#c86010');
+  core.addColorStop(0.92, '#a04008');
+  core.addColorStop(1,    '#5a1800');
+  ctx.beginPath(); ctx.arc(R, R, R, 0, Math.PI*2);
+  ctx.fillStyle = core; ctx.fill();
+
+  // Subtle equatorial brightening — one smooth band across middle
+  ctx.save(); ctx.beginPath(); ctx.arc(R, R, R, 0, Math.PI*2); ctx.clip();
+  const band = ctx.createLinearGradient(0, R*0.55, 0, R*1.45);
+  band.addColorStop(0,   'rgba(255,220,100,0)');
+  band.addColorStop(0.3, 'rgba(255,210,80,0.10)');
+  band.addColorStop(0.5, 'rgba(255,200,60,0.14)');
+  band.addColorStop(0.7, 'rgba(255,210,80,0.10)');
+  band.addColorStop(1,   'rgba(255,220,100,0)');
+  ctx.fillStyle = band; ctx.fillRect(0, 0, size, size);
+  ctx.restore();
+
+  // Limb darkening — natural physics, smooth
+  const limb = ctx.createRadialGradient(R, R, R*0.42, R, R, R);
+  limb.addColorStop(0,    'rgba(0,0,0,0)');
+  limb.addColorStop(0.65, 'rgba(0,0,0,0)');
+  limb.addColorStop(0.88, 'rgba(0,0,0,0.20)');
+  limb.addColorStop(1,    'rgba(0,0,0,0.52)');
+  ctx.beginPath(); ctx.arc(R, R, R, 0, Math.PI*2);
+  ctx.fillStyle = limb; ctx.fill();
+
+  // Soft specular catch-light — upper left, very gentle
+  const spec = ctx.createRadialGradient(R*0.50, R*0.42, 0, R*0.50, R*0.42, R*0.45);
+  spec.addColorStop(0,   'rgba(255,255,220,0.28)');
+  spec.addColorStop(0.5, 'rgba(255,245,180,0.08)');
+  spec.addColorStop(1,   'rgba(255,245,180,0)');
+  ctx.beginPath(); ctx.arc(R, R, R, 0, Math.PI*2);
+  ctx.fillStyle = spec; ctx.fill();
+}
+
+function paintPlanet(canvas, size, cfg) {
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const R = size / 2;
+
+  ctx.save();
+  ctx.beginPath();ctx.arc(R,R,R,0,Math.PI*2);ctx.clip();
+
+  // Base sphere gradient (deep pole-to-pole)
+  const sph = ctx.createRadialGradient(R*0.6,R*0.55,0,R,R,R);
+  cfg.sphere.forEach(([stop,col])=>sph.addColorStop(stop,col));
+  ctx.fillStyle=sph;ctx.fillRect(0,0,size,size);
+
+  // Atmospheric bands (horizontal latitude strips)
+  if(cfg.bands){
+    cfg.bands.forEach(b=>{
+      const y0=(b.lat - b.width/2)*size;
+      const y1=(b.lat + b.width/2)*size;
+      const bGrad=ctx.createLinearGradient(0,y0,0,y1);
+      bGrad.addColorStop(0,'rgba(0,0,0,0)');
+      bGrad.addColorStop(0.2,b.color);
+      bGrad.addColorStop(0.8,b.color);
+      bGrad.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=bGrad;
+      ctx.fillRect(0,y0,size,y1-y0);
+    });
+  }
+
+  // Surface detail blobs (terrain / cloud swirls)
+  if(cfg.blobs){
+    cfg.blobs.forEach(blob=>{
+      const bx=blob.x*size, by=blob.y*size, br=blob.r*size;
+      const bg=ctx.createRadialGradient(bx,by,0,bx,by,br);
+      bg.addColorStop(0,blob.c0);bg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);
+      ctx.fillStyle=bg;ctx.fill();
+    });
+  }
+
+  // Cloud streaks
+  if(cfg.streaks){
+    cfg.streaks.forEach(s=>{
+      ctx.save();
+      ctx.translate(s.x*size,s.y*size);
+      ctx.rotate(s.angle||0);
+      const sg=ctx.createLinearGradient(-s.w*size/2,0,s.w*size/2,0);
+      sg.addColorStop(0,'rgba(255,255,255,0)');
+      sg.addColorStop(0.3,s.color);
+      sg.addColorStop(0.7,s.color);
+      sg.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=sg;
+      ctx.fillRect(-s.w*size/2,-s.h*size/2,s.w*size,s.h*size);
+      ctx.restore();
+    });
+  }
+
+  // Sphere shading (3-D wrap): dark on right/bottom
+  const shade=ctx.createRadialGradient(R*0.55,R*0.5,0,R*1.05,R*1.05,R*1.4);
+  shade.addColorStop(0,'rgba(0,0,0,0)');
+  shade.addColorStop(0.55,'rgba(0,0,0,0.04)');
+  shade.addColorStop(0.82,'rgba(0,0,0,0.32)');
+  shade.addColorStop(1,'rgba(0,0,0,0.72)');
+  ctx.fillStyle=shade;ctx.fillRect(0,0,size,size);
+
+  // Specular highlight
+  const spec=ctx.createRadialGradient(R*0.52,R*0.42,0,R*0.52,R*0.42,R*0.38);
+  spec.addColorStop(0,cfg.specular||'rgba(255,255,255,0.28)');
+  spec.addColorStop(0.4,cfg.specular2||'rgba(255,255,255,0.07)');
+  spec.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=spec;ctx.fillRect(0,0,size,size);
+
+  // Atmosphere rim
+  const atm=ctx.createRadialGradient(R,R,R*0.78,R,R,R);
+  atm.addColorStop(0,'rgba(0,0,0,0)');
+  atm.addColorStop(0.7,'rgba(0,0,0,0)');
+  atm.addColorStop(1,cfg.atmosphere||'rgba(100,130,255,0.25)');
+  ctx.fillStyle=atm;ctx.fillRect(0,0,size,size);
+
+  ctx.restore();
+}
+
+/* ── 8 planets. Orbit radii scaled to fill the system with breathing room.
+   Sizes: relative to real ratios but compressed for readability.
+   Lighting: consistent upper-left highlight on every body (spec at ~0.50, 0.42).
+   Speeds: inner fast, outer slow. Start angles distributed to avoid clumping. ── */
+const PLANET_DEFS = [
+
+  /* 1. MERCURY — About */
+  { id:'mercury', label:'Mercury', section:'about',
+    orbitR: 82,  size: 16,
+    speed: 0.00028, startAngle: Math.PI*0.12,
+    paint: c=>paintPlanet(c,16,{
+      sphere:[[0,'#918880'],[0.4,'#7a7068'],[0.72,'#524840'],[1,'#1a1410']],
+      blobs:[
+        {x:0.36,y:0.34,r:0.18,c0:'rgba(100,92,84,0.55)'},
+        {x:0.64,y:0.56,r:0.14,c0:'rgba(72,64,58,0.48)'},
+        {x:0.28,y:0.62,r:0.12,c0:'rgba(88,82,76,0.42)'},
+      ],
+      specular:'rgba(210,200,190,0.24)',specular2:'rgba(190,182,175,0.07)',
+      atmosphere:'rgba(80,70,60,0.08)',
+    })
+  },
+
+  /* 2. VENUS — Field Notes */
+  { id:'venus', label:'Venus', section:'fieldnotes',
+    orbitR: 114, size: 22,
+    speed: 0.00018, startAngle: Math.PI*0.82,
+    paint: c=>paintPlanet(c,22,{
+      sphere:[[0,'#ede0b0'],[0.38,'#d4c080'],[0.65,'#b89e58'],[1,'#4a3a18']],
+      bands:[
+        {lat:0.30,width:0.10,color:'rgba(230,215,160,0.28)'},
+        {lat:0.50,width:0.12,color:'rgba(220,205,145,0.22)'},
+        {lat:0.70,width:0.10,color:'rgba(210,195,130,0.20)'},
+      ],
+      streaks:[
+        {x:0.5,y:0.32,w:0.80,h:0.055,color:'rgba(255,248,210,0.22)',angle:-0.04},
+        {x:0.5,y:0.55,w:0.70,h:0.045,color:'rgba(248,240,195,0.18)',angle:0.03},
+        {x:0.5,y:0.72,w:0.75,h:0.050,color:'rgba(240,232,182,0.16)',angle:-0.03},
+      ],
+      specular:'rgba(255,252,220,0.32)',specular2:'rgba(255,248,200,0.09)',
+      atmosphere:'rgba(220,200,130,0.30)',
+    })
+  },
+
+  /* 3. EARTH — Experience */
+  { id:'earth', label:'Earth', section:'experience',
+    orbitR: 150, size: 24,
+    speed: 0.00013, startAngle: Math.PI*1.50,
+    paint: c=>paintPlanet(c,24,{
+      sphere:[[0,'#1e5898'],[0.32,'#1a4e88'],[0.60,'#124070'],[1,'#06152a']],
+      blobs:[
+        {x:0.30,y:0.30,r:0.22,c0:'rgba(42,98,58,0.68)'},
+        {x:0.60,y:0.44,r:0.18,c0:'rgba(38,88,50,0.58)'},
+        {x:0.22,y:0.58,r:0.16,c0:'rgba(48,108,64,0.52)'},
+        {x:0.68,y:0.28,r:0.12,c0:'rgba(36,82,46,0.45)'},
+        {x:0.52,y:0.70,r:0.14,c0:'rgba(55,115,70,0.42)'},
+      ],
+      streaks:[
+        {x:0.5,y:0.20,w:0.72,h:0.048,color:'rgba(238,246,255,0.26)',angle:-0.04},
+        {x:0.5,y:0.40,w:0.58,h:0.038,color:'rgba(238,246,255,0.20)',angle:0.05},
+        {x:0.5,y:0.66,w:0.78,h:0.048,color:'rgba(238,246,255,0.18)',angle:-0.03},
+      ],
+      specular:'rgba(180,218,255,0.36)',specular2:'rgba(150,200,255,0.10)',
+      atmosphere:'rgba(80,145,255,0.38)',
+    })
+  },
+
+  /* 4. MARS — Resume */
+  { id:'mars', label:'Mars', section:'resume',
+    orbitR: 190, size: 20,
+    speed: 0.000082, startAngle: Math.PI*0.42,
+    paint: c=>paintPlanet(c,20,{
+      sphere:[[0,'#c86438'],[0.36,'#b05228'],[0.65,'#8c3e18'],[1,'#2c1008']],
+      bands:[
+        {lat:0.08,width:0.10,color:'rgba(228,222,205,0.32)'},
+        {lat:0.90,width:0.12,color:'rgba(215,210,195,0.26)'},
+      ],
+      blobs:[
+        {x:0.40,y:0.38,r:0.22,c0:'rgba(165,75,32,0.60)'},
+        {x:0.62,y:0.32,r:0.17,c0:'rgba(148,58,22,0.52)'},
+        {x:0.25,y:0.62,r:0.15,c0:'rgba(178,88,38,0.45)'},
+        {x:0.65,y:0.65,r:0.12,c0:'rgba(128,50,18,0.40)'},
+      ],
+      specular:'rgba(255,205,165,0.24)',specular2:'rgba(255,185,145,0.07)',
+      atmosphere:'rgba(195,98,55,0.28)',
+    })
+  },
+
+  /* 5. JUPITER — Projects */
+  { id:'jupiter', label:'Jupiter', section:'projects',
+    orbitR: 238, size: 52,
+    speed: 0.000048, startAngle: Math.PI*1.20,
+    paint: c=>paintPlanet(c,52,{
+      sphere:[[0,'#d8c498'],[0.30,'#c8b480'],[0.58,'#a89060'],[0.80,'#806840'],[1,'#2a2010']],
+      bands:[
+        {lat:0.18,width:0.06,color:'rgba(140,100,60,0.42)'},
+        {lat:0.28,width:0.08,color:'rgba(105,72,42,0.52)'},
+        {lat:0.40,width:0.06,color:'rgba(155,118,72,0.38)'},
+        {lat:0.52,width:0.09,color:'rgba(98,68,38,0.50)'},
+        {lat:0.63,width:0.07,color:'rgba(148,110,65,0.36)'},
+        {lat:0.74,width:0.06,color:'rgba(110,78,45,0.44)'},
+        {lat:0.84,width:0.05,color:'rgba(135,98,58,0.32)'},
+      ],
+      blobs:[
+        // Great Red Spot — muted, subtle, lower-left quadrant
+        {x:0.30,y:0.62,r:0.09,c0:'rgba(148,72,50,0.48)'},
+      ],
+      streaks:[
+        {x:0.5,y:0.28,w:0.90,h:0.030,color:'rgba(215,195,155,0.30)',angle:0.0},
+        {x:0.5,y:0.52,w:0.92,h:0.025,color:'rgba(200,178,138,0.26)',angle:0.0},
+      ],
+      specular:'rgba(255,248,215,0.26)',specular2:'rgba(248,238,198,0.08)',
+      atmosphere:'rgba(190,162,105,0.20)',
+    })
+  },
+
+  /* 6. SATURN — Skills */
+  { id:'saturn', label:'Saturn', section:'skills',
+    orbitR: 290, size: 40,
+    speed: 0.000032, startAngle: Math.PI*0.68,
+    rings: true,
+    paint: c=>paintPlanet(c,40,{
+      sphere:[[0,'#e0c87a'],[0.28,'#ccb060'],[0.55,'#a88a3a'],[0.78,'#7a6220'],[1,'#28200a']],
+      bands:[
+        {lat:0.26,width:0.07,color:'rgba(155,122,48,0.40)'},
+        {lat:0.38,width:0.05,color:'rgba(118,88,28,0.38)'},
+        {lat:0.50,width:0.08,color:'rgba(145,112,42,0.34)'},
+        {lat:0.64,width:0.06,color:'rgba(108,80,22,0.35)'},
+        {lat:0.76,width:0.05,color:'rgba(132,100,35,0.30)'},
+      ],
+      specular:'rgba(255,245,185,0.30)',specular2:'rgba(255,238,168,0.09)',
+      atmosphere:'rgba(195,168,78,0.22)',
+    })
+  },
+
+  /* 7. URANUS — About (extended) */
+  { id:'uranus', label:'Uranus', section:'about',
+    orbitR: 340, size: 32,
+    speed: 0.000020, startAngle: Math.PI*1.78,
+    paint: c=>paintPlanet(c,32,{
+      sphere:[[0,'#a8d8d8'],[0.38,'#88c0c0'],[0.65,'#60a0a0'],[1,'#102828']],
+      bands:[
+        {lat:0.32,width:0.09,color:'rgba(148,210,210,0.22)'},
+        {lat:0.55,width:0.08,color:'rgba(128,195,195,0.18)'},
+        {lat:0.72,width:0.07,color:'rgba(110,180,180,0.15)'},
+      ],
+      specular:'rgba(210,248,248,0.30)',specular2:'rgba(195,238,238,0.09)',
+      atmosphere:'rgba(88,185,185,0.32)',
+    })
+  },
+
+  /* 8. NEPTUNE — Field Notes */
+  { id:'neptune', label:'Neptune', section:'fieldnotes',
+    orbitR: 392, size: 30,
+    speed: 0.000012, startAngle: Math.PI*0.95,
+    paint: c=>paintPlanet(c,30,{
+      sphere:[[0,'#3060c8'],[0.35,'#2250a8'],[0.62,'#183c88'],[1,'#060c2a']],
+      bands:[
+        {lat:0.36,width:0.09,color:'rgba(88,145,228,0.28)'},
+        {lat:0.58,width:0.07,color:'rgba(60,112,200,0.22)'},
+      ],
+      blobs:[
+        {x:0.38,y:0.42,r:0.16,c0:'rgba(48,88,210,0.40)'},
+        {x:0.60,y:0.60,r:0.13,c0:'rgba(38,72,195,0.35)'},
+      ],
+      streaks:[
+        {x:0.5,y:0.40,w:0.68,h:0.038,color:'rgba(120,168,248,0.20)',angle:-0.06},
+        {x:0.5,y:0.62,w:0.62,h:0.030,color:'rgba(95,142,228,0.16)',angle:0.05},
+      ],
+      specular:'rgba(148,195,255,0.30)',specular2:'rgba(118,168,255,0.08)',
+      atmosphere:'rgba(48,108,248,0.38)',
+    })
+  },
+];
+
+/* ══ BUILD SOLAR SYSTEM ══ */
+const sys=document.getElementById('solar-system');
+const sysSize=Math.min(window.innerWidth*0.9,window.innerHeight*0.9);
+
+/* Sun */
+const sunWrap=document.createElement('div'); sunWrap.id='sun-wrap';
+const sunCanvas=document.createElement('canvas'); sunCanvas.id='sun-canvas';
+const SUN_SIZE=58;
+sunCanvas.width=sunCanvas.height=SUN_SIZE;
+sunCanvas.style.width=sunCanvas.style.height=SUN_SIZE+'px';
+paintSun(sunCanvas,SUN_SIZE);
+const sunLbl=document.createElement('div'); sunLbl.id='sun-label'; sunLbl.textContent='Enter Portfolio';
+sunWrap.appendChild(sunCanvas); sunWrap.appendChild(sunLbl);
+sunWrap.style.cssText=`width:${SUN_SIZE}px;height:${SUN_SIZE}px;`;
+sunWrap.style.boxShadow=`0 0 18px rgba(240,175,40,0.50),0 0 50px rgba(235,150,25,0.22),0 0 110px rgba(225,120,10,0.10)`;
+sunWrap.style.borderRadius='50%';
+sys.appendChild(sunWrap);
+sunWrap.addEventListener('click',enterPortfolio);
+
+const pAngles={};
+PLANET_DEFS.forEach(p=>{
+  const pxR=(p.orbitR/410)*sysSize*0.5;
+
+  // Orbit ring
+  const ring=document.createElement('div'); ring.className='orbit-ring';
+  ring.style.cssText=`width:${pxR*2}px;height:${pxR*2}px;margin-left:${-pxR}px;margin-top:${-pxR}px;`;
+  sys.appendChild(ring);
+
+  // Orbit group
+  const orb=document.createElement('div'); orb.className='planet-orbit'; orb.id='orbit-'+p.id;
+  sys.appendChild(orb);
+
+  // Wrapper
+  const wr=document.createElement('div'); wr.className='planet-wrapper';
+
+  // Planet canvas
+  const pc=document.createElement('canvas'); pc.className='planet-canvas';
+  pc.width=pc.height=p.size; pc.style.width=pc.style.height=p.size+'px';
+  p.paint(pc);
+
+  // Saturn rings (drawn as ellipse around the canvas using a sibling svg)
+  if(p.rings){
+    const ringWrap=document.createElement('div');
+    ringWrap.style.cssText=`position:relative;width:${p.size*2.6}px;height:${p.size*1.2}px;display:flex;align-items:center;justify-content:center;`;
+    const ringSvg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    const rw=p.size*2.6, rh=p.size*1.2;
+    ringSvg.setAttribute('viewBox',`0 0 ${rw} ${rh}`);
+    ringSvg.style.cssText=`position:absolute;inset:0;width:100%;height:100%;pointer-events:none;`;
+    const cx=rw/2, cy=rh/2;
+    const rx=rw*0.46, ry=rh*0.13;
+    // Back ring (behind planet)
+    const back=document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    back.setAttribute('cx',cx);back.setAttribute('cy',cy+ry*0.1);
+    back.setAttribute('rx',rx);back.setAttribute('ry',ry);
+    back.setAttribute('fill','none');
+    back.setAttribute('stroke','rgba(200,175,90,0.55)');back.setAttribute('stroke-width','4');
+    const back2=document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    back2.setAttribute('cx',cx);back2.setAttribute('cy',cy+ry*0.1);
+    back2.setAttribute('rx',rx*0.75);back2.setAttribute('ry',ry*0.75);
+    back2.setAttribute('fill','none');
+    back2.setAttribute('stroke','rgba(160,135,60,0.38)');back2.setAttribute('stroke-width','2.5');
+    ringSvg.appendChild(back);ringSvg.appendChild(back2);
+    ringWrap.appendChild(ringSvg);
+    ringWrap.appendChild(pc);
+    pc.style.cssText+=`;position:relative;z-index:1;`;
+    wr.appendChild(ringWrap);
+  } else {
+    wr.appendChild(pc);
+  }
+
+  const lb=document.createElement('div'); lb.className='planet-label'; lb.textContent=p.label;
+  wr.appendChild(lb);
+  orb.appendChild(wr);
+
+  pAngles[p.id]={angle:p.startAngle,speed:p.speed,r:pxR,size:p.size,hasRings:!!p.rings};
+  wr.addEventListener('click',()=>{
+    goToSection(p.section);
+  });
+});
+
+function positionPlanets(){
+  PLANET_DEFS.forEach(p=>{
+    const d=pAngles[p.id];
+    const orb=document.getElementById('orbit-'+p.id);
+    const wr=orb.querySelector('.planet-wrapper');
+    const offset=d.hasRings?p.size*1.3:d.size/2;
+    wr.style.left=`calc(50% + ${Math.cos(d.angle)*d.r - offset}px)`;
+    wr.style.top=`calc(50% + ${Math.sin(d.angle)*d.r - d.size/2}px)`;
+  });
+}
+
+let solarRAF=null,lastT=0;
+function animateSolar(ts){
+  const dt=ts-lastT;lastT=ts;
+  PLANET_DEFS.forEach(p=>{pAngles[p.id].angle+=pAngles[p.id].speed*dt;});
+  positionPlanets();
+  solarRAF=requestAnimationFrame(animateSolar);
+}
+solarRAF=requestAnimationFrame(animateSolar);
+positionPlanets();
+
+/* ══ DIRECT PLANET → SECTION TRANSITION ══
+   Single clean path: solar zoom → veil → section opens → veil lifts.
+   Projects gets the constellation cosmos. Other sections get their own layer. */
+let inSection = false;
+
+function goToSection(id){
+  if(inSection) return;
+  inSection = true;
+
+  const v  = document.getElementById('veil');
+  const sv = document.getElementById('solar-view');
+
+  document.getElementById('solar-hint').style.opacity = '0';
+  document.getElementById('name-header').style.opacity = '0';
+
+  // 1. Zoom solar system
+  setTimeout(()=>{
+    sv.classList.add('zooming');
+    cancelAnimationFrame(solarRAF);
+  }, 120);
+
+  // 2. Fade to black
+  v.style.transition = 'opacity 0.55s ease';
+  setTimeout(()=>{ v.classList.add('fade'); }, 350);
+
+  // 3. Behind veil: mount section, then lift veil
+  setTimeout(()=>{
+    if(id === 'projects'){
+      buildProjectCosmos(); PCR = true;
+      document.getElementById('projects-cosmos').classList.add('visible');
+      requestAnimationFrame(runProjectCosmos);
+      v.style.transition = 'opacity 0.8s ease';
+      v.classList.remove('fade');
+      setTimeout(revealProjectCons, 1000);
+    } else {
+      _openSectionLayer(id);
+      v.style.transition = 'opacity 0.7s ease';
+      v.classList.remove('fade');
+    }
+  }, 900);
+}
+
+/* Returns from any direct-section or projects back to solar system */
+function returnFromSection(id){
+  if(id === 'projects'){
+    PCR = false; PCRV = false;
+    document.getElementById('projects-cosmos').classList.remove('visible');
+    PLBLS.forEach(l=>l.remove()); PLBLS = []; PSTAR_HITS.length = 0;
+    document.getElementById('pcc').getContext('2d')
+      .clearRect(0, 0, window.innerWidth, window.innerHeight);
+  } else {
+    _closeSectionLayer(id);
+  }
+
+  const v  = document.getElementById('veil');
+  const sv = document.getElementById('solar-view');
+  v.style.transition = 'opacity 0.4s ease';
+  v.classList.add('fade');
+
+  setTimeout(()=>{
+    sv.style.transition = 'none';
+    sv.style.transform  = 'scale(0.2)';
+    sv.style.opacity    = '0';
+    sv.classList.remove('zooming');
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{
+        sv.style.transition = 'opacity 0.9s ease, transform 0.9s cubic-bezier(0.2,0,0.4,1)';
+        sv.style.transform  = 'scale(1)';
+        sv.style.opacity    = '1';
+        document.getElementById('solar-hint').style.opacity = '';
+        document.getElementById('name-header').style.opacity = '';
+        inSection = false; lastT = 0;
+        solarRAF = requestAnimationFrame(animateSolar);
+        v.style.transition = 'opacity 0.8s ease 0.15s';
+        v.classList.remove('fade');
+      }, 60);
+    });
+  }, 420);
+}
+
+/* Internal helpers — mount/unmount a section layer */
+function _openSectionLayer(id){
+  if(id==='about')      openAbout();
+  else if(id==='experience') openExperience();
+  else if(id==='skills')     openSkills();
+  else if(id==='resume')     openResume();
+  else if(id==='fieldnotes') openFieldNotes();
+}
+function _closeSectionLayer(id){
+  if(id==='experience') orreryRunning = false;
+  if(id==='about'){
+    setTimeout(()=>{
+      const ap = document.getElementById('obs-aperture');
+      if(ap) ap.classList.remove('open');
+    }, 700);
+  }
+  const layer = document.getElementById(id+'-layer');
+  if(layer) layer.classList.remove('visible');
+}
+
+/* openSection — used by constellation clicks (which have their own transition) */
+function openSection(id){
+  if(id==='projects') enterProjects();
+  else _openSectionLayer(id);
+}
+function closeSection(id){ _closeSectionLayer(id); }
+function closePanel(){}
+
+/* ══════════════════════════════════════════════════
+   1. ABOUT — THE OBSERVATORY
+══════════════════════════════════════════════════ */
+function openAbout(){
+  const layer=document.getElementById('about-layer');
+  layer.classList.add('visible');
+  // Draw tick ring on canvas
+  const canvas=document.getElementById('obs-canvas');
+  const size=canvas.parentElement.offsetWidth;
+  canvas.width=canvas.height=size;
+  const ctx=canvas.getContext('2d');
+  const cx=size/2,cy=size/2,R=size/2;
+  ctx.clearRect(0,0,size,size);
+  // degree ticks
+  for(let i=0;i<72;i++){
+    const angle=(i/72)*Math.PI*2-Math.PI/2;
+    const isMajor=i%6===0;
+    const r1=R-2, r2=R-(isMajor?12:6);
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(angle)*r1,cy+Math.sin(angle)*r1);
+    ctx.lineTo(cx+Math.cos(angle)*r2,cy+Math.sin(angle)*r2);
+    ctx.strokeStyle=isMajor?'rgba(200,202,216,0.22)':'rgba(200,202,216,0.09)';
+    ctx.lineWidth=isMajor?1:0.5;
+    ctx.stroke();
+  }
+  // cardinal degree labels
+  [['0°',0],['90°',90],['180°',180],['270°',270]].forEach(([lbl,deg])=>{
+    const angle=(deg/360)*Math.PI*2-Math.PI/2;
+    const r=R-22;
+    ctx.font='9px Karla,sans-serif';
+    ctx.fillStyle='rgba(200,202,216,0.22)';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(lbl,cx+Math.cos(angle)*r,cy+Math.sin(angle)*r);
+  });
+  // Open aperture after brief delay
+  setTimeout(()=>{
+    document.getElementById('obs-aperture').classList.add('open');
+  },200);
+}
+
+/* ══════════════════════════════════════════════════
+   2. EXPERIENCE — THE ORRERY
+══════════════════════════════════════════════════ */
+const ROLES=[
+  {role:'Senior Data Scientist',org:'Meridian Analytics',dates:'2022 – Present',
+   desc:'Lead modeling for a team of six across financial services clients. Full lifecycle from problem framing to production deployment.',
+   r:0.72,color:'rgba(200,190,160,0.7)',speed:0.00022},
+  {role:'Data Scientist',org:'Federal Reserve Board',dates:'2020 – 2022',
+   desc:'Macroeconomic forecasting models and NLP pipelines for regulatory text analysis. Collaborated directly with economists and policy researchers.',
+   r:0.56,color:'rgba(170,175,200,0.65)',speed:0.00034},
+  {role:'Research Analyst',org:'Georgetown University',dates:'2018 – 2020',
+   desc:'Applied causal inference to public health datasets. Co-authored two peer-reviewed papers on health outcome disparities.',
+   r:0.40,color:'rgba(155,170,185,0.60)',speed:0.00050},
+  {role:'M.S. Statistics',org:'Georgetown University',dates:'2016 – 2018',
+   desc:'Thesis on Bayesian non-parametric methods for survival analysis.',
+   r:0.26,color:'rgba(140,155,170,0.55)',speed:0.00072},
+];
+
+let orreryRAF=null,orreryAngles=[0.3,1.1,2.2,3.8],orreryActive=-1,orreryRunning=false;
+
+function openExperience(){
+  const layer=document.getElementById('experience-layer');
+  layer.classList.add('visible');
+  const wrap=document.getElementById('orrery-wrap');
+  const size=wrap.offsetWidth;
+  const canvas=document.getElementById('orrery-canvas');
+  canvas.width=canvas.height=size;
+  // Remove old hit zones
+  wrap.querySelectorAll('.orrery-ring-hit').forEach(e=>e.remove());
+  // Build hit zones
+  ROLES.forEach((role,i)=>{
+    const pxR=role.r*size/2;
+    const hz=document.createElement('div');
+    hz.className='orrery-ring-hit';
+    const thick=Math.max(18,size*0.04);
+    hz.style.cssText=`width:${pxR*2}px;height:${pxR*2}px;margin-left:${-pxR}px;margin-top:${-pxR}px;`;
+    // invisible ring band — click via canvas is simpler
+    wrap.appendChild(hz);
+  });
+  orreryRunning=true;
+  // Canvas click
+  canvas.onclick=function(e){
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left-canvas.width/2;
+    const my=e.clientY-rect.top-canvas.height/2;
+    const dist=Math.sqrt(mx*mx+my*my);
+    const normR=dist/(size/2);
+    let hit=-1;
+    ROLES.forEach((role,i)=>{
+      const band=0.075;
+      if(Math.abs(normR-role.r)<band) hit=i;
+    });
+    orreryActive=hit;
+    const card=document.getElementById('orrery-card');
+    const hint=document.getElementById('orrery-hint');
+    if(hit>=0){
+      const r=ROLES[hit];
+      document.getElementById('orrery-card-role').textContent=r.role;
+      document.getElementById('orrery-card-org').textContent=r.org;
+      document.getElementById('orrery-card-dates').textContent=r.dates;
+      document.getElementById('orrery-card-desc').textContent=r.desc;
+      card.classList.add('active');
+      hint.style.opacity='0';
+    } else {
+      card.classList.remove('active');
+      hint.style.opacity='1';
+    }
+  };
+  if(!orreryRAF) orreryRAF=requestAnimationFrame(drawOrrery);
+}
+
+function drawOrrery(ts){
+  if(!orreryRunning){orreryRAF=null;return;}
+  const canvas=document.getElementById('orrery-canvas');
+  const ctx=canvas.getContext('2d');
+  const size=canvas.width,cx=size/2,cy=size/2;
+  ctx.clearRect(0,0,size,size);
+  // Center point
+  ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);
+  ctx.fillStyle='rgba(200,190,160,0.5)';ctx.fill();
+  ROLES.forEach((role,i)=>{
+    const pxR=role.r*cx;
+    orreryAngles[i]=(orreryAngles[i]||0)+role.speed*16;
+    const isActive=orreryActive===i;
+    // Ring
+    ctx.beginPath();ctx.arc(cx,cy,pxR,0,Math.PI*2);
+    ctx.strokeStyle=isActive?role.color.replace('0.7','0.55').replace('0.65','0.5').replace('0.60','0.48').replace('0.55','0.42'):'rgba(200,202,216,0.08)';
+    ctx.lineWidth=isActive?1.5:0.75;
+    ctx.setLineDash(isActive?[]:[2,6]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // Notched marker ring highlight if active
+    if(isActive){
+      for(let t=0;t<24;t++){
+        const a=(t/24)*Math.PI*2;
+        const r1=pxR-3,r2=pxR+3;
+        ctx.beginPath();
+        ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);
+        ctx.lineTo(cx+Math.cos(a)*r2,cy+Math.sin(a)*r2);
+        ctx.strokeStyle='rgba(200,190,160,0.18)';
+        ctx.lineWidth=0.5;ctx.stroke();
+      }
+    }
+    // Orbiting dot
+    const ang=orreryAngles[i];
+    const dx=cx+Math.cos(ang)*pxR,dy=cy+Math.sin(ang)*pxR;
+    const dotR=isActive?5:3;
+    // Glow
+    const grd=ctx.createRadialGradient(dx,dy,0,dx,dy,dotR*3.5);
+    grd.addColorStop(0,role.color);
+    grd.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();ctx.arc(dx,dy,dotR*3.5,0,Math.PI*2);
+    ctx.fillStyle=grd;ctx.fill();
+    // Core
+    ctx.beginPath();ctx.arc(dx,dy,dotR,0,Math.PI*2);
+    ctx.fillStyle=isActive?'rgba(255,250,230,0.95)':role.color;ctx.fill();
+    // Year label near dot
+    ctx.font=`${Math.max(8,size*0.016)}px Karla,sans-serif`;
+    ctx.fillStyle='rgba(200,202,216,0.3)';
+    ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.fillText(role.dates.split(' ')[0],dx,dy-dotR-4);
+  });
+  orreryRAF=requestAnimationFrame(drawOrrery);
+}
+
+/* ══════════════════════════════════════════════════
+   3. SKILLS — THE SPECTROGRAPH
+══════════════════════════════════════════════════ */
+const SKILL_GROUPS=[
+  {label:'Machine Learning',color:'rgba(170,175,210,',skills:[
+    {name:'Supervised Learning',level:0.95},{name:'Neural Networks',level:0.88},
+    {name:'Ensemble Methods',level:0.92},{name:'XGBoost',level:0.90},
+    {name:'Model Interpretability',level:0.85},{name:'Hyperparameter Opt.',level:0.80},
+  ]},
+  {label:'Statistics',color:'rgba(175,200,185,',skills:[
+    {name:'Bayesian Inference',level:0.94},{name:'Causal Inference',level:0.92},
+    {name:'Time Series',level:0.88},{name:'Survival Analysis',level:0.82},
+    {name:'A/B Testing',level:0.86},{name:'Hierarchical Models',level:0.89},
+  ]},
+  {label:'NLP',color:'rgba(200,185,165,',skills:[
+    {name:'Transformers',level:0.85},{name:'Named Entity Rec.',level:0.82},
+    {name:'Topic Modeling',level:0.80},{name:'Semantic Search',level:0.88},
+    {name:'Text Classification',level:0.84},
+  ]},
+  {label:'Engineering',color:'rgba(165,185,205,',skills:[
+    {name:'Python',level:0.96},{name:'R',level:0.93},{name:'SQL',level:0.90},
+    {name:'Spark',level:0.78},{name:'dbt',level:0.75},{name:'Airflow',level:0.72},
+    {name:'FastAPI',level:0.80},{name:'Docker',level:0.76},
+  ]},
+  {label:'Communication',color:'rgba(195,180,210,',skills:[
+    {name:'Data Storytelling',level:0.92},{name:'Technical Writing',level:0.88},
+    {name:'Exec Presentations',level:0.85},{name:'Stakeholder Mgmt',level:0.82},
+  ]},
+];
+
+let specAnimated=false;
+
+function openSkills(){
+  const layer=document.getElementById('skills-layer');
+  layer.classList.add('visible');
+  document.getElementById('spec-eyebrow').classList.add('show');
+  document.getElementById('spec-groups').classList.add('show');
+  if(!specAnimated){specAnimated=true;setTimeout(drawSpectrograph,400);}
+}
+
+function drawSpectrograph(){
+  const wrap=document.getElementById('spec-canvas-wrap');
+  const canvas=document.getElementById('spec-canvas');
+  const W=wrap.offsetWidth, H=Math.round(W*0.28);
+  canvas.width=W;canvas.height=H;
+  canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');
+  const tooltip=document.getElementById('spec-tooltip');
+  const groupsEl=document.getElementById('spec-groups');
+  groupsEl.innerHTML='';
+
+  // Collect all skills with x positions
+  const allSkills=[];
+  const GAP=Math.round(W*0.025);
+  let x=0;
+  const groupMeta=[];
+  SKILL_GROUPS.forEach(g=>{
+    const gStart=x;
+    g.skills.forEach(s=>{
+      allSkills.push({...s,group:g,x});
+      x+=Math.round(W*0.008)+2;
+    });
+    groupMeta.push({label:g.label,start:gStart,end:x});
+    x+=GAP;
+    const lbl=document.createElement('div');
+    lbl.className='spec-group-lbl';
+    lbl.textContent=g.label;
+    groupsEl.appendChild(lbl);
+  });
+
+  // Rescale x to fit W
+  const totalX=x-GAP;
+  const scaleX=W/totalX;
+
+  // Draw background baseline
+  ctx.fillStyle='rgba(200,202,216,0.05)';
+  ctx.fillRect(0,H-2,W,2);
+
+  // Animate lines in
+  let drawn=0;
+  function drawNext(){
+    if(drawn>=allSkills.length)return;
+    const s=allSkills[drawn];
+    const sx=Math.round(s.x*scaleX);
+    const barH=Math.round(s.level*(H-8));
+    const alpha=0.45+s.level*0.45;
+    const col=s.group.color+alpha+')';
+    // Glow
+    const grd=ctx.createLinearGradient(sx,H-barH,sx,H);
+    grd.addColorStop(0,s.group.color+'0.0)');
+    grd.addColorStop(0.4,col);
+    grd.addColorStop(1,col);
+    ctx.fillStyle=grd;
+    ctx.fillRect(sx,H-barH,Math.max(2,Math.round(scaleX*8)-1),barH);
+    drawn++;
+    requestAnimationFrame(drawNext);
+  }
+  drawNext();
+
+  // Hover
+  canvas.onmousemove=function(e){
+    const rect=canvas.getBoundingClientRect();
+    const mx=(e.clientX-rect.left)*(W/rect.width);
+    // Find closest skill
+    let best=null,bestDist=Infinity;
+    allSkills.forEach(s=>{
+      const sx=s.x*scaleX;
+      const d=Math.abs(mx-sx);
+      if(d<bestDist){bestDist=d;best=s;}
+    });
+    if(best && bestDist<W*0.018){
+      const sx=best.x*scaleX;
+      tooltip.style.left=sx+'px';
+      tooltip.style.top=(H-Math.round(best.level*(H-8))-36)+'px';
+      tooltip.textContent=best.name;
+      tooltip.style.opacity='1';
+    } else {
+      tooltip.style.opacity='0';
+    }
+  };
+  canvas.onmouseleave=()=>tooltip.style.opacity='0';
+}
+
+/* ══════════════════════════════════════════════════
+   4. RESUME — THE TRANSMISSION
+══════════════════════════════════════════════════ */
+const TX_LINES=[
+  {t:'head',text:'INCOMING TRANSMISSION — CV_COURTNEY_GREEN.DAT'},
+  {t:'dim', text:'Encoding: UTF-8  ·  Signal: strong  ·  Origin: Washington, D.C.'},
+  {t:'',    text:''},
+  {t:'section',text:'// IDENTITY'},
+  {t:'',    text:'Name         Courtney Green'},
+  {t:'',    text:'Title        Senior Data Scientist'},
+  {t:'',    text:'Location     Washington, D.C.'},
+  {t:'',    text:'Contact      courtney@example.com'},
+  {t:'',    text:''},
+  {t:'section',text:'// EDUCATION'},
+  {t:'',    text:'M.S. Statistics     Georgetown University     2018'},
+  {t:'dim', text:'Bayesian non-parametric methods · survival analysis'},
+  {t:'',    text:'B.S. Mathematics    Howard University         2016'},
+  {t:'',    text:''},
+  {t:'section',text:'// EXPERIENCE'},
+  {t:'',    text:'2022–Present   Senior Data Scientist   Meridian Analytics'},
+  {t:'dim', text:'Lead modeling for financial services · full lifecycle ownership'},
+  {t:'',    text:'2020–2022      Data Scientist          Federal Reserve Board'},
+  {t:'dim', text:'Macroeconomic forecasting · NLP for regulatory text'},
+  {t:'',    text:'2018–2020      Research Analyst        Georgetown University'},
+  {t:'dim', text:'Causal inference · public health · peer-reviewed publications'},
+  {t:'',    text:''},
+  {t:'section',text:'// COMPETENCIES'},
+  {t:'',    text:'Machine Learning · Statistical Modeling · Causal Inference'},
+  {t:'',    text:'NLP · Data Engineering · Visualization · Communication'},
+  {t:'',    text:''},
+  {t:'section',text:'// TECHNICAL STACK'},
+  {t:'',    text:'Python · R · SQL · PyTorch · TensorFlow · Stan'},
+  {t:'',    text:'Spark · dbt · Airflow · FastAPI · AWS · GCP'},
+  {t:'',    text:''},
+  {t:'section',text:'// PUBLICATIONS'},
+  {t:'',    text:'Green, C. et al. (2023). Racial Disparities in Maternal Mortality.'},
+  {t:'dim', text:'Journal of Public Health Policy'},
+  {t:'',    text:'Green, C. et al. (2020). Structural Barriers to Voter Participation.'},
+  {t:'dim', text:'Political Analysis'},
+  {t:'',    text:''},
+  {t:'dim', text:'——— END OF TRANSMISSION ———'},
+];
+
+let txAnimated=false;
+
+function openResume(){
+  const layer=document.getElementById('resume-layer');
+  layer.classList.add('visible');
+  if(!txAnimated){txAnimated=true;setTimeout(runTransmission,500);}
+}
+
+function runTransmission(){
+  const content=document.getElementById('tx-content');
+  const scan=document.getElementById('tx-scan');
+  content.innerHTML='';
+  // Build all lines hidden
+  TX_LINES.forEach((l,i)=>{
+    const span=document.createElement('span');
+    span.className='tx-line'+(l.t==='head'?' tx-head':l.t==='section'?' tx-section':l.t==='dim'?' tx-dim':'');
+    span.textContent=l.text||'\u00a0';
+    if(i===TX_LINES.length-1){
+      const cur=document.createElement('span');cur.id='tx-cursor';
+      span.appendChild(cur);
+    }
+    content.appendChild(span);
+  });
+  // Reveal one by one
+  const lines=content.querySelectorAll('.tx-line');
+  let i=0;
+  const totalH=content.scrollHeight||600;
+  function next(){
+    if(i>=lines.length){
+      document.getElementById('tx-download').classList.add('show');
+      return;
+    }
+    lines[i].classList.add('on');
+    // Move scan line
+    const pct=i/lines.length;
+    scan.style.top=Math.round(pct*totalH)+'px';
+    i++;
+    setTimeout(next,i<4?80:45);
+  }
+  next();
+}
+
+/* ══════════════════════════════════════════════════
+   5. FIELD NOTES — PERSONAL
+══════════════════════════════════════════════════ */
+const FIELD_ENTRIES=[
+  {text:`I came to data science by way of mathematics and a persistent suspicion that the most interesting questions live just outside the boundaries of any single discipline.`},
+  {text:`The work I care about most is work that <em>lands somewhere</em> — that connects a statistical finding to a real decision, a real person, a real policy change.`},
+  {text:`I believe rigor and clarity are not opposites. The clearest explanation of a complex model is also usually the most honest one.`},
+  {text:`Outside of work: long-distance running, West African percussion, and reading history of science. I find that all three require the same kind of patient attention.`},
+  {text:`I am drawn to problems at the intersection of measurement and justice — where what we choose to count, and how, has consequences for people who are not in the room.`},
+];
+
+let fnAnimated=false;
+let fnParallaxCanvas=null;
+
+function openFieldNotes(){
+  const layer=document.getElementById('fieldnotes-layer');
+  layer.classList.add('visible');
+  if(!fnAnimated){
+    fnAnimated=true;
+    buildFNStars();
+    buildFNEntries();
+  }
+}
+
+function buildFNStars(){
+  const c=document.getElementById('fn-stars-parallax');
+  fnParallaxCanvas=c;
+  c.width=window.innerWidth+80;c.height=window.innerHeight+80;
+  const ctx=c.getContext('2d');
+  const stars=[];
+  for(let i=0;i<180;i++) stars.push({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    r:Math.random()<0.1?1.4:0.6,
+    a:0.08+Math.random()*0.35,
+    ph:Math.random()*Math.PI*2,sp:0.002+Math.random()*0.006,
+  });
+  let mx=0,my=0;
+  document.getElementById('fieldnotes-layer').onmousemove=function(e){
+    mx=(e.clientX/window.innerWidth-0.5)*30;
+    my=(e.clientY/window.innerHeight-0.5)*30;
+  };
+  (function draw(t){
+    if(!document.getElementById('fieldnotes-layer').classList.contains('visible'))return;
+    ctx.clearRect(0,0,c.width,c.height);
+    for(const s of stars){
+      const a=s.a*(0.6+0.4*Math.sin(t*s.sp+s.ph));
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,205,230,${a})`;ctx.fill();
+    }
+    c.style.transform=`translate(${-40+mx}px,${-40+my}px)`;
+    requestAnimationFrame(draw);
+  })(0);
+}
+
+function buildFNEntries(){
+  const container=document.getElementById('fn-entries');
+  container.innerHTML='';
+  FIELD_ENTRIES.forEach((entry,i)=>{
+    const div=document.createElement('div');
+    div.className='fn-entry';
+    div.innerHTML=`<div class="fn-rule"></div><div class="fn-text">${entry.text}</div>`;
+    container.appendChild(div);
+    setTimeout(()=>div.classList.add('show'),400+i*700);
+  });
+  setTimeout(()=>{
+    document.getElementById('fn-header').classList.add('show');
+  },200);
+  setTimeout(()=>{
+    document.getElementById('fn-sig').classList.add('show');
+  },400+FIELD_ENTRIES.length*700+400);
+}
+
+/* ══ COSMOS ENGINE (starbook_v12 exact) ══ */
+const CST=[];let CR=false,CRV=false,LBLS=[];const STAR_HITS=[];
+const CONS=[
+  {name:'The Navigator', section:'about',      lo:{x:0,y:-20}, s:[[.15,.25],[.22,.18],[.31,.22],[.28,.32],[.18,.35]], l:[[0,1],[1,2],[2,3],[3,4],[4,0],[1,3]]},
+  {name:'The Dreamer',   section:'projects',   lo:{x:10,y:-18},s:[[.55,.20],[.63,.14],[.70,.22],[.67,.30],[.58,.28]], l:[[0,1],[1,2],[2,3],[3,4],[4,0]],action:'projects'},
+  {name:'The Architect', section:'experience', lo:{x:-5,y:22}, s:[[.38,.55],[.45,.48],[.55,.50],[.52,.60],[.42,.63],[.35,.57]],l:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,3],[0,3]]},
+  {name:'The Wanderer',  section:'resume',     lo:{x:0,y:-18}, s:[[.72,.55],[.79,.50],[.85,.58],[.80,.65],[.73,.64]], l:[[0,1],[1,2],[2,3],[3,4],[4,0],[0,2]]},
+  {name:'The Keeper',    section:'skills',     lo:{x:-10,y:22},s:[[.18,.65],[.25,.60],[.30,.68],[.24,.75]],          l:[[0,1],[1,2],[2,3],[3,0],[0,2]]},
+  {name:'The Witness',   section:'fieldnotes', lo:{x:15,y:-16},s:[[.48,.38],[.54,.33],[.60,.38],[.57,.46],[.50,.46]],l:[[0,1],[1,2],[2,3],[3,4],[4,0],[0,2],[1,3]]},
+];
+
+function buildCosmos(){
+  const sc=document.getElementById('sc'),cc=document.getElementById('cc');
+  sc.width=cc.width=window.innerWidth;sc.height=cc.height=window.innerHeight;
+  CST.length=0;
+  const n=Math.floor((sc.width*sc.height)/2300);
+  for(let i=0;i<n;i++)CST.push({x:Math.random(),y:Math.random(),r:Math.random()<.05?1.9:(Math.random()<.2?1.2:.6),a:.3+Math.random()*.7,ph:Math.random()*Math.PI*2,sp:.002+Math.random()*.008});
+}
+function runCosmos(t){
+  if(!CR)return;
+  const sc=document.getElementById('sc'),ctx=sc.getContext('2d');
+  ctx.clearRect(0,0,sc.width,sc.height);
+  for(const s of CST){
+    const a=s.a*(.6+.4*Math.sin(t*s.sp+s.ph));
+    ctx.beginPath();ctx.arc(s.x*sc.width,s.y*sc.height,s.r,0,Math.PI*2);
+    const h=210+Math.floor(Math.sin(s.ph)*30);
+    ctx.fillStyle=`hsla(${h},60%,90%,${a})`;ctx.fill();
+  }
+  if(Math.random()<.003)spawnSS();
+  requestAnimationFrame(runCosmos);
+}
+function revealCons(){
+  if(CRV)return;CRV=true;
+  const cc=document.getElementById('cc'),ctx=cc.getContext('2d');
+  LBLS.forEach(l=>l.remove());LBLS=[];STAR_HITS.length=0;
+  CONS.forEach((con,ci)=>{
+    setTimeout(()=>{
+      const W=cc.width,H=cc.height;
+      let la=0;
+      const ai=setInterval(()=>{
+        la=Math.min(la+.022,.28);
+        ctx.save();ctx.strokeStyle=`rgba(180,160,255,${la})`;ctx.lineWidth=.85;ctx.setLineDash([4,6]);
+        con.l.forEach(([a,b])=>{ctx.beginPath();ctx.moveTo(con.s[a][0]*W,con.s[a][1]*H);ctx.lineTo(con.s[b][0]*W,con.s[b][1]*H);ctx.stroke();});
+        ctx.restore();if(la>=.28)clearInterval(ai);
+      },30);
+      setTimeout(()=>{
+        con.s.forEach((s,si)=>{
+          setTimeout(()=>{
+            const x=s[0]*W,y=s[1]*H,r=ci===0||ci===2?3.3:2.4;
+            drawCS(ctx,x,y,r);STAR_HITS.push({x,y,r:r*5+6,section:con.section});
+          },si*115);
+        });
+      },200);
+      setTimeout(()=>{
+        const cx=con.s.reduce((a,s)=>a+s[0],0)/con.s.length;
+        const cy=con.s.reduce((a,s)=>a+s[1],0)/con.s.length;
+        const lbl=document.createElement('div');lbl.className='slbl';lbl.textContent=con.name;
+        lbl.style.left=(cx*cc.width+con.lo.x)+'px';lbl.style.top=(cy*cc.height+con.lo.y)+'px';
+        lbl.addEventListener('click',()=>con.action==='projects'?enterProjects():openSection(con.section));
+        document.getElementById('cosmos').appendChild(lbl);LBLS.push(lbl);
+        requestAnimationFrame(()=>lbl.classList.add('show'));
+      },800);
+    },ci*560+400);
+  });
+}
+function drawCS(ctx,x,y,r){
+  const g=ctx.createRadialGradient(x,y,0,x,y,r*4);
+  g.addColorStop(0,'rgba(220,200,255,.9)');g.addColorStop(.4,'rgba(180,160,255,.4)');g.addColorStop(1,'transparent');
+  ctx.beginPath();ctx.arc(x,y,r*4,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle='rgba(240,235,255,.95)';ctx.fill();
+  ctx.save();ctx.strokeStyle='rgba(240,235,255,.5)';ctx.lineWidth=.6;
+  for(let a=0;a<4;a++){const ang=(a*Math.PI)/2;ctx.beginPath();ctx.moveTo(x+Math.cos(ang)*r,y+Math.sin(ang)*r);ctx.lineTo(x+Math.cos(ang)*r*5,y+Math.sin(ang)*r*5);ctx.stroke();}
+  ctx.restore();
+}
+function spawnSS(){
+  const cosmos=document.getElementById('cosmos');
+  const el=document.createElement('div');el.className='ss';
+  const x=Math.random()*window.innerWidth,y=Math.random()*window.innerHeight*.5,ang=14+Math.random()*22;
+  const id='sk'+Date.now();
+  if(!document.getElementById(id)){const st=document.createElement('style');st.id=id;st.textContent=`@keyframes ${id}{0%{opacity:0;transform:rotate(${ang}deg) translateX(0)}10%{opacity:1}100%{opacity:0;transform:rotate(${ang}deg) translateX(320px)}}`;document.head.appendChild(st);}
+  el.style.cssText=`left:${x}px;top:${y}px;transform:rotate(${ang}deg);animation:${id} .85s ease-out forwards;`;
+  cosmos.appendChild(el);setTimeout(()=>el.remove(),950);
+}
+const ccEl=document.getElementById('cc');
+ccEl.addEventListener('click',e=>{
+  const rect=ccEl.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top;
+  for(const h of STAR_HITS){const dx=mx-h.x,dy=my-h.y;if(Math.sqrt(dx*dx+dy*dy)<h.r){h.section==='projects'?enterProjects():openSection(h.section);return;}}
+});
+ccEl.addEventListener('mousemove',e=>{
+  const rect=ccEl.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top;
+  let hit=false;
+  for(const h of STAR_HITS){const dx=mx-h.x,dy=my-h.y;if(Math.sqrt(dx*dx+dy*dy)<h.r){hit=true;break;}}
+  ccEl.style.cursor=hit?'pointer':'default';
+});
+
+/* ══ TRANSITIONS ══ */
+let inPortfolio=false;
+function enterPortfolio(){
+  if(inPortfolio)return;inPortfolio=true;
+  document.getElementById('solar-hint').style.opacity='0';
+  document.getElementById('name-header').style.opacity='0';
+  setTimeout(()=>{document.getElementById('solar-view').classList.add('zooming');cancelAnimationFrame(solarRAF);},200);
+  setTimeout(()=>{document.getElementById('veil').classList.add('fade');},600);
+  setTimeout(()=>{
+    buildCosmos();CR=true;
+    document.getElementById('cosmos').classList.add('visible');
+    document.getElementById('veil').classList.remove('fade');
+    requestAnimationFrame(runCosmos);
+    setTimeout(revealCons,1200);
+  },1100);
+}
+function returnToSolar(){
+  // Close any open section layers
+  document.querySelectorAll('.sec-layer').forEach(l=>l.classList.remove('visible'));
+  orreryRunning=false;
+  inSection=false;
+  closeProjectCard();
+  const v=document.getElementById('veil');
+  v.style.transition='opacity .5s ease';v.classList.add('fade');
+  setTimeout(()=>{
+    CR=false;CRV=false;
+    document.getElementById('cosmos').classList.remove('visible');
+    LBLS.forEach(l=>l.remove());LBLS=[];STAR_HITS.length=0;
+    document.getElementById('cc').getContext('2d').clearRect(0,0,window.innerWidth,window.innerHeight);
+    const sv=document.getElementById('solar-view');
+    sv.style.transition='none';sv.style.transform='scale(0.2)';sv.style.opacity='0';sv.classList.remove('zooming');
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{
+        sv.style.transition='opacity 1s ease,transform 1s cubic-bezier(0.2,0,0.4,1)';
+        sv.style.transform='scale(1)';sv.style.opacity='1';
+        document.getElementById('solar-hint').style.opacity='';
+        document.getElementById('name-header').style.opacity='';
+        inPortfolio=false;lastT=0;
+        solarRAF=requestAnimationFrame(animateSolar);
+        v.style.transition='opacity 1s ease .2s';v.classList.remove('fade');
+      },60);
+    });
+  },520);
+}
+window.addEventListener('resize',()=>{if(CR)buildCosmos();if(PCR)buildProjectCosmos();});
+
+/* ══════════════════════════════════════════════════════
+   PROJECTS CONSTELLATION ENGINE
+══════════════════════════════════════════════════════ */
+
+/* ── Project data ── */
+const PROJECTS = [
+  {
+    id:'policing',
+    label:'Over-Policing',
+    eyebrow:'Research · 2024',
+    title:'Patterns of Over-Policing in Urban Communities: A Quantitative Analysis',
+    desc:'A statistical examination of stop-and-frisk data across six major U.S. cities, modeling the relationship between neighborhood demographics, income, and police contact rates using multilevel regression and geospatial analysis.',
+    tags:['Python','GeoPandas','Multilevel Modeling','Policy Research'],
+    link:'https://github.com/',
+    linkLabel:'View Report',
+    img:null,
+    // Constellation shape: angular bracket — 5 stars, asymmetric left-lean
+    stars:[[.14,.24],[.20,.18],[.28,.22],[.26,.34],[.16,.38]],
+    lines:[[0,1],[1,2],[2,3],[3,4],[4,0],[1,3]],
+    labelOffset:{x:-8,y:-22},
+    starSize: 3.2,
+  },
+  {
+    id:'maternal',
+    label:'Maternal Health',
+    eyebrow:'Research · 2023',
+    title:'Racial Disparities in Maternal Mortality: A Longitudinal Study Across U.S. States',
+    desc:'Longitudinal analysis of CDC WONDER data to identify structural predictors of Black maternal mortality rates. Incorporates difference-in-differences models to evaluate the impact of Medicaid expansion on maternal outcomes.',
+    tags:['R','Stan','Causal Inference','Public Health'],
+    link:'https://github.com/',
+    linkLabel:'View Analysis',
+    img:null,
+    // Constellation shape: tall narrow triangle with tail — 4 stars
+    stars:[[.52,.15],[.60,.10],[.68,.18],[.63,.28]],
+    lines:[[0,1],[1,2],[2,3],[3,0],[0,2]],
+    labelOffset:{x:8,y:-20},
+    starSize: 2.8,
+  },
+  {
+    id:'aid',
+    label:'Aid Worker Risk',
+    eyebrow:'Data Visualization · 2023',
+    title:'Mapping Aid Worker Security Incidents: A Global Risk Index',
+    desc:'Built an interactive risk scoring model for humanitarian aid deployments using 20 years of AWSD incident data. Developed a composite index weighting attack type, frequency, and actor category across 80 countries.',
+    tags:['Python','D3.js','NLP','Tableau'],
+    link:'https://github.com/',
+    linkLabel:'View Dashboard',
+    img:null,
+    // Constellation shape: wide rhombus — 5 stars, horizontal spread
+    stars:[[.36,.60],[.45,.54],[.56,.56],[.54,.66],[.42,.70]],
+    lines:[[0,1],[1,2],[2,3],[3,4],[4,0],[1,3],[0,2]],
+    labelOffset:{x:-5,y:18},
+    starSize: 2.6,
+  },
+  {
+    id:'voter',
+    label:'Voter Turnout',
+    eyebrow:'Applied Research · 2022',
+    title:'Structural Barriers to Voter Participation in Low-Income Districts',
+    desc:'Multi-state regression analysis examining how polling place distance, ID requirements, and early voting access predict turnout gaps between income quintiles. Simulation model projects turnout change under alternative policy scenarios.',
+    tags:['R','Spatial Analysis','Survey Data','Policy Modeling'],
+    link:'https://github.com/',
+    linkLabel:'View Repository',
+    img:null,
+    // Constellation shape: arc/crescent — 6 stars, gentle curve right side
+    stars:[[.74,.20],[.82,.16],[.88,.22],[.87,.32],[.80,.38],[.73,.33]],
+    lines:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,2],[3,5]],
+    labelOffset:{x:5,y:-22},
+    starSize: 2.5,
+  },
+  {
+    id:'displacement',
+    label:'Displacement',
+    eyebrow:'ML Research · 2022',
+    title:'Predicting Displacement Risk from Climate Events Using Satellite and Census Data',
+    desc:'Machine learning pipeline combining MODIS satellite imagery, FEMA flood zone maps, and ACS census data to predict household-level displacement risk within 90 days of a climate event. XGBoost model with SHAP interpretability layer.',
+    tags:['Python','XGBoost','SHAP','Remote Sensing'],
+    link:'https://github.com/',
+    linkLabel:'View Codebase',
+    img:null,
+    // Constellation shape: small tight cluster, lower-center — 4 stars, diamond
+    stars:[[.44,.80],[.50,.75],[.56,.80],[.50,.86]],
+    lines:[[0,1],[1,2],[2,3],[3,0],[0,2],[1,3]],
+    labelOffset:{x:-5,y:16},
+    starSize: 2.4,
+  },
+];
+
+/* ── State ── */
+let PCR=false, PCRV=false, PLBLS=[], PSTAR_HITS=[], PCST=[];
+
+function buildProjectCosmos(){
+  const psc=document.getElementById('psc'), pcc=document.getElementById('pcc');
+  psc.width=pcc.width=window.innerWidth;
+  psc.height=pcc.height=window.innerHeight;
+  PCST.length=0;
+  const n=Math.floor((psc.width*psc.height)/2600);
+  for(let i=0;i<n;i++) PCST.push({
+    x:Math.random(),y:Math.random(),
+    r:Math.random()<.04?1.8:(Math.random()<.18?1.1:.55),
+    a:.25+Math.random()*.65,ph:Math.random()*Math.PI*2,
+    sp:.0018+Math.random()*.007,
+  });
+}
+
+function runProjectCosmos(t){
+  if(!PCR)return;
+  const psc=document.getElementById('psc'), ctx=psc.getContext('2d');
+  ctx.clearRect(0,0,psc.width,psc.height);
+  for(const s of PCST){
+    const a=s.a*(.6+.4*Math.sin(t*s.sp+s.ph));
+    ctx.beginPath();ctx.arc(s.x*psc.width,s.y*psc.height,s.r,0,Math.PI*2);
+    const h=220+Math.floor(Math.sin(s.ph)*25);
+    ctx.fillStyle=`hsla(${h},55%,88%,${a})`;ctx.fill();
+  }
+  if(Math.random()<.003) spawnPSS();
+  requestAnimationFrame(runProjectCosmos);
+}
+
+function spawnPSS(){
+  const pc=document.getElementById('projects-cosmos');
+  const el=document.createElement('div');el.className='ss';
+  const x=Math.random()*window.innerWidth,y=Math.random()*window.innerHeight*.5,ang=14+Math.random()*22;
+  const id='psk'+Date.now();
+  if(!document.getElementById(id)){
+    const st=document.createElement('style');st.id=id;
+    st.textContent=`@keyframes ${id}{0%{opacity:0;transform:rotate(${ang}deg) translateX(0)}10%{opacity:1}100%{opacity:0;transform:rotate(${ang}deg) translateX(300px)}}`;
+    document.head.appendChild(st);
+  }
+  el.style.cssText=`left:${x}px;top:${y}px;transform:rotate(${ang}deg);animation:${id} .85s ease-out forwards;`;
+  pc.appendChild(el);setTimeout(()=>el.remove(),950);
+}
+
+function revealProjectCons(){
+  if(PCRV)return;PCRV=true;
+  const pcc=document.getElementById('pcc'), ctx=pcc.getContext('2d');
+  PLBLS.forEach(l=>l.remove());PLBLS=[];PSTAR_HITS.length=0;
+
+  PROJECTS.forEach((proj,pi)=>{
+    setTimeout(()=>{
+      const W=pcc.width, H=pcc.height;
+
+      // Draw constellation lines — dashed, subtle purple-white
+      let la=0;
+      const ai=setInterval(()=>{
+        la=Math.min(la+.020,.22);
+        ctx.save();
+        ctx.strokeStyle=`rgba(190,170,255,${la})`;
+        ctx.lineWidth=.75;ctx.setLineDash([3,7]);
+        proj.lines.forEach(([a,b])=>{
+          ctx.beginPath();
+          ctx.moveTo(proj.stars[a][0]*W, proj.stars[a][1]*H);
+          ctx.lineTo(proj.stars[b][0]*W, proj.stars[b][1]*H);
+          ctx.stroke();
+        });
+        ctx.restore();
+        if(la>=.22)clearInterval(ai);
+      },28);
+
+      // Draw stars with stagger
+      setTimeout(()=>{
+        proj.stars.forEach((s,si)=>{
+          setTimeout(()=>{
+            const x=s[0]*W, y=s[1]*H, r=proj.starSize;
+            drawProjectStar(ctx,x,y,r);
+            PSTAR_HITS.push({x,y,r:r*5+8,projectId:proj.id});
+          },si*100);
+        });
+      },180);
+
+      // Label — appears after stars
+      setTimeout(()=>{
+        const cx=proj.stars.reduce((a,s)=>a+s[0],0)/proj.stars.length;
+        const cy=proj.stars.reduce((a,s)=>a+s[1],0)/proj.stars.length;
+        const lbl=document.createElement('div');
+        lbl.className='plbl';
+        lbl.textContent=proj.label;
+        lbl.style.left=(cx*pcc.width + proj.labelOffset.x)+'px';
+        lbl.style.top=(cy*pcc.height + proj.labelOffset.y)+'px';
+        lbl.addEventListener('click',()=>openProjectCard(proj.id));
+        document.getElementById('projects-cosmos').appendChild(lbl);
+        PLBLS.push(lbl);
+        requestAnimationFrame(()=>lbl.classList.add('show'));
+      },720);
+
+    }, pi*520+380);
+  });
+}
+
+function drawProjectStar(ctx,x,y,r){
+  // Outer soft glow
+  const g=ctx.createRadialGradient(x,y,0,x,y,r*4.5);
+  g.addColorStop(0,'rgba(210,190,255,.85)');
+  g.addColorStop(.35,'rgba(175,150,255,.35)');
+  g.addColorStop(1,'transparent');
+  ctx.beginPath();ctx.arc(x,y,r*4.5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+
+  // Core
+  ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.fillStyle='rgba(238,232,255,.95)';ctx.fill();
+
+  // 4-point diffraction spike
+  ctx.save();ctx.strokeStyle='rgba(220,210,255,.45)';ctx.lineWidth=.5;
+  for(let a=0;a<4;a++){
+    const ang=(a*Math.PI)/2;
+    ctx.beginPath();
+    ctx.moveTo(x+Math.cos(ang)*r,y+Math.sin(ang)*r);
+    ctx.lineTo(x+Math.cos(ang)*r*5,y+Math.sin(ang)*r*5);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/* Canvas interaction — project cosmos */
+const pccEl=document.getElementById('pcc');
+pccEl.addEventListener('click',e=>{
+  const rect=pccEl.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top;
+  for(const h of PSTAR_HITS){
+    const dx=mx-h.x,dy=my-h.y;
+    if(Math.sqrt(dx*dx+dy*dy)<h.r){openProjectCard(h.projectId);return;}
+  }
+});
+pccEl.addEventListener('mousemove',e=>{
+  const rect=pccEl.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top;
+  let hit=false;
+  for(const h of PSTAR_HITS){const dx=mx-h.x,dy=my-h.y;if(Math.sqrt(dx*dx+dy*dy)<h.r){hit=true;break;}}
+  pccEl.style.cursor=hit?'pointer':'default';
+});
+
+/* ── ENTER / EXIT PROJECTS ── */
+function enterProjects(){
+  const v=document.getElementById('veil');
+  v.style.transition='opacity .45s ease'; v.classList.add('fade');
+  setTimeout(()=>{
+    buildProjectCosmos(); PCR=true;
+    document.getElementById('projects-cosmos').classList.add('visible');
+    v.style.transition='opacity .8s ease'; v.classList.remove('fade');
+    requestAnimationFrame(runProjectCosmos);
+    setTimeout(revealProjectCons,1000);
+  },480);
+}
+
+function exitProjects(){
+  closeProjectCard();
+  const v=document.getElementById('veil');
+  v.style.transition='opacity .4s ease'; v.classList.add('fade');
+  setTimeout(()=>{
+    PCR=false; PCRV=false;
+    document.getElementById('projects-cosmos').classList.remove('visible');
+    PLBLS.forEach(l=>l.remove());PLBLS=[];PSTAR_HITS.length=0;
+    document.getElementById('pcc').getContext('2d').clearRect(0,0,window.innerWidth,window.innerHeight);
+    v.style.transition='opacity .7s ease .1s'; v.classList.remove('fade');
+  },420);
+}
+
+/* ── PROJECT CARD ── */
+function openProjectCard(id){
+  const proj=PROJECTS.find(p=>p.id===id); if(!proj)return;
+
+  document.getElementById('project-card-eyebrow').textContent=proj.eyebrow;
+  document.getElementById('project-card-title').textContent=proj.title;
+  document.getElementById('project-card-desc').textContent=proj.desc;
+
+  const tags=document.getElementById('project-card-tags');
+  tags.innerHTML=proj.tags.map(t=>`<span class="pc-tag">${t}</span>`).join('');
+
+  const link=document.getElementById('project-card-link');
+  link.href=proj.link; link.textContent=proj.linkLabel+' →';
+
+  // Image area
+  const imgWrap=document.getElementById('project-card-img');
+  if(proj.img){
+    imgWrap.innerHTML=`<img src="${proj.img}" alt="${proj.label}">`;
+    imgWrap.style.display='flex';
+  } else {
+    imgWrap.innerHTML=`<div class="img-placeholder">${proj.label}</div>`;
+    imgWrap.style.display='flex';
+  }
+
+  document.getElementById('card-backdrop').classList.add('open');
+  document.getElementById('project-card').classList.add('open');
+}
+
+function closeProjectCard(){
+  document.getElementById('card-backdrop').classList.remove('open');
+  document.getElementById('project-card').classList.remove('open');
+}
+
+/* ── OVERRIDE JUPITER CLICK ── */
+(function overrideJupiter(){
+  const jupOrb=document.getElementById('orbit-jupiter');
+  if(!jupOrb)return;
+  const wr=jupOrb.querySelector('.planet-wrapper');
+  if(!wr)return;
+  wr.dataset.jupiterOverride='1';
+  wr.addEventListener('click',e=>{
+    e.stopImmediatePropagation();
+    goToSection('projects');
+  },true);
+})();
+</script>
+</body>
+</html>
