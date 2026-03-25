@@ -1,0 +1,174 @@
+/*
+  Cosmos.css — Styles for the constellation navigation view.
+  This view appears after clicking the Sun and lets users navigate
+  to portfolio sections by clicking constellation stars or labels.
+*/
+
+/* ── Root container — full-screen, deep purple nebula background ── */
+#cosmos {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 40% 35%,
+    #1a0e40 0%,
+    #0d0820 40%,
+    #050310 100%
+  );
+  z-index: 30;
+  overflow: hidden;
+}
+
+/* ── Nebula glow blobs — atmospheric purple/blue haze ───────────── */
+.neb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(65px);
+  mix-blend-mode: screen;
+}
+
+.n1 {
+  width: 700px; height: 500px;
+  top: -120px; left: -120px;
+  background: radial-gradient(ellipse, rgba(80,30,160,.3), transparent 70%);
+  animation: nebDrift1 26s ease-in-out infinite;
+}
+
+.n2 {
+  width: 520px; height: 620px;
+  bottom: -160px; right: -60px;
+  background: radial-gradient(ellipse, rgba(20,80,180,.2), transparent 70%);
+  animation: nebDrift2 32s ease-in-out infinite;
+}
+
+.n3 {
+  width: 420px; height: 320px;
+  top: 28%; left: 38%;
+  background: radial-gradient(ellipse, rgba(120,40,100,.15), transparent 70%);
+  animation: nebDrift3 21s ease-in-out infinite;
+}
+
+@keyframes nebDrift1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%     { transform: translate(42px,32px) scale(1.05); }
+  66%     { transform: translate(-22px,52px) scale(.97); }
+}
+@keyframes nebDrift2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(-65px,-42px) scale(1.08); }
+}
+@keyframes nebDrift3 {
+  0%,100% { transform: translate(0,0) scale(1) rotate(0deg); }
+  50%     { transform: translate(32px,-22px) scale(1.1) rotate(11deg); }
+}
+
+/* ── Star canvas (twinkling background stars) ────────────────────── */
+#sc {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Constellation canvas (lines and star dots) ─────────────────── */
+#cc {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Header — name + subtitle ────────────────────────────────────── */
+#cosmos-hdr {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  /* Fades in after the cosmos appears */
+  animation: cosmosHdrIn 1.5s ease 0.5s both;
+}
+
+@keyframes cosmosHdrIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#cosmos-hdr h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 4vw, 36px);
+  font-weight: 400;
+  color: var(--sw);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 30px rgba(201,168,76,.4),
+    0 0 60px rgba(80,30,160,.3);
+}
+
+#cosmos-hdr p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 4px;
+  color: rgba(201, 168, 76, 0.6);
+  margin-top: 8px;
+}
+
+/* ── Constellation labels — clickable section names ─────────────── */
+.slbl {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(201, 168, 76, 0.5);
+  opacity: 0;
+  transition: opacity 1s ease, color 0.3s;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.slbl.show {
+  opacity: 1;
+}
+
+.slbl:hover {
+  color: rgba(201, 168, 76, 1);
+}
+
+/* ── "← Solar System" back button ───────────────────────────────── */
+#cosmos-back {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(201, 168, 76, 0.5);
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid rgba(201, 168, 76, 0.22);
+  cursor: pointer;
+  padding: 12px 24px;
+  z-index: 10;
+  /* Fades in after cosmos appears */
+  animation: cosmosHdrIn 1s ease 1s both;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+#cosmos-back:hover {
+  color: rgba(201, 168, 76, 0.95);
+  border-color: rgba(201, 168, 76, 0.55);
+}
+
+/* ── Shooting star element (randomly spawned) ────────────────────── */
+.ss {
+  position: absolute;
+  width: 130px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,.85), transparent);
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+}

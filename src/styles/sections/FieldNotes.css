@@ -1,0 +1,128 @@
+/*
+  FieldNotes.css — "Field Notes" personal section.
+  Journal-style layout with a parallax star canvas backdrop
+  and staggered entry fade-ins.
+*/
+
+/* ── Full-screen layer ───────────────────────────────────────────── */
+#fieldnotes-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: radial-gradient(ellipse at 48% 52%, #080810 0%, #050508 60%, #020204 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Parallax star canvas — slightly oversized, shifts on mousemove ─ */
+#fn-stars-parallax {
+  position: absolute;
+  /* Positioned slightly off-screen so mouse parallax has room to shift */
+  inset: -40px;
+  pointer-events: none;
+}
+
+/* ── Scrollable content wrapper ──────────────────────────────────── */
+#fn-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(88vw, 560px);
+  max-height: 82vh;
+  overflow: hidden;
+}
+
+/* ── Header block (date + title) ─────────────────────────────────── */
+#fn-header {
+  margin-bottom: 44px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#fn-header.show {
+  opacity: 1;
+}
+
+#fn-date {
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.38em;
+  color: rgba(200, 202, 216, 0.25);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+#fn-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(28px, 4vmin, 40px);
+  font-weight: 300;
+  color: rgba(200, 202, 216, 0.88);
+  line-height: 1.1;
+}
+
+/* ── Individual journal entry ────────────────────────────────────── */
+.fn-entry {
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.fn-entry.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Short horizontal rule above each entry */
+.fn-rule {
+  width: 32px;
+  height: 1px;
+  background: rgba(200, 202, 216, 0.15);
+  margin-bottom: 16px;
+}
+
+.fn-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(15px, 2.2vmin, 19px);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(200, 202, 216, 0.72);
+}
+
+/* Italic emphasis within entries */
+.fn-text em {
+  font-style: italic;
+  color: rgba(200, 202, 216, 0.9);
+}
+
+/* ── Signature block at the end ──────────────────────────────────── */
+#fn-sig {
+  margin-top: 52px;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+#fn-sig.show {
+  opacity: 1;
+}
+
+#fn-sig-initials {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(200, 202, 216, 0.4);
+  margin-bottom: 4px;
+}
+
+#fn-sig-date {
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: rgba(200, 202, 216, 0.2);
+  text-transform: uppercase;
+}

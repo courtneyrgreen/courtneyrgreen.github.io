@@ -1,0 +1,217 @@
+/*
+  SolarSystem.css — Styles for the animated solar system landing view.
+  Covers the solar-view container, orbit rings, planet wrappers,
+  Saturn's ring SVG, and the Sun label.
+*/
+
+/* ── Outer container — fills viewport, centres the solar system ─── */
+#solar-view {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Transition used for the zoom-out animation when navigating away */
+  transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Zoom-out state: scale up and fade (planet clicked / sun clicked) */
+#solar-view.zooming {
+  opacity: 0;
+  transform: scale(4);
+  pointer-events: none;
+}
+
+/* Zoom-in entrance animation class applied on return from a section */
+#solar-view.entering {
+  animation: solarEnter 0.9s cubic-bezier(0.2, 0, 0.4, 1) forwards;
+}
+
+@keyframes solarEnter {
+  from { transform: scale(0.2); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Solar system root — square, fits within viewport ───────────── */
+#solar-system {
+  position: relative;
+  width: min(90vw, 90vh);
+  height: min(90vw, 90vh);
+}
+
+/* ── Sun wrapper — centred absolutely inside the solar system ────── */
+#sun-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+#sun-wrap:hover #sun-canvas {
+  filter: brightness(1.15);
+}
+
+#sun-canvas {
+  display: block;
+  border-radius: 50%;
+  transition: filter 0.4s;
+}
+
+/* ── "Enter Portfolio" label beneath the sun on hover ───────────── */
+#sun-label {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 10px);
+  transform: translateX(-50%);
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+#sun-wrap:hover #sun-label {
+  opacity: 1;
+}
+
+/* ── Orbit ring — thin dashed circle ────────────────────────────── */
+.orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* No transform here — marginLeft/marginTop in JSX already centres the ring */
+  border-radius: 50%;
+  border: 1px solid rgba(138, 143, 168, 0.1);
+  pointer-events: none;
+}
+
+/* ── Orbit container — planet is positioned within this div ─────── */
+.planet-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ── Planet wrapper — clickable, holds canvas + optional rings ──── */
+.planet-wrapper {
+  position: absolute;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.planet-wrapper:hover .planet-canvas {
+  transform: scale(1.22);
+  filter: brightness(1.2);
+}
+
+.planet-canvas {
+  display: block;
+  border-radius: 50%;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* ── Planet label — shown on hover below the planet ─────────────── */
+.planet-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  top: calc(100% + 10px);
+}
+
+.planet-wrapper:hover .planet-label {
+  opacity: 1;
+}
+
+/* ── Saturn ring wrapper — positions SVG rings around the canvas ── */
+.saturn-ring-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.saturn-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LINEUP MODE
+   Planets arranged in a horizontal line. Orbit rings hidden.
+   Section labels always visible. Subtle float animation.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Float keyframe — gentle vertical oscillation */
+@keyframes planetFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Lineup: section labels are always visible (not hover-gated) */
+.planet-label.lineup-label {
+  opacity: 1;
+  top: calc(100% + 14px);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--pale);
+}
+
+/* Lineup hover: brighter glow instead of scale */
+#solar-system.lineup-mode .planet-wrapper:hover .planet-canvas {
+  filter: brightness(1.28) drop-shadow(0 0 7px rgba(180, 210, 255, 0.35));
+  transform: scale(1.12);
+}
+
+/* Decorative planets (Uranus, Neptune) — dimmed, not interactive */
+#solar-system.lineup-mode .planet-wrapper.no-section {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+/* ── Lineup back button (rendered in App.jsx) ───────────────────── */
+#lineup-back {
+  position: fixed;
+  top: 28px;
+  left: 36px;
+  z-index: 20;
+  background: none;
+  border: none;
+  font-family: 'Karla', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--dim);
+  cursor: pointer;
+  transition: color 0.3s;
+  padding: 0;
+}
+
+#lineup-back:hover {
+  color: var(--muted);
+}

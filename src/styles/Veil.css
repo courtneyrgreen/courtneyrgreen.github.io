@@ -1,0 +1,21 @@
+/*
+  Veil.css — The full-screen black transition overlay.
+  Fades in before a view change, then fades out after the new view mounts.
+*/
+
+#veil {
+  position: fixed;
+  inset: 0;
+  background: #06050a;
+  z-index: 40;
+  pointer-events: none;
+  /* Default: invisible */
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+/* Active state: veil fades to opaque, blocking the transition */
+#veil.active {
+  opacity: 1;
+  pointer-events: all;
+}
