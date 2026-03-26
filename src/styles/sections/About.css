@@ -31,11 +31,23 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   LEFT COLUMN — orbital headshot frame
+   LEFT COLUMN — orbital headshot frame + socials
 ══════════════════════════════════════════════════════════════════ */
+#obs-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  flex: 0 0 auto;
+}
+
+#obs-socials {
+  display: flex;
+  gap: 14px;
+}
+
 #obs-frame {
   position: relative;
-  flex: 0 0 auto;
   width: min(38vmin, 280px);
   height: min(38vmin, 280px);
 }
@@ -60,12 +72,18 @@
   50%       { opacity: 1;   transform: scale(1.06); }
 }
 
-/* ── Degree-tick ring canvas ─────────────────────────────────────── */
+/* ── Astrolabe ring canvas — rotates slowly ──────────────────────── */
 #obs-canvas {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   pointer-events: none;
+  animation: obsRingRotate 80s linear infinite;
+}
+
+@keyframes obsRingRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* ── Outer bezel ring borders ────────────────────────────────────── */
@@ -76,11 +94,52 @@
   border: 1px solid rgba(200, 202, 216, 0.14);
 }
 
+/* Inner ring counter-rotates for astrolabe effect */
 #obs-ring-inner {
   position: absolute;
   inset: 14px;
   border-radius: 50%;
-  border: 1px solid rgba(200, 202, 216, 0.06);
+  border: none;
+  background: transparent;
+  animation: obsRingCounter 55s linear infinite;
+}
+
+@keyframes obsRingCounter {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+#obs-ring-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(200, 202, 216, 0.06);
+}
+
+/* ── Social nodes below frame ────────────────────────────────────── */
+.obs-social-node {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 202, 216, 0.15);
+  background: rgba(6, 5, 10, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(138, 143, 168, 0.45);
+  transition: color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.obs-social-node:hover {
+  color: rgba(200, 202, 216, 0.9);
+  border-color: rgba(200, 202, 216, 0.4);
+  box-shadow: 0 0 10px rgba(200, 202, 216, 0.12);
+}
+
+.obs-social-node svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* ── Iris aperture — clips to reveal headshot ────────────────────── */
@@ -207,6 +266,7 @@
   max-width: 420px;
 }
 
+
 /* ══════════════════════════════════════════════════════════════════
    COMET JOURNEY STRIP
 ══════════════════════════════════════════════════════════════════ */
@@ -263,7 +323,7 @@
 .obs-wp {
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -38%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -296,7 +356,7 @@
   letter-spacing: 0.28em;
   color: rgba(200, 202, 216, 0.65);
   text-transform: uppercase;
-  margin-top: 18px;
+  margin-top: 30px;
   white-space: nowrap;
 }
 

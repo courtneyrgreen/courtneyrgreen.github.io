@@ -1,0 +1,197 @@
+/* ResumeTerminal.css — Space terminal download UI */
+
+#rtx-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: #020306;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CRT scanline overlay */
+#rtx-crt {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent           0px,
+    transparent           3px,
+    rgba(0, 0, 0, 0.09)   3px,
+    rgba(0, 0, 0, 0.09)   4px
+  );
+}
+
+#rtx-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(90vw, 700px);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Boot sequence ───────────────────────────────────────────────── */
+#rtx-boot {
+  font-family: 'Karla', monospace;
+  font-size: clamp(9px, 1.3vmin, 12px);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  line-height: 2;
+  min-height: 7em;
+}
+
+.rtx-boot-line {
+  display: block;
+  color: rgba(130, 195, 130, 0.75);
+  animation: rtx-fade-in 0.15s ease forwards;
+}
+
+@keyframes rtx-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Download cards ──────────────────────────────────────────────── */
+#rtx-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#rtx-cards.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rtx-card {
+  border: 1px solid rgba(120, 180, 120, 0.2);
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(10, 26, 10, 0.4);
+  transition: border-color 0.3s;
+}
+
+.rtx-card:hover {
+  border-color: rgba(140, 200, 140, 0.4);
+}
+
+.rtx-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rtx-pid {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(7px, 1vmin, 9px);
+  letter-spacing: 0.4em;
+  color: rgba(120, 180, 120, 0.45);
+  text-transform: uppercase;
+}
+
+.rtx-ready {
+  font-family: 'Karla', monospace;
+  font-size: clamp(8px, 1.1vmin, 10px);
+  letter-spacing: 0.1em;
+  color: rgba(100, 200, 100, 0.6);
+}
+
+.rtx-fname {
+  font-family: 'Karla', monospace;
+  font-size: clamp(11px, 1.6vmin, 15px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(160, 220, 160, 0.9);
+}
+
+.rtx-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: 'Karla', monospace;
+  font-size: clamp(8px, 1.1vmin, 10px);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(100, 160, 100, 0.5);
+}
+
+/* ── Creative download button ────────────────────────────────────── */
+.rtx-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  margin-top: 6px;
+  font-family: 'Karla', monospace;
+  font-size: clamp(9px, 1.3vmin, 11px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(130, 190, 130, 0.7);
+  border: 1px solid rgba(120, 180, 120, 0.2);
+  padding: 11px 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+/* Sweep fill — slides in from left on hover */
+.rtx-btn-fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(100, 180, 100, 0.07);
+  transform: translateX(-101%);
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+.rtx-btn:hover .rtx-btn-fill {
+  transform: translateX(0);
+}
+
+.rtx-btn:hover {
+  color: rgba(180, 240, 180, 0.95);
+  border-color: rgba(150, 220, 150, 0.5);
+}
+
+.rtx-btn-prefix {
+  color: rgba(100, 200, 100, 0.5);
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+.rtx-btn-cmd {
+  position: relative;
+  z-index: 1;
+}
+
+/* Blinking cursor at end of command */
+.rtx-btn-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 0.9em;
+  background: rgba(140, 200, 140, 0.7);
+  vertical-align: text-bottom;
+  animation: rtx-blink 1s step-end infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rtx-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@media (max-width: 520px) {
+  #rtx-cards { grid-template-columns: 1fr; }
+}

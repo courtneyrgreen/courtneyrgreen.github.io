@@ -4,6 +4,37 @@
   with a scan-line effect and a CRT-style overlay.
 */
 
+/* ── A/B preview toggle (remove once design is chosen) ──────────── */
+#resume-picker {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  gap: 0;
+  border: 1px solid rgba(200, 202, 216, 0.2);
+}
+
+#resume-picker button {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: rgba(200, 202, 216, 0.3);
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+#resume-picker button.active {
+  background: rgba(200, 202, 216, 0.08);
+  color: rgba(200, 202, 216, 0.85);
+}
+
+
 /* ── Full-screen layer ───────────────────────────────────────────── */
 #resume-layer {
   position: fixed;

@@ -45,7 +45,7 @@ function AppInner() {
       {view === 'solar' && (
         <div id="name-header">
           <h1>Courtney Green</h1>
-          <p>Data Scientist · Analyst · Storyteller</p>
+          <p>data scientist, policy analyst, and digital storyteller</p>
         </div>
       )}
 

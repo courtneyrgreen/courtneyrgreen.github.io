@@ -230,8 +230,8 @@
 /* ── Hexagonal mission patches ───────────────────────────────────── */
 .patch {
   position: relative;
-  width: 160px;
-  height: 184px;
+  width: 120px;
+  height: 138px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: linear-gradient(160deg, rgba(28,26,40,0.98) 0%, rgba(18,16,28,0.98) 60%, rgba(10,8,20,0.98) 100%);
   display: flex;
@@ -257,7 +257,7 @@
 
 .patch-ring {
   position: absolute;
-  inset: 22px;
+  inset: 16px;
   border-radius: 50%;
   border: 1px solid rgba(200,168,80,0.28);
   pointer-events: none;
@@ -274,7 +274,7 @@
 
 .patch-abbr {
   font-family: 'Cinzel', serif;
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: rgba(220,188,100,0.92);
@@ -323,10 +323,10 @@
   pointer-events: none;
 }
 
-.patch-star.tl { top: 44px;    left: 22px;   }
-.patch-star.tr { top: 44px;    right: 22px;  }
-.patch-star.bl { bottom: 44px; left: 22px;   }
-.patch-star.br { bottom: 44px; right: 22px;  }
+.patch-star.tl { top: 30px;    left: 14px;   }
+.patch-star.tr { top: 30px;    right: 14px;  }
+.patch-star.bl { bottom: 30px; left: 14px;   }
+.patch-star.br { bottom: 30px; right: 14px;  }
 
 /* ── Back button — fixed ─────────────────────────────────────────── */
 #skills-layer .sec-back-btn {
