@@ -19,14 +19,14 @@ const EDUCATION = [
     gpa: '4.0 / 4.0',
     coursework: [
       'Probabilistic Modeling & Statistical Computing',
-      'Database Systems & SQL',
-      'Advanced Data Visualization',
       'Neural Networks & Advanced Deep Learning',
-      'Statistical Learning for Analysis',
-      'Causal Inference for Computational Social Science',
       'Reinforcement Learning',
+      'Advanced Data Visualization',
+      'Statistical Learning for Analysis',
+      'Database Systems & SQL',
       'Big Data & Cloud Computing',
       'Machine Learning for App Development',
+      'Causal Inference for Computational Social Science',
     ],
     roles: [
       {

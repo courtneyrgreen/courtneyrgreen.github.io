@@ -62,7 +62,7 @@ export default function Objective({ onBack }) {
 
         {/* Longer objective paragraph */}
         <p id="obj-body">
-          I'm building expertise at the intersection of predictive modeling,
+          I have built expertise at the intersection of predictive modeling,
           causal inference, and data engineering — with the goal of translating
           rigorous analysis into actionable insight. I seek collaborative,
           mission-driven environments where technical depth and policy
@@ -74,7 +74,7 @@ export default function Objective({ onBack }) {
         {/* Current status line */}
         <div id="obj-status">
           <span className="obj-status-dot" />
-          Currently: M.S. Data Science &amp; Analytics · Georgetown University · Expected May 2026
+          M.S. Data Science &amp; Analytics · Georgetown University · 2026
         </div>
 
       </div>

@@ -86,7 +86,7 @@ export default function Skills({ onBack }) {
                   onClick={() => handleBadge(skill, group)}
                 >
                   {skill.name}
-                  {expandable && <span className="sk-arrow">{isActive ? '−' : '+'}</span>}
+                  {expandable && <span className="sk-arrow">{isActive ? '▲' : '▾'}</span>}
                 </button>
               )
             })
