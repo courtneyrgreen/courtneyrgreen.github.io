@@ -1,77 +1,88 @@
 /*
-  skills.js — Skill groups displayed in the Spectrograph (Skills section).
+  skills.js — Skill categories for the tag-cloud Skills section.
 
-  Each group renders as a coloured band of vertical bars in the spectrum.
-  Individual skills appear on hover.
+  Each group has:
+    label  — category name shown in the legend
+    rgb    — raw "r,g,b" string used with rgba() in CSS custom properties
+    skills — array of skill items
 
-  Fields (group):
-    label  — group category name shown below the spectrum
-    color  — rgba prefix (without alpha) used for all bars in this group
-    skills — array of individual skills
-
-  Fields (skill):
-    name   — display name, shown in the tooltip on hover
-    level  — proficiency 0–1, controls bar height
+  Each skill item:
+    name   — display name on the badge
+    subs   — (optional) array of sub-skills shown in a popover on click
 */
 
 export const SKILL_GROUPS = [
   {
-    label: 'Machine Learning',
-    color: 'rgba(170,175,210,',
+    label: 'Programming',
+    rgb: '140,130,225',
     skills: [
-      { name: 'Supervised Learning',    level: 0.95 },
-      { name: 'Neural Networks',        level: 0.88 },
-      { name: 'Ensemble Methods',       level: 0.92 },
-      { name: 'XGBoost',                level: 0.90 },
-      { name: 'Model Interpretability', level: 0.85 },
-      { name: 'Hyperparameter Opt.',    level: 0.80 },
+      { name: 'Python' },
+      { name: 'R' },
+      { name: 'SQL' },
+      { name: 'SAS' },
+      { name: 'SPSS' },
+      { name: 'HTML / CSS' },
+    ],
+  },
+  {
+    label: 'Machine Learning',
+    rgb: '85,155,230',
+    skills: [
+      { name: 'Supervised Learning',   subs: ['Classification', 'Regression', 'XGBoost', 'Random Forest', 'Ensemble Methods'] },
+      { name: 'Unsupervised Learning', subs: ['K-means', 'PCA', 't-SNE', 'DBSCAN', 'Hierarchical Clustering'] },
+      { name: 'Neural Networks',       subs: ['Deep Learning', 'Transfer Learning', 'Embeddings'] },
+      { name: 'NLP',                   subs: ['Transformers', 'Named Entity Rec.', 'Topic Modeling', 'Text Classification', 'Semantic Search'] },
+      { name: 'Model Interpretability',subs: ['SHAP', 'Feature Importance', 'Partial Dependence'] },
+      { name: 'Hyperparameter Tuning' },
     ],
   },
   {
     label: 'Statistics',
-    color: 'rgba(175,200,185,',
+    rgb: '115,195,160',
     skills: [
-      { name: 'Bayesian Inference',   level: 0.94 },
-      { name: 'Causal Inference',     level: 0.92 },
-      { name: 'Time Series',          level: 0.88 },
-      { name: 'Survival Analysis',    level: 0.82 },
-      { name: 'A/B Testing',          level: 0.86 },
-      { name: 'Hierarchical Models',  level: 0.89 },
+      { name: 'Bayesian Inference' },
+      { name: 'Causal Inference' },
+      { name: 'Survival Analysis' },
+      { name: 'Time Series Analysis' },
+      { name: 'A/B Testing' },
+      { name: 'Hierarchical Models' },
     ],
   },
   {
-    label: 'NLP',
-    color: 'rgba(200,185,165,',
+    label: 'Data Engineering',
+    rgb: '220,175,100',
     skills: [
-      { name: 'Transformers',        level: 0.85 },
-      { name: 'Named Entity Rec.',   level: 0.82 },
-      { name: 'Topic Modeling',      level: 0.80 },
-      { name: 'Semantic Search',     level: 0.88 },
-      { name: 'Text Classification', level: 0.84 },
+      { name: 'ETL Pipelines' },
+      { name: 'Database Design' },
+      { name: 'Apache Spark' },
+      { name: 'dbt' },
+      { name: 'Airflow' },
+      { name: 'FastAPI' },
+      { name: 'Docker' },
     ],
   },
   {
-    label: 'Engineering',
-    color: 'rgba(165,185,205,',
+    label: 'Cloud & Tools',
+    rgb: '215,125,120',
     skills: [
-      { name: 'Python',   level: 0.96 },
-      { name: 'R',        level: 0.93 },
-      { name: 'SQL',      level: 0.90 },
-      { name: 'Spark',    level: 0.78 },
-      { name: 'dbt',      level: 0.75 },
-      { name: 'Airflow',  level: 0.72 },
-      { name: 'FastAPI',  level: 0.80 },
-      { name: 'Docker',   level: 0.76 },
+      { name: 'AWS' },
+      { name: 'Azure' },
+      { name: 'Hadoop' },
+      { name: 'LangChain' },
+      { name: 'LangGraph' },
+      { name: 'Git / GitHub' },
     ],
   },
   {
-    label: 'Communication',
-    color: 'rgba(195,180,210,',
+    label: 'Visualization & BI',
+    rgb: '185,150,215',
     skills: [
-      { name: 'Data Storytelling',  level: 0.92 },
-      { name: 'Technical Writing',  level: 0.88 },
-      { name: 'Exec Presentations', level: 0.85 },
-      { name: 'Stakeholder Mgmt',   level: 0.82 },
+      { name: 'Tableau' },
+      { name: 'Power BI' },
+      { name: 'ggplot2' },
+      { name: 'Plotly' },
+      { name: 'Matplotlib' },
+      { name: 'Seaborn' },
     ],
   },
 ]

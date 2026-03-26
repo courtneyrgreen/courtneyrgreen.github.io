@@ -2,12 +2,13 @@ import { AppProvider, useApp } from './context/AppContext.jsx'
 import StarField from './components/StarField.jsx'
 import Veil from './components/Veil.jsx'
 import SolarSystem from './components/SolarSystem/SolarSystem.jsx'
+import Objective from './components/sections/Objective.jsx'
 import About from './components/sections/About.jsx'
 import Experience from './components/sections/Experience.jsx'
-import Skills from './components/sections/Skills.jsx'
 import Resume from './components/sections/Resume.jsx'
-import FieldNotes from './components/sections/FieldNotes.jsx'
 import Projects from './components/sections/Projects/Projects.jsx'
+import Skills from './components/sections/Skills.jsx'
+import Interests from './components/sections/Interests.jsx'
 import Contact from './components/sections/Contact.jsx'
 
 /*
@@ -44,7 +45,7 @@ function AppInner() {
       {view === 'solar' && (
         <div id="name-header">
           <h1>Courtney Green</h1>
-          <p>Data Scientist &amp; Researcher</p>
+          <p>Data Scientist · Analyst · Storyteller</p>
         </div>
       )}
 
@@ -53,13 +54,6 @@ function AppInner() {
         <div id="solar-hint">
           click the sun to explore
         </div>
-      )}
-
-      {/* ── Back affordance in lineup mode ── */}
-      {view === 'lineup' && (
-        <button id="lineup-back" onClick={returnToOrbit}>
-          ← solar system
-        </button>
       )}
 
       {/* ── Solar system — orbit or lineup mode ── */}
@@ -73,12 +67,13 @@ function AppInner() {
       />
 
       {/* ── Section layers — each is a full-screen immersive view ── */}
+      {view === 'objective'  && <Objective  onBack={returnFromSection} />}
       {view === 'about'      && <About      onBack={returnFromSection} />}
       {view === 'experience' && <Experience onBack={returnFromSection} />}
-      {view === 'skills'     && <Skills     onBack={returnFromSection} />}
       {view === 'resume'     && <Resume     onBack={returnFromSection} />}
-      {view === 'fieldnotes' && <FieldNotes onBack={returnFromSection} />}
       {view === 'projects'   && <Projects   onBack={returnFromSection} />}
+      {view === 'skills'     && <Skills     onBack={returnFromSection} />}
+      {view === 'interests'  && <Interests  onBack={returnFromSection} />}
       {view === 'contact'    && <Contact    onBack={returnFromSection} />}
 
       {/* ── Transition veil — full-screen black overlay during navigation ── */}

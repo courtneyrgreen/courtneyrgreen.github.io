@@ -18,7 +18,7 @@ export default function StarField() {
     return Array.from({ length: 280 }, (_, i) => {
       // Size distribution: 70% tiny, 15% small, 15% medium
       const sz = Math.random() < 0.7 ? 1 : Math.random() < 0.85 ? 1.5 : 2
-      const op = 0.2 + Math.random() * 0.55
+      const op = 0.35 + Math.random() * 0.55
 
       return {
         key: i,

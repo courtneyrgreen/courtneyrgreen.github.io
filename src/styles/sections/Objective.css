@@ -1,0 +1,179 @@
+/*
+  Objective.css — Mercury / Mission Brief section.
+  Mercury palette: warm greys, stone, subtle gold accent.
+*/
+
+/* ── Full-screen layer ───────────────────────────────────────────── */
+#obj-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: radial-gradient(ellipse at 48% 50%, #100e0c 0%, #08060a 55%, #020106 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Soft mercury-grey bloom ─────────────────────────────────────── */
+#obj-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(140, 128, 115, 0.08) 0%, transparent 68%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ── Content card ────────────────────────────────────────────────── */
+#obj-card {
+  position: relative;
+  width: min(92vw, 600px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0, 0.4, 1);
+}
+
+#obj-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Eyebrow ─────────────────────────────────────────────────────── */
+#obj-eyebrow {
+  font-family: 'Karla', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.44em;
+  color: rgba(160, 148, 130, 0.45);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* ── Title ───────────────────────────────────────────────────────── */
+#obj-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 3.2vmin, 32px);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--sw);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+/* ── Decorative rule ─────────────────────────────────────────────── */
+#obj-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(160, 148, 130, 0.35) 20%,
+    rgba(160, 148, 130, 0.35) 80%,
+    transparent
+  );
+  margin-bottom: 28px;
+}
+
+/* ── Mission statement — larger, italic ─────────────────────────── */
+#obj-statement {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.2vmin, 20px);
+  line-height: 1.7;
+  color: rgba(210, 205, 195, 0.82);
+  letter-spacing: 0.04em;
+  margin: 0 0 32px;
+}
+
+/* ── Three pillars row ───────────────────────────────────────────── */
+#obj-pillars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+
+.obj-pillar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.obj-pillar-sep {
+  width: 1px;
+  height: 36px;
+  background: rgba(160, 148, 130, 0.20);
+  margin: 0 20px;
+  flex-shrink: 0;
+}
+
+.obj-pillar-label {
+  font-family: 'Karla', sans-serif;
+  font-size: 7px;
+  letter-spacing: 0.38em;
+  color: rgba(200, 168, 80, 0.50);
+  text-transform: uppercase;
+}
+
+.obj-pillar-value {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(8px, 1.1vmin, 10px);
+  letter-spacing: 0.12em;
+  color: rgba(200, 198, 190, 0.75);
+  line-height: 1.5;
+}
+
+/* ── Body paragraph ──────────────────────────────────────────────── */
+#obj-body {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(11px, 1.4vmin, 13px);
+  line-height: 1.95;
+  color: rgba(170, 165, 155, 0.72);
+  font-weight: 300;
+  margin: 0 0 28px;
+}
+
+/* ── Current status line ─────────────────────────────────────────── */
+#obj-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: rgba(160, 148, 130, 0.42);
+  text-transform: uppercase;
+}
+
+.obj-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(200, 168, 80, 0.65);
+  flex-shrink: 0;
+  animation: statusPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 1; box-shadow: 0 0 6px rgba(200, 168, 80, 0.55); }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  #obj-pillars {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .obj-pillar-sep {
+    width: 36px;
+    height: 1px;
+    margin: 0;
+  }
+}

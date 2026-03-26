@@ -1,0 +1,154 @@
+/*
+  Interests.css — Uranus / Beyond the Data section.
+  Uranus palette: teal, cyan, cool blue-greens.
+*/
+
+/* ── Full-screen layer ───────────────────────────────────────────── */
+#int-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: radial-gradient(ellipse at 50% 48%, #04100e 0%, #020a08 55%, #010404 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 40px 24px 100px;
+  scrollbar-width: none;
+}
+
+#int-layer::-webkit-scrollbar { display: none; }
+
+/* ── Uranus teal atmospheric glow ────────────────────────────────── */
+#int-glow {
+  position: fixed;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(88, 185, 175, 0.07) 0%, transparent 68%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ── Content card ────────────────────────────────────────────────── */
+#int-card {
+  position: relative;
+  width: min(92vw, 640px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0, 0.4, 1);
+}
+
+#int-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Eyebrow ─────────────────────────────────────────────────────── */
+#int-eyebrow {
+  font-family: 'Karla', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.44em;
+  color: rgba(88, 185, 175, 0.40);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* ── Title ───────────────────────────────────────────────────────── */
+#int-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 3.2vmin, 32px);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--sw);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+/* ── Rule ────────────────────────────────────────────────────────── */
+#int-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(88, 185, 175, 0.28) 20%,
+    rgba(88, 185, 175, 0.28) 80%,
+    transparent
+  );
+  margin-bottom: 24px;
+}
+
+/* ── Intro line ──────────────────────────────────────────────────── */
+#int-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(13px, 1.9vmin, 17px);
+  color: rgba(180, 218, 215, 0.65);
+  letter-spacing: 0.06em;
+  margin: 0 0 36px;
+}
+
+/* ── Interest groups ─────────────────────────────────────────────── */
+#int-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.int-group {
+  border-left: 1px solid rgba(88, 185, 175, 0.18);
+  padding-left: 18px;
+}
+
+.int-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.int-icon {
+  font-size: 8px;
+  color: rgba(88, 185, 175, 0.55);
+}
+
+.int-group-label {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(8px, 1.2vmin, 10px);
+  letter-spacing: 0.28em;
+  color: rgba(88, 185, 175, 0.70);
+  text-transform: uppercase;
+}
+
+/* ── Pill items ──────────────────────────────────────────────────── */
+.int-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.int-item {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.3vmin, 12px);
+  font-weight: 300;
+  letter-spacing: 0.10em;
+  color: rgba(195, 230, 228, 0.80);
+  border: 1px solid rgba(88, 185, 175, 0.22);
+  border-radius: 14px;
+  padding: 4px 12px;
+}
+
+/* ── Explanatory note ────────────────────────────────────────────── */
+.int-note {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.3vmin, 12px);
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(140, 175, 172, 0.52);
+  margin: 0;
+  font-style: italic;
+}

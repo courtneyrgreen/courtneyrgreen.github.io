@@ -29,12 +29,12 @@ export function paintSun(canvas, size) {
   // ── 1. Core sphere gradient ──────────────────────────────────────
   // Off-center radial gradient creates the illusion of depth / 3-D
   const core = ctx.createRadialGradient(R * 0.58, R * 0.50, 0, R, R, R)
-  core.addColorStop(0,    '#fff4c2')
-  core.addColorStop(0.22, '#ffd966')
-  core.addColorStop(0.52, '#f0a020')
-  core.addColorStop(0.78, '#c86010')
-  core.addColorStop(0.92, '#a04008')
-  core.addColorStop(1,    '#5a1800')
+  core.addColorStop(0,    '#fff8d0')
+  core.addColorStop(0.18, '#ffe060')
+  core.addColorStop(0.45, '#f5a020')
+  core.addColorStop(0.70, '#e06818')
+  core.addColorStop(0.88, '#cc4e10')
+  core.addColorStop(1,    '#b03a08')
   ctx.beginPath()
   ctx.arc(R, R, R, 0, Math.PI * 2)
   ctx.fillStyle = core
@@ -55,16 +55,16 @@ export function paintSun(canvas, size) {
   ctx.fillRect(0, 0, size, size)
   ctx.restore()
 
-  // ── 3. Shading wrap — darkens the right/bottom limb ─────────────
+  // ── 3. Limb warm tint — subtle deepening at the edge, stays warm ─
   ctx.save()
   ctx.beginPath()
   ctx.arc(R, R, R, 0, Math.PI * 2)
   ctx.clip()
-  const shade = ctx.createRadialGradient(R * 0.55, R * 0.5, 0, R * 1.05, R * 1.05, R * 1.4)
+  const shade = ctx.createRadialGradient(R * 0.55, R * 0.5, R * 0.3, R, R, R)
   shade.addColorStop(0,    'rgba(0,0,0,0)')
-  shade.addColorStop(0.55, 'rgba(0,0,0,0.03)')
-  shade.addColorStop(0.82, 'rgba(0,0,0,0.22)')
-  shade.addColorStop(1,    'rgba(0,0,0,0.58)')
+  shade.addColorStop(0.65, 'rgba(80,10,0,0.04)')
+  shade.addColorStop(0.88, 'rgba(80,10,0,0.10)')
+  shade.addColorStop(1,    'rgba(60,8,0,0.18)')
   ctx.fillStyle = shade
   ctx.fillRect(0, 0, size, size)
   ctx.restore()
@@ -77,11 +77,11 @@ export function paintSun(canvas, size) {
   ctx.fillStyle = spec
   ctx.fillRect(0, 0, size, size)
 
-  // ── 5. Corona glow — faint orange halo at edge ───────────────────
-  const glow = ctx.createRadialGradient(R, R, R * 0.82, R, R, R)
+  // ── 5. Corona glow — warm orange halo at edge ────────────────────
+  const glow = ctx.createRadialGradient(R, R, R * 0.78, R, R, R)
   glow.addColorStop(0,   'rgba(0,0,0,0)')
-  glow.addColorStop(0.6, 'rgba(0,0,0,0)')
-  glow.addColorStop(1,   'rgba(240,160,10,0.18)')
+  glow.addColorStop(0.5, 'rgba(255,160,20,0.08)')
+  glow.addColorStop(1,   'rgba(255,120,10,0.28)')
   ctx.fillStyle = glow
   ctx.fillRect(0, 0, size, size)
 }

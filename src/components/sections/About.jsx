@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import profileImg from '../../assets/images/profile.jpg'
 import '../../styles/sections/About.css'
 
 /*
@@ -115,9 +116,8 @@ export default function About({ onBack }) {
             */}
             <img
               id="obs-headshot"
-              src="/headshot.jpg"
+              src={profileImg}
               alt="Courtney Green"
-              onError={e => { e.currentTarget.style.display = 'none' }}
             />
           </div>
         </div>
@@ -126,34 +126,30 @@ export default function About({ onBack }) {
         <div id="obs-info">
           <div id="obs-eyebrow">The Observatory</div>
           <div id="obs-name">Courtney Green</div>
-          <div id="obs-role">Data Scientist &amp; Researcher</div>
+          <div id="obs-role">Data Scientist &amp; Policy Analyst</div>
 
-          {/* Astro-sign data cards — edit values to match your details */}
           <div id="obs-cards">
             <div className="asc-card">
               <div className="asc-label">Mission</div>
-              {/* Your professional title / mission name */}
               <div className="asc-value">Data Science &amp; Policy</div>
             </div>
             <div className="asc-card">
               <div className="asc-label">Rank</div>
-              <div className="asc-value">Captain / Engineer</div>
+              <div className="asc-value">MS Candidate · TA</div>
             </div>
             <div className="asc-card">
-              <div className="asc-label">Born Under</div>
-              {/* Your star sign, birth constellation, or a favourite star */}
-              <div className="asc-value">Orion</div>
+              <div className="asc-label">Base</div>
+              <div className="asc-value">Washington, D.C.</div>
             </div>
           </div>
 
           <div id="obs-bio">
-            I work at the intersection of statistical modeling, machine
-            learning, and public policy — translating complex data into
-            decisions that matter. My approach is methodical and
-            curiosity-driven, living at the edges of disciplines where
-            statistics meets narrative.
-            <br /><br />
-            Based in Washington, D.C.
+            Data scientist with a public policy foundation — trained to ask
+            not just what the data says, but what it means for people.
+            Currently completing my M.S. in Data Science &amp; Analytics at
+            Georgetown while TAing graduate courses in Causal Inference and
+            Probabilistic Modeling. My work spans elections, climate risk,
+            public health, and criminal justice reform.
           </div>
         </div>
       </div>
@@ -170,23 +166,20 @@ export default function About({ onBack }) {
         {/* Waypoint nodes — activated by JS as comet passes */}
         <div className="obs-wp" ref={wp0Ref} style={{ left: '5%' }}>
           <div className="obs-wp-dot" />
-          <div className="obs-wp-label">Earth</div>
-          {/* Edit: your origin / first milestone */}
-          <div className="obs-wp-desc">The Foundation</div>
+          <div className="obs-wp-label">UVA</div>
+          <div className="obs-wp-desc">Policy &amp; CS</div>
         </div>
 
         <div className="obs-wp" ref={wp1Ref} style={{ left: '50%' }}>
           <div className="obs-wp-dot" />
-          <div className="obs-wp-label">Mars</div>
-          {/* Edit: your mid-journey / grad school / research phase */}
-          <div className="obs-wp-desc">The Expedition</div>
+          <div className="obs-wp-label">Georgetown</div>
+          <div className="obs-wp-desc">MS Data Science</div>
         </div>
 
         <div className="obs-wp" ref={wp2Ref} style={{ left: '95%' }}>
           <div className="obs-wp-dot" />
-          <div className="obs-wp-label">Saturn</div>
-          {/* Edit: your current position / mission control */}
-          <div className="obs-wp-desc">Mission Control</div>
+          <div className="obs-wp-label">Now</div>
+          <div className="obs-wp-desc">AP · Guidehouse · TA</div>
         </div>
 
       </div>

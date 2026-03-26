@@ -49,10 +49,27 @@
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
+  box-shadow:
+    0 0   6px  2px rgba(255, 200,  60, 0.32),
+    0 0  12px  4px rgba(255, 160,  20, 0.10),
+    0 0  18px  6px rgba(255, 120,   0, 0.05);
+  animation: sunAura 3.5s ease-in-out infinite;
+}
+
+@keyframes sunAura {
+  0%, 100% { box-shadow:
+    0 0  18px  6px rgba(255, 200,  60, 0.45),
+    0 0  48px 18px rgba(255, 160,  20, 0.28),
+    0 0  90px 36px rgba(255, 120,   0, 0.14),
+    0 0 160px 64px rgba(255,  90,   0, 0.07); }
+  50%       { box-shadow:
+    0 0   8px  3px rgba(255, 210,  70, 0.38),
+    0 0  15px  5px rgba(255, 170,  30, 0.13),
+    0 0  22px  8px rgba(255, 130,  10, 0.06); }
 }
 
 #sun-wrap:hover #sun-canvas {
-  filter: brightness(1.15);
+  filter: brightness(1.18) drop-shadow(0 0 8px rgba(255,170,30,0.8)) drop-shadow(0 0 18px rgba(255,120,0,0.5));
 }
 
 #sun-canvas {
@@ -71,7 +88,7 @@
   font-size: 9px;
   font-weight: 300;
   letter-spacing: 0.25em;
-  color: var(--dim);
+  color: rgba(220, 190, 100, 0.9);
   text-transform: uppercase;
   white-space: nowrap;
   opacity: 0;
@@ -83,6 +100,26 @@
   opacity: 1;
 }
 
+/* In lineup mode, sun label always visible like planet labels */
+#solar-system.lineup-mode #sun-wrap .sun-label-lineup {
+  opacity: 1;
+  top: calc(100% + 14px);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--pale);
+}
+
+#solar-system.lineup-mode #sun-wrap:hover .sun-label-lineup {
+  color: #fff;
+  filter: drop-shadow(0 0 5px rgba(255, 210, 120, 0.9)) drop-shadow(0 0 12px rgba(255, 180, 60, 0.5));
+}
+
+/* Lineup mode: remove sun glow */
+#solar-system.lineup-mode #sun-wrap {
+  box-shadow: none;
+  animation: none;
+}
+
 /* ── Orbit ring — thin dashed circle ────────────────────────────── */
 .orbit-ring {
   position: absolute;
@@ -90,7 +127,7 @@
   top: 50%;
   /* No transform here — marginLeft/marginTop in JSX already centres the ring */
   border-radius: 50%;
-  border: 1px solid rgba(138, 143, 168, 0.1);
+  border: 1px solid rgba(138, 143, 168, 0.28);
   pointer-events: none;
 }
 
@@ -113,7 +150,7 @@
 
 .planet-wrapper:hover .planet-canvas {
   transform: scale(1.22);
-  filter: brightness(1.2);
+  filter: brightness(1.2) drop-shadow(0 0 6px var(--planet-glow, rgba(180,210,255,0.6)));
 }
 
 .planet-canvas {
@@ -135,13 +172,15 @@
   text-transform: uppercase;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, filter 0.3s, color 0.3s;
   pointer-events: none;
   top: calc(100% + 10px);
 }
 
 .planet-wrapper:hover .planet-label {
   opacity: 1;
+  color: #fff;
+  filter: drop-shadow(0 0 5px var(--planet-glow, rgba(180,210,255,0.9))) drop-shadow(0 0 14px var(--planet-glow, rgba(150,190,255,0.5)));
 }
 
 /* ── Saturn ring wrapper — positions SVG rings around the canvas ── */
@@ -183,8 +222,13 @@
 
 /* Lineup hover: brighter glow instead of scale */
 #solar-system.lineup-mode .planet-wrapper:hover .planet-canvas {
-  filter: brightness(1.28) drop-shadow(0 0 7px rgba(180, 210, 255, 0.35));
+  filter: brightness(1.28) drop-shadow(0 0 7px var(--planet-glow, rgba(180,210,255,0.5)));
   transform: scale(1.12);
+}
+
+#solar-system.lineup-mode .planet-wrapper:hover .planet-label {
+  color: #fff;
+  filter: drop-shadow(0 0 5px var(--planet-glow, rgba(180,210,255,0.9))) drop-shadow(0 0 14px var(--planet-glow, rgba(150,190,255,0.5)));
 }
 
 /* Decorative planets (Uranus, Neptune) — dimmed, not interactive */
@@ -198,6 +242,7 @@
   position: fixed;
   top: 28px;
   left: 36px;
+  color: var(--pale);
   z-index: 20;
   background: none;
   border: none;
@@ -206,7 +251,6 @@
   font-weight: 300;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--dim);
   cursor: pointer;
   transition: color 0.3s;
   padding: 0;

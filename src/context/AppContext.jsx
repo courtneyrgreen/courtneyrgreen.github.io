@@ -6,12 +6,14 @@ import { createContext, useContext, useState, useCallback } from 'react'
   Views (screens):
     'solar'      → animated solar system landing page (orbit mode)
     'lineup'     → planets arranged in a horizontal line (selection mode)
-    'about'      → The Observatory  (About Me)
-    'experience' → The Orrery       (Work History)
-    'skills'     → The Spectrograph (Skills)
-    'resume'     → The Transmission (Resume / CV)
-    'fieldnotes' → Field Notes      (Personal reflections)
-    'projects'   → Project Cosmos   (Research & Projects)
+    'objective'  → Mercury — Mission brief / career objective
+    'about'      → Venus   — The Observatory (About Me)
+    'experience' → Earth   — Work history
+    'resume'     → Mars    — The Transmission (CV)
+    'projects'   → Jupiter — Project Cosmos
+    'skills'     → Saturn  — Badge grid (Skills)
+    'interests'  → Uranus  — Beyond the Data (Interests)
+    'contact'    → Neptune — Contact Mission Control
 
   Navigation flows:
     solar   --[click Sun]--------> lineup
