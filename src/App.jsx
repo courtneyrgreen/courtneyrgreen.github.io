@@ -115,7 +115,7 @@ function Maintenance() {
           color: 'rgba(232,240,255,0.88)',
           textTransform: 'uppercase',
         }}>
-          Under Construction
+          Coming Soon
         </div>
         <div style={{
           fontFamily: "'Cormorant Garamond', serif",
