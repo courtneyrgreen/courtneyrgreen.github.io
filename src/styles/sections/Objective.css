@@ -18,10 +18,10 @@
 /* ── Soft mercury-grey bloom ─────────────────────────────────────── */
 #obj-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 900px;
+  height: 900px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(140, 128, 115, 0.08) 0%, transparent 68%);
+  background: radial-gradient(circle, rgba(140, 128, 115, 0.13) 0%, rgba(140, 128, 115, 0.04) 45%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

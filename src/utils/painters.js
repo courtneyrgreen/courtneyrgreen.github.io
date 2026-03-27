@@ -26,8 +26,13 @@ export function paintSun(canvas, size) {
   const ctx = canvas.getContext('2d')
   canvas.width = canvas.height = size
 
+  // Clip everything to a circle
+  ctx.save()
+  ctx.beginPath()
+  ctx.arc(R, R, R, 0, Math.PI * 2)
+  ctx.clip()
+
   // ── 1. Core sphere gradient ──────────────────────────────────────
-  // Off-center radial gradient creates the illusion of depth / 3-D
   const core = ctx.createRadialGradient(R * 0.58, R * 0.50, 0, R, R, R)
   core.addColorStop(0,    '#fff8d0')
   core.addColorStop(0.18, '#ffe060')
@@ -35,55 +40,61 @@ export function paintSun(canvas, size) {
   core.addColorStop(0.70, '#e06818')
   core.addColorStop(0.88, '#cc4e10')
   core.addColorStop(1,    '#b03a08')
-  ctx.beginPath()
-  ctx.arc(R, R, R, 0, Math.PI * 2)
   ctx.fillStyle = core
-  ctx.fill()
-
-  // ── 2. Equatorial brightening band ──────────────────────────────
-  ctx.save()
-  ctx.beginPath()
-  ctx.arc(R, R, R, 0, Math.PI * 2)
-  ctx.clip()
-  const band = ctx.createLinearGradient(0, R * 0.55, 0, R * 1.45)
-  band.addColorStop(0,   'rgba(255,220,100,0)')
-  band.addColorStop(0.3, 'rgba(255,210,80,0.10)')
-  band.addColorStop(0.5, 'rgba(255,200,60,0.14)')
-  band.addColorStop(0.7, 'rgba(255,210,80,0.10)')
-  band.addColorStop(1,   'rgba(255,220,100,0)')
-  ctx.fillStyle = band
   ctx.fillRect(0, 0, size, size)
+
+  // ── 2. Solar granulation — mottled convection cells ──────────────
+  const granules = [
+    { x: 0.38, y: 0.30, r: 0.24, c0: 'rgba(255,240,140,0.28)' },
+    { x: 0.65, y: 0.42, r: 0.20, c0: 'rgba(255,210,70,0.22)'  },
+    { x: 0.50, y: 0.62, r: 0.22, c0: 'rgba(255,220,90,0.24)'  },
+    { x: 0.28, y: 0.55, r: 0.18, c0: 'rgba(220,120,20,0.18)'  },
+    { x: 0.72, y: 0.65, r: 0.19, c0: 'rgba(255,225,100,0.22)' },
+    { x: 0.55, y: 0.24, r: 0.16, c0: 'rgba(255,250,180,0.26)' },
+    { x: 0.20, y: 0.38, r: 0.17, c0: 'rgba(200,100,15,0.16)'  },
+    { x: 0.78, y: 0.30, r: 0.15, c0: 'rgba(255,215,80,0.20)'  },
+    { x: 0.42, y: 0.75, r: 0.16, c0: 'rgba(180,70,10,0.18)'   },
+    { x: 0.68, y: 0.22, r: 0.14, c0: 'rgba(255,240,150,0.22)' },
+  ]
+  granules.forEach(g => {
+    const gx = g.x * size, gy = g.y * size, gr = g.r * size
+    const grad = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr)
+    grad.addColorStop(0, g.c0)
+    grad.addColorStop(1, 'rgba(0,0,0,0)')
+    ctx.fillStyle = grad
+    ctx.fillRect(0, 0, size, size)
+  })
+
+  // ── 3. Solar prominence streaks — bright faculae near equator ────
+  const streaks = [
+    { x: 0.50, y: 0.48, w: 0.55, h: 0.06, angle: -0.06, c: 'rgba(255,235,130,0.10)' },
+    { x: 0.45, y: 0.60, w: 0.40, h: 0.04, angle:  0.04, c: 'rgba(255,210,80,0.08)'  },
+    { x: 0.55, y: 0.36, w: 0.30, h: 0.03, angle: -0.03, c: 'rgba(255,245,160,0.09)' },
+  ]
+  streaks.forEach(s => {
+    ctx.save()
+    ctx.translate(s.x * size, s.y * size)
+    ctx.rotate(s.angle)
+    const sg = ctx.createLinearGradient(-s.w * size / 2, 0, s.w * size / 2, 0)
+    sg.addColorStop(0,   'rgba(255,255,255,0)')
+    sg.addColorStop(0.3, s.c)
+    sg.addColorStop(0.7, s.c)
+    sg.addColorStop(1,   'rgba(255,255,255,0)')
+    ctx.fillStyle = sg
+    ctx.fillRect(-s.w * size / 2, -s.h * size / 2, s.w * size, s.h * size)
+    ctx.restore()
+  })
+
+  // ── 4. Limb darkening — realistic solar physics ───────────────────
+  const limb = ctx.createRadialGradient(R, R, R * 0.28, R, R, R)
+  limb.addColorStop(0,    'rgba(0,0,0,0)')
+  limb.addColorStop(0.55, 'rgba(60,8,0,0.06)')
+  limb.addColorStop(0.80, 'rgba(80,10,0,0.22)')
+  limb.addColorStop(1,    'rgba(40,4,0,0.55)')
+  ctx.fillStyle = limb
+  ctx.fillRect(0, 0, size, size)
+
   ctx.restore()
-
-  // ── 3. Limb warm tint — subtle deepening at the edge, stays warm ─
-  ctx.save()
-  ctx.beginPath()
-  ctx.arc(R, R, R, 0, Math.PI * 2)
-  ctx.clip()
-  const shade = ctx.createRadialGradient(R * 0.55, R * 0.5, R * 0.3, R, R, R)
-  shade.addColorStop(0,    'rgba(0,0,0,0)')
-  shade.addColorStop(0.65, 'rgba(80,10,0,0.04)')
-  shade.addColorStop(0.88, 'rgba(80,10,0,0.10)')
-  shade.addColorStop(1,    'rgba(60,8,0,0.18)')
-  ctx.fillStyle = shade
-  ctx.fillRect(0, 0, size, size)
-  ctx.restore()
-
-  // ── 4. Specular highlight — bright white spot upper-left ─────────
-  const spec = ctx.createRadialGradient(R * 0.52, R * 0.42, 0, R * 0.52, R * 0.42, R * 0.38)
-  spec.addColorStop(0,   'rgba(255,255,240,0.55)')
-  spec.addColorStop(0.4, 'rgba(255,250,200,0.14)')
-  spec.addColorStop(1,   'rgba(255,255,255,0)')
-  ctx.fillStyle = spec
-  ctx.fillRect(0, 0, size, size)
-
-  // ── 5. Corona glow — warm orange halo at edge ────────────────────
-  const glow = ctx.createRadialGradient(R, R, R * 0.78, R, R, R)
-  glow.addColorStop(0,   'rgba(0,0,0,0)')
-  glow.addColorStop(0.5, 'rgba(255,160,20,0.08)')
-  glow.addColorStop(1,   'rgba(255,120,10,0.28)')
-  ctx.fillStyle = glow
-  ctx.fillRect(0, 0, size, size)
 }
 
 /* ─────────────────────────────────────────────────────────────────────

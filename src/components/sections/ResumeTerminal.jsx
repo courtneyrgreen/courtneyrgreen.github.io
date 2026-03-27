@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import resumePDF from '../../assets/images/Green_CV_2025.pdf'
+import cvPDF     from '../../assets/docs/Courtney_Green_CV_2026.pdf'
+import resumePDF from '../../assets/docs/Courtney_Green_Resume_2026.pdf'
 import '../../styles/sections/ResumeTerminal.css'
 
 const BOOT = [
@@ -12,20 +13,26 @@ const BOOT = [
 
 const FILES = [
   {
-    pid: 'PACKET_01',
-    fname: 'curriculum_vitae.pdf',
-    meta: ['type  :  portable document', 'format:  pdf / long-form'],
-    href: resumePDF,
-    download: 'Green_CV_2025.pdf',
-    cmd: 'GET curriculum_vitae.pdf',
+    pid:      'PACKET_01',
+    fname:    'curriculum_vitae.pdf',
+    label:    'Curriculum Vitae',
+    desc:     'Full work history · research · awards · projects',
+    meta:     ['type  :  portable document', 'pages :  3 / long-form'],
+    rgb:      '130, 195, 130',
+    href:     cvPDF,
+    download: 'Courtney_Green_CV_2026.pdf',
+    cmd:      'GET curriculum_vitae.pdf',
   },
   {
-    pid: 'PACKET_02',
-    fname: 'resume.pdf',
-    meta: ['type  :  portable document', 'format:  pdf / condensed'],
-    href: resumePDF,       // swap once 1-page resume PDF exists
-    download: 'Green_Resume.pdf',
-    cmd: 'GET resume.pdf',
+    pid:      'PACKET_02',
+    fname:    'resume.pdf',
+    label:    'Résumé',
+    desc:     'One page · experience-focused · recruiter-ready',
+    meta:     ['type  :  portable document', 'pages :  1 / condensed'],
+    rgb:      '130, 195, 130',
+    href:     resumePDF,
+    download: 'Courtney_Green_Resume_2026.pdf',
+    cmd:      'GET resume.pdf',
   },
 ]
 
@@ -45,6 +52,13 @@ export default function ResumeTerminal({ onBack }) {
       <div id="rtx-crt" />
 
       <div id="rtx-wrap">
+
+        {/* Header */}
+        <div id="rtx-header">
+          <div id="rtx-title">Transmit Files</div>
+          <div id="rtx-sub">select a payload to download</div>
+        </div>
+
         {/* Boot sequence */}
         <div id="rtx-boot">
           {BOOT.slice(0, visibleLines).map((l, i) => (
@@ -55,11 +69,13 @@ export default function ResumeTerminal({ onBack }) {
         {/* Download cards */}
         <div id="rtx-cards" className={showCards ? 'show' : ''}>
           {FILES.map(f => (
-            <div key={f.pid} className="rtx-card">
+            <div key={f.pid} className="rtx-card" style={{ '--rtx-rgb': f.rgb }}>
               <div className="rtx-card-top">
                 <span className="rtx-pid">{f.pid}</span>
                 <span className="rtx-ready">● READY</span>
               </div>
+              <div className="rtx-label">{f.label}</div>
+              <div className="rtx-desc">{f.desc}</div>
               <div className="rtx-fname">{f.fname}</div>
               <div className="rtx-meta">
                 {f.meta.map((m, i) => <span key={i}>{m}</span>)}
@@ -73,6 +89,7 @@ export default function ResumeTerminal({ onBack }) {
             </div>
           ))}
         </div>
+
       </div>
 
       <button className="sec-back-btn" onClick={onBack}>← Solar System</button>

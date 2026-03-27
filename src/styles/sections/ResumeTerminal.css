@@ -34,6 +34,29 @@
   gap: 32px;
 }
 
+/* ── Header ──────────────────────────────────────────────────────── */
+#rtx-header {
+  margin-bottom: -8px;
+}
+
+#rtx-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 3vmin, 28px);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: rgba(160, 220, 160, 0.92);
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+
+#rtx-sub {
+  font-family: 'Karla', monospace;
+  font-size: clamp(9px, 1.3vmin, 11px);
+  letter-spacing: 0.16em;
+  color: rgba(100, 160, 100, 0.5);
+  text-transform: lowercase;
+}
+
 /* ── Boot sequence ───────────────────────────────────────────────── */
 #rtx-boot {
   font-family: 'Karla', monospace;
@@ -70,18 +93,53 @@
   transform: translateY(0);
 }
 
+/* --rtx-rgb is set per-card in JSX */
 .rtx-card {
-  border: 1px solid rgba(120, 180, 120, 0.2);
+  position: relative;
+  border: 1px solid rgba(var(--rtx-rgb), 0.20);
   padding: 20px 22px 22px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: rgba(10, 26, 10, 0.4);
-  transition: border-color 0.3s;
+  background: rgba(var(--rtx-rgb), 0.04);
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
 }
 
 .rtx-card:hover {
-  border-color: rgba(140, 200, 140, 0.4);
+  border-color: rgba(var(--rtx-rgb), 0.40);
+  background: rgba(var(--rtx-rgb), 0.07);
+  box-shadow: 0 0 28px rgba(var(--rtx-rgb), 0.12), inset 0 0 28px rgba(var(--rtx-rgb), 0.04);
+}
+
+/* Corner bracket decorations */
+.rtx-card::before,
+.rtx-card::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: rgba(var(--rtx-rgb), 0.55);
+  border-style: solid;
+  transition: border-color 0.3s, width 0.3s, height 0.3s;
+}
+
+.rtx-card::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.rtx-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+.rtx-card:hover::before,
+.rtx-card:hover::after {
+  width: 16px;
+  height: 16px;
+  border-color: rgba(var(--rtx-rgb), 0.90);
 }
 
 .rtx-card-top {
@@ -94,7 +152,7 @@
   font-family: 'Cinzel', serif;
   font-size: clamp(7px, 1vmin, 9px);
   letter-spacing: 0.4em;
-  color: rgba(120, 180, 120, 0.45);
+  color: rgba(var(--rtx-rgb), 0.45);
   text-transform: uppercase;
 }
 
@@ -102,7 +160,23 @@
   font-family: 'Karla', monospace;
   font-size: clamp(8px, 1.1vmin, 10px);
   letter-spacing: 0.1em;
-  color: rgba(100, 200, 100, 0.6);
+  color: rgba(var(--rtx-rgb), 0.60);
+}
+
+.rtx-label {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(10px, 1.5vmin, 13px);
+  letter-spacing: 0.22em;
+  color: rgba(var(--rtx-rgb), 0.88);
+  text-transform: uppercase;
+}
+
+.rtx-desc {
+  font-family: 'Karla', monospace;
+  font-size: clamp(9px, 1.2vmin, 11px);
+  letter-spacing: 0.06em;
+  color: rgba(var(--rtx-rgb), 0.52);
+  margin-top: -4px;
 }
 
 .rtx-fname {
@@ -110,7 +184,7 @@
   font-size: clamp(11px, 1.6vmin, 15px);
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: rgba(160, 220, 160, 0.9);
+  color: rgba(var(--rtx-rgb), 0.90);
 }
 
 .rtx-meta {
@@ -121,7 +195,7 @@
   font-size: clamp(8px, 1.1vmin, 10px);
   font-weight: 300;
   letter-spacing: 0.06em;
-  color: rgba(100, 160, 100, 0.5);
+  color: rgba(var(--rtx-rgb), 0.48);
 }
 
 /* ── Creative download button ────────────────────────────────────── */
@@ -136,8 +210,8 @@
   font-size: clamp(9px, 1.3vmin, 11px);
   font-weight: 400;
   letter-spacing: 0.06em;
-  color: rgba(130, 190, 130, 0.7);
-  border: 1px solid rgba(120, 180, 120, 0.2);
+  color: rgba(var(--rtx-rgb), 0.70);
+  border: 1px solid rgba(var(--rtx-rgb), 0.22);
   padding: 11px 16px;
   text-decoration: none;
   cursor: pointer;
@@ -148,7 +222,7 @@
 .rtx-btn-fill {
   position: absolute;
   inset: 0;
-  background: rgba(100, 180, 100, 0.07);
+  background: rgba(var(--rtx-rgb), 0.08);
   transform: translateX(-101%);
   transition: transform 0.35s ease;
   pointer-events: none;
@@ -159,12 +233,12 @@
 }
 
 .rtx-btn:hover {
-  color: rgba(180, 240, 180, 0.95);
-  border-color: rgba(150, 220, 150, 0.5);
+  color: rgba(var(--rtx-rgb), 0.98);
+  border-color: rgba(var(--rtx-rgb), 0.52);
 }
 
 .rtx-btn-prefix {
-  color: rgba(100, 200, 100, 0.5);
+  color: rgba(var(--rtx-rgb), 0.50);
   font-weight: 300;
   position: relative;
   z-index: 1;
@@ -180,7 +254,7 @@
   display: inline-block;
   width: 6px;
   height: 0.9em;
-  background: rgba(140, 200, 140, 0.7);
+  background: rgba(var(--rtx-rgb), 0.70);
   vertical-align: text-bottom;
   animation: rtx-blink 1s step-end infinite;
   position: relative;

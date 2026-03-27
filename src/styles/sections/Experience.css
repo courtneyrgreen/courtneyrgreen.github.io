@@ -147,7 +147,8 @@
   font-family: 'Karla', sans-serif;
   font-size: clamp(10px, 1.35vmin, 12px);
   font-weight: 300;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
   color: rgba(200, 202, 216, 0.55);
 }
 
@@ -169,7 +170,7 @@
   font-weight: 300;
   letter-spacing: 0.10em;
   color: rgba(115, 195, 160, 0.80);
-  margin-top: 2px;
+  margin-bottom: 16px;
 }
 
 /* ── Location & dates ────────────────────────────────────────────── */
@@ -190,19 +191,42 @@
   color: rgba(200, 202, 216, 0.35);
 }
 
-/* ── Coursework line ─────────────────────────────────────────────── */
-.exp-coursework {
-  font-family: 'Karla', sans-serif;
-  font-size: clamp(10px, 1.35vmin, 12px);
-  font-weight: 300;
-  line-height: 1.75;
-  color: rgba(200, 202, 216, 0.50);
-  margin-bottom: 14px;
+/* ── Coursework / activities tag cloud ───────────────────────────── */
+.exp-tag-section {
+  margin-bottom: 18px;
 }
 
 .exp-cw-label {
-  color: rgba(72, 155, 255, 0.55);
-  letter-spacing: 0.06em;
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(7px, 1vmin, 9px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(72, 155, 255, 0.50);
+  margin-bottom: 8px;
+}
+
+.exp-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.exp-cw-tag {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(9px, 1.2vmin, 11px);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(200, 202, 216, 0.60);
+  background: rgba(72, 155, 255, 0.05);
+  border: 1px solid rgba(72, 155, 255, 0.12);
+  border-radius: 4px;
+  padding: 3px 9px;
+}
+
+.exp-skill-tag {
+  color: rgba(130, 200, 255, 0.70);
+  background: rgba(72, 155, 255, 0.07);
+  border-color: rgba(72, 155, 255, 0.18);
 }
 
 /* ── TA / role nested block ──────────────────────────────────────── */
@@ -220,7 +244,51 @@
   letter-spacing: 0.22em;
   color: rgba(72, 155, 255, 0.70);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.exp-ta-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exp-ta-item {
+  padding-left: 12px;
+}
+
+.exp-ta-item-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.exp-ta-course {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.35vmin, 12px);
+  font-weight: 500;
+  color: rgba(130, 200, 255, 0.88);
+  letter-spacing: 0.03em;
+}
+
+.exp-ta-semester {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(8px, 1.05vmin, 10px);
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(72, 155, 255, 0.45);
+}
+
+.exp-ta-desc {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.35vmin, 12px);
+  font-weight: 300;
+  line-height: 1.70;
+  color: rgba(200, 202, 216, 0.60);
+  margin: 0;
 }
 
 /* ── Bullet list ─────────────────────────────────────────────────── */
@@ -253,24 +321,333 @@
 /* ── Highlights / awards pills ───────────────────────────────────── */
 .exp-highlights {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 20px;
+}
+
+.exp-highlight-wrap {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
 }
 
 .exp-highlight-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(72, 155, 255, 0.08);
-  border: 1px solid rgba(72, 155, 255, 0.28);
-  border-radius: 20px;
-  padding: 5px 14px;
+  background: rgba(72, 155, 255, 0.07);
+  border: 1px solid rgba(72, 155, 255, 0.22);
+  border-radius: 6px;
+  padding: 7px 14px;
   font-family: 'Karla', sans-serif;
   font-size: clamp(10px, 1.3vmin, 12px);
   font-weight: 300;
   letter-spacing: 0.06em;
   color: rgba(72, 155, 255, 0.80);
+  width: fit-content;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.exp-highlight-pill.has-desc {
+  cursor: default;
+}
+
+.exp-highlight-pill.has-desc:hover {
+  background: rgba(72, 155, 255, 0.12);
+  border-color: rgba(72, 155, 255, 0.42);
+  color: rgba(72, 155, 255, 0.95);
+}
+
+.exp-highlight-tooltip {
+  margin-top: 6px;
+  padding: 10px 14px;
+  background: rgba(8, 14, 28, 0.96);
+  border: 1px solid rgba(72, 155, 255, 0.20);
+  border-radius: 6px;
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.3vmin, 12px);
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(200, 202, 216, 0.70);
+  max-width: 420px;
+  animation: tooltipIn 0.15s ease forwards;
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Org logos ───────────────────────────────────────────────────── */
+.exp-logo-placeholder {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Karla', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.90);
+  flex-shrink: 0;
+}
+
+.exp-logo-img {
+  border-radius: 8px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.exp-acc-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* ── Two-panel explorer ──────────────────────────────────────────── */
+#exp-panel-wrap {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  height: 62vh;
+  min-height: 420px;
+}
+
+#exp-panel-list {
+  overflow-y: auto;
+  border-right: 1px solid rgba(72, 155, 255, 0.12);
+  padding-right: 16px;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exp-panel-section-hd {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(7px, 1vmin, 9px);
+  letter-spacing: 0.32em;
+  color: rgba(72, 155, 255, 0.45);
+  text-transform: uppercase;
+  padding: 14px 10px 6px;
+  border-bottom: 1px solid rgba(72, 155, 255, 0.10);
+  margin-bottom: 2px;
+}
+
+.exp-panel-section-hd:first-child { padding-top: 0; }
+
+#exp-panel-list::-webkit-scrollbar { display: none; }
+
+.exp-panel-item {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.exp-panel-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.exp-panel-item:hover {
+  background: rgba(72, 155, 255, 0.05);
+  border-color: rgba(72, 155, 255, 0.12);
+}
+
+.exp-panel-item.active {
+  background: rgba(72, 155, 255, 0.09);
+  border-color: rgba(72, 155, 255, 0.28);
+}
+
+.exp-panel-tag {
+  font-family: 'Karla', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  color: rgba(72, 155, 255, 0.55);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.exp-panel-org {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(10px, 1.3vmin, 12px);
+  letter-spacing: 0.08em;
+  color: rgba(232, 240, 255, 0.88);
+  line-height: 1.3;
+}
+
+.exp-panel-role {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(9px, 1.1vmin, 11px);
+  font-weight: 300;
+  color: rgba(72, 155, 255, 0.70);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.exp-panel-dates {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(8px, 1vmin, 10px);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(200, 202, 216, 0.35);
+  margin-top: 4px;
+}
+
+#exp-panel-detail {
+  overflow-y: auto;
+  padding-left: 32px;
+  scrollbar-width: none;
+}
+
+#exp-panel-detail::-webkit-scrollbar { display: none; }
+
+.exp-pd-header {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(72, 155, 255, 0.12);
+}
+
+.exp-pd-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.exp-pd-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.exp-pd-meta .exp-dates,
+.exp-pd-meta .exp-location {
+  margin: 0;
+}
+
+.exp-pd-body {
+  min-height: 120px;
+}
+
+/* ── Timeline layout ─────────────────────────────────────────────── */
+#exp-timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+#exp-timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(72, 155, 255, 0.55),
+    rgba(72, 155, 255, 0.10)
+  );
+}
+
+.exp-tl-entry {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.exp-tl-dot {
+  position: absolute;
+  left: -29px;
+  top: 24px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(72, 155, 255, 0.40);
+  border: 1px solid rgba(72, 155, 255, 0.70);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.exp-tl-entry.open .exp-tl-dot {
+  background: rgba(72, 155, 255, 0.85);
+  box-shadow: 0 0 10px rgba(72, 155, 255, 0.50);
+}
+
+.exp-tl-content { }
+
+.exp-tl-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  text-align: left;
+  transition: opacity 0.2s;
+}
+
+.exp-tl-entry:last-child .exp-tl-header { border-bottom: none; }
+.exp-tl-header:hover { opacity: 0.82; }
+
+.exp-tl-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.exp-tl-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.exp-tl-tag {
+  font-family: 'Karla', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  color: rgba(72, 155, 255, 0.55);
+  text-transform: uppercase;
+}
+
+.exp-tl-org {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(12px, 1.7vmin, 15px);
+  letter-spacing: 0.10em;
+  color: rgba(232, 240, 255, 0.90);
+}
+
+.exp-tl-role {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.35vmin, 12px);
+  font-weight: 300;
+  color: rgba(72, 155, 255, 0.80);
+}
+
+.exp-tl-dates {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(9px, 1.2vmin, 11px);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(200, 202, 216, 0.40);
+  white-space: nowrap;
 }
 
 /* ── Back button — fixed ─────────────────────────────────────────── */

@@ -27,3 +27,22 @@
   55%      { opacity: calc(var(--op, 0.6) * 0.15);            transform: scale(0.85); } /* dip dark     */
   80%      { opacity: calc(var(--op, 0.6) * 0.6);             transform: scale(1);    }
 }
+
+/* ── Shooting stars ───────────────────────────────────────────────── */
+.shooting-star {
+  position: absolute;
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.3) 100%);
+  border-radius: 50%;
+  transform: rotate(215deg);
+  opacity: 0;
+  animation: shoot var(--dur, 18s) ease-in infinite var(--delay, 0s);
+}
+
+@keyframes shoot {
+  0%   { opacity: 0;   transform: rotate(215deg) translateX(0);      }
+  3%   { opacity: 0.9;                                                }
+  8%   { opacity: 0;   transform: rotate(215deg) translateX(600px);  }
+  100% { opacity: 0;   transform: rotate(215deg) translateX(600px);  }
+}

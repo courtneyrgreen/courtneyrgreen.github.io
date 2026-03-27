@@ -37,38 +37,37 @@ export default function Objective({ onBack }) {
 
         {/* Mission statement */}
         <p id="obj-statement">
-          To apply machine learning, statistical modeling, and data engineering
-          to problems that matter — particularly where data meets public policy,
+          To apply machine learning, causal inference, and statistical modeling
+          to problems that matter, particularly where data meets public policy,
           systemic equity, and social impact.
         </p>
 
         {/* Three focus pillars */}
         <div id="obj-pillars">
           <div className="obj-pillar">
-            <div className="obj-pillar-label">Discipline</div>
-            <div className="obj-pillar-value">Data Science &amp; Analytics</div>
+            <div className="obj-pillar-label">Expertise</div>
+            <div className="obj-pillar-value">Computational Social Science</div>
           </div>
           <div className="obj-pillar-sep" />
           <div className="obj-pillar">
-            <div className="obj-pillar-label">Domain</div>
-            <div className="obj-pillar-value">Public Policy &amp; Social Impact</div>
+            <div className="obj-pillar-label">Purpose</div>
+            <div className="obj-pillar-value">Public Policy, Equity &amp; Social Impact</div>
           </div>
           <div className="obj-pillar-sep" />
           <div className="obj-pillar">
-            <div className="obj-pillar-label">Goal</div>
-            <div className="obj-pillar-value">Evidence-Based Decisions at Scale</div>
+            <div className="obj-pillar-label">Approach</div>
+            <div className="obj-pillar-value">Rigorous Analysis, Accessible Insight</div>
           </div>
         </div>
 
         {/* Longer objective paragraph */}
         <p id="obj-body">
-          I have built expertise at the intersection of predictive modeling,
-          causal inference, and data engineering — with the goal of translating
-          rigorous analysis into actionable insight. I seek collaborative,
-          mission-driven environments where technical depth and policy
-          understanding are equally valued. Whether the challenge is electoral
-          data, climate risk, public health, or criminal justice, my aim is the
-          same: make the analysis useful, make it honest, make it matter.
+          I work at the intersection of data science and public policy, translating
+          complex analysis into decisions that actually inform policy and practice.
+          I'm drawn to problems with real stakes: electoral systems, public health,
+          criminal justice, climate risk. I thrive when I get to move between the
+          technical and the strategic, and I'm most useful in environments that need
+          someone who can do both.
         </p>
 
         {/* Current status line */}

@@ -2,34 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { SKILL_GROUPS } from '../../data/skills.js'
 import '../../styles/sections/Skills.css'
 
-/*
-  Skills — Saturn section.
-  Tag-cloud layout: all skills as colour-coded pill badges.
-  Clicking a badge with sub-skills opens a popover listing them.
-  Degree credential patches sit below the cloud.
-
-  Props:
-    onBack {fn} — called when "← Solar System" is clicked
-*/
-
-const DEGREES = [
-  {
-    abbr:   'M.S.',
-    field:  'Data Science',
-    school: 'Georgetown University',
-    year:   '2025',
-  },
-  {
-    abbr:   'B.S.',
-    field:  'Mathematics',
-    school: 'University of Virginia',
-    year:   '2023',
-  },
-]
-
 export default function Skills({ onBack }) {
   const cardRef  = useRef(null)
-  const [active, setActive] = useState(null)   // { skill, group } or null
+  const [active,      setActive]      = useState(null)  // { skill, group } or null
+  const [filterGroup, setFilterGroup] = useState(null)  // group label or null
 
   useEffect(() => {
     const t = setTimeout(() => cardRef.current?.classList.add('visible'), 120)
@@ -44,8 +20,13 @@ export default function Skills({ onBack }) {
     setActive(prev => prev?.skill.name === skill.name ? null : { skill, group })
   }
 
+  const handleFilter = (label) => {
+    setFilterGroup(prev => prev === label ? null : label)
+    setActive(null)
+  }
+
   const closePopover = (e) => {
-    if (e.target.id === 'skills-layer') setActive(null)
+    if (e.target.id === 'skills-layer') { setActive(null); setFilterGroup(null) }
   }
 
   return (
@@ -58,22 +39,31 @@ export default function Skills({ onBack }) {
         <h1 id="sk-title">Skills</h1>
         <div id="sk-rule" />
 
-        {/* ── Category legend ────────────────────────────────────── */}
+        {/* ── Category legend / filter ────────────────────────────── */}
         <div id="sk-legend">
-          {SKILL_GROUPS.map(g => (
-            <div key={g.label} className="sk-legend-item">
-              <span className="sk-dot" style={{ background: `rgba(${g.rgb},0.85)` }} />
-              <span className="sk-legend-label">{g.label}</span>
-            </div>
-          ))}
+          {SKILL_GROUPS.map(g => {
+            const isFiltered = filterGroup === g.label
+            return (
+              <button
+                key={g.label}
+                className={['sk-legend-item', isFiltered ? 'sk-legend-active' : ''].filter(Boolean).join(' ')}
+                style={{ '--sk-rgb': g.rgb }}
+                onClick={() => handleFilter(g.label)}
+              >
+                <span className="sk-dot" style={{ background: `rgba(${g.rgb},${isFiltered ? 1 : 0.85})` }} />
+                <span className="sk-legend-label">{g.label}</span>
+              </button>
+            )
+          })}
         </div>
 
         {/* ── Tag cloud ──────────────────────────────────────────── */}
         <div id="sk-cloud">
           {SKILL_GROUPS.map(group =>
             group.skills.map(skill => {
-              const isActive    = active?.skill.name === skill.name
-              const expandable  = !!skill.subs?.length
+              const isActive   = active?.skill.name === skill.name
+              const expandable = !!skill.subs?.length
+              const dimmed     = filterGroup !== null && filterGroup !== group.label
               return (
                 <button
                   key={skill.name}
@@ -81,6 +71,7 @@ export default function Skills({ onBack }) {
                     'sk-badge',
                     expandable ? 'sk-expandable' : '',
                     isActive   ? 'sk-active'     : '',
+                    dimmed     ? 'sk-dimmed'      : '',
                   ].filter(Boolean).join(' ')}
                   style={{ '--sk-rgb': group.rgb }}
                   onClick={() => handleBadge(skill, group)}
@@ -104,29 +95,6 @@ export default function Skills({ onBack }) {
             </div>
           </div>
         )}
-
-        {/* ── Degree credential patches ──────────────────────────── */}
-        <div id="sk-credentials">
-          <div id="sk-cred-label">Credentials</div>
-          <div id="sk-patches">
-            {DEGREES.map(d => (
-              <div key={d.abbr + d.school} className="patch">
-                <div className="patch-ring" />
-                <div className="patch-body">
-                  <div className="patch-abbr">{d.abbr}</div>
-                  <div className="patch-field">{d.field}</div>
-                  <div className="patch-divider" />
-                  <div className="patch-school">{d.school}</div>
-                  <div className="patch-year">{d.year}</div>
-                </div>
-                <span className="patch-star tl">★</span>
-                <span className="patch-star tr">★</span>
-                <span className="patch-star bl">★</span>
-                <span className="patch-star br">★</span>
-              </div>
-            ))}
-          </div>
-        </div>
 
       </div>
 

@@ -41,9 +41,10 @@
   flex: 0 0 auto;
 }
 
-#obs-socials {
+#obs-socials-inline {
   display: flex;
-  gap: 14px;
+  align-items: center;
+  gap: 10px;
 }
 
 #obs-frame {

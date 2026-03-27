@@ -1,5 +1,5 @@
-// ── Toggle this to show/hide the maintenance page ──────────────────
-const MAINTENANCE = true
+// ── true in production builds, false in dev — flip to false to launch ──
+const MAINTENANCE = import.meta.env.PROD
 
 import { AppProvider, useApp } from './context/AppContext.jsx'
 import StarField from './components/StarField.jsx'
@@ -48,7 +48,7 @@ function AppInner() {
       {view === 'solar' && (
         <div id="name-header">
           <h1>Courtney Green</h1>
-          <p>data scientist, policy analyst, and digital storyteller</p>
+          <p>Data Scientist &nbsp;·&nbsp; Policy Analyst &nbsp;·&nbsp; Digital Storyteller</p>
         </div>
       )}
 

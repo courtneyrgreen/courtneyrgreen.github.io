@@ -36,10 +36,25 @@ export default function StarField() {
     })
   }, [])
 
+  // Shooting stars — staggered delays so they fire at different times
+  const shootingStars = [
+    { top: '12%', left: '72%', delay: '0s',   dur: '18s' },
+    { top: '28%', left: '88%', delay: '6s',   dur: '22s' },
+    { top: '6%',  left: '55%', delay: '13s',  dur: '19s' },
+    { top: '18%', left: '40%', delay: '20s',  dur: '24s' },
+  ]
+
   return (
     <div id="starfield">
       {stars.map(star => (
         <div key={star.key} className="star" style={star.style} />
+      ))}
+      {shootingStars.map((s, i) => (
+        <div
+          key={`shoot-${i}`}
+          className="shooting-star"
+          style={{ top: s.top, left: s.left, '--delay': s.delay, '--dur': s.dur }}
+        />
       ))}
     </div>
   )
