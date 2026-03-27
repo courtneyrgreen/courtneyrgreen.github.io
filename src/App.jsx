@@ -1,3 +1,6 @@
+// ── Toggle this to show/hide the maintenance page ──────────────────
+const MAINTENANCE = true
+
 import { AppProvider, useApp } from './context/AppContext.jsx'
 import StarField from './components/StarField.jsx'
 import Veil from './components/Veil.jsx'
@@ -86,7 +89,50 @@ function AppInner() {
   App — root component.
   Wraps AppInner in AppProvider so all children share navigation context.
 */
+function Maintenance() {
+  return (
+    <>
+      <StarField />
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 99,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        gap: '18px', textAlign: 'center',
+      }}>
+        <div style={{
+          fontFamily: "'Cinzel', serif",
+          fontSize: 'clamp(11px, 1.6vmin, 14px)',
+          letterSpacing: '0.45em',
+          color: 'rgba(200,168,80,0.55)',
+          textTransform: 'uppercase',
+        }}>
+          Courtney Green
+        </div>
+        <div style={{
+          fontFamily: "'Cinzel', serif",
+          fontSize: 'clamp(18px, 3vmin, 28px)',
+          letterSpacing: '0.3em',
+          color: 'rgba(232,240,255,0.88)',
+          textTransform: 'uppercase',
+        }}>
+          Under Construction
+        </div>
+        <div style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: 'italic',
+          fontSize: 'clamp(12px, 1.8vmin, 16px)',
+          letterSpacing: '0.12em',
+          color: 'rgba(138,143,168,0.55)',
+        }}>
+          site under construction · launching soon
+        </div>
+      </div>
+    </>
+  )
+}
+
 export default function App() {
+  if (MAINTENANCE) return <Maintenance />
   return (
     <AppProvider>
       <AppInner />
