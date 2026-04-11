@@ -63,9 +63,9 @@ export default function Objective({ onBack }) {
         {/* Longer objective paragraph */}
         <p id="obj-body">
           I work at the intersection of data science and public policy, translating
-          complex analysis into decisions that actually inform policy and practice.
-          I'm drawn to problems with real stakes: electoral systems, public health,
-          criminal justice, climate risk. I thrive when I get to move between the
+          complex analysis into actionable decisions that inform policy and practice.
+          My focus includes high-impact issues such as electoral systems, public health,
+          criminal justice, and climate risk. I thrive when I get to move between the
           technical and the strategic, and I'm most useful in environments that need
           someone who can do both.
         </p>

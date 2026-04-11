@@ -44,9 +44,9 @@ export default function About({ onBack }) {
 
     // ── Tick ring ─────────────────────────────────────────────────
     for (let i = 0; i < 72; i++) {
-      const angle      = (i / 72) * Math.PI * 2 - Math.PI / 2
+      const angle = (i / 72) * Math.PI * 2 - Math.PI / 2
       const isCardinal = i % 18 === 0   // 4 gold markers at 90° intervals
-      const isMajor    = i % 9 === 0    // 8 medium ticks at 45° intervals
+      const isMajor = i % 9 === 0    // 8 medium ticks at 45° intervals
       const r1 = R - 2
       const r2 = isCardinal ? R - 18 : isMajor ? R - 11 : R - 6
       ctx.beginPath()
@@ -55,8 +55,8 @@ export default function About({ onBack }) {
       ctx.strokeStyle = isCardinal
         ? 'rgba(200,168,80,0.65)'
         : isMajor
-        ? 'rgba(200,202,216,0.22)'
-        : 'rgba(200,202,216,0.08)'
+          ? 'rgba(200,202,216,0.22)'
+          : 'rgba(200,202,216,0.08)'
       ctx.lineWidth = isCardinal ? 1.5 : isMajor ? 0.8 : 0.5
       ctx.stroke()
     }
@@ -64,9 +64,9 @@ export default function About({ onBack }) {
     // ── Targeting arc segments at cardinal positions ───────────────
     const cardinalAngles = [0, Math.PI / 2, Math.PI, Math.PI * 1.5]
     cardinalAngles.forEach(base => {
-      const span  = Math.PI / 10
+      const span = Math.PI / 10
       const start = base - Math.PI / 2 - span / 2
-      const end   = base - Math.PI / 2 + span / 2
+      const end = base - Math.PI / 2 + span / 2
       ctx.beginPath()
       ctx.arc(cx, cy, R - 22, start, end)
       ctx.strokeStyle = 'rgba(200,168,80,0.25)'
@@ -76,11 +76,11 @@ export default function About({ onBack }) {
 
     // ── Diamond markers at cardinal positions ──────────────────────
     cardinalAngles.forEach((base, idx) => {
-      const a  = base - Math.PI / 2
-      const r  = R - 30
+      const a = base - Math.PI / 2
+      const r = R - 30
       const dx = cx + Math.cos(a) * r
       const dy = cy + Math.sin(a) * r
-      const s  = 3.5
+      const s = 3.5
       ctx.save()
       ctx.translate(dx, dy)
       ctx.rotate(base)
@@ -137,27 +137,27 @@ export default function About({ onBack }) {
 
         {/* ── Left: headshot frame + socials below ─────────────── */}
         <div id="obs-left">
-        <div id="obs-frame">
-          {/* Solar halo glow behind the frame */}
-          <div id="obs-solar-halo" />
+          <div id="obs-frame">
+            {/* Solar halo glow behind the frame */}
+            <div id="obs-solar-halo" />
 
-          {/* Degree-tick ring drawn on canvas */}
-          <canvas ref={canvasRef} id="obs-canvas" />
+            {/* Degree-tick ring drawn on canvas */}
+            <canvas ref={canvasRef} id="obs-canvas" />
 
-          {/* Decorative ring borders */}
-          <div id="obs-ring" />
-          <div id="obs-ring-inner" />
+            {/* Decorative ring borders */}
+            <div id="obs-ring" />
+            <div id="obs-ring-inner" />
 
-          {/* Iris aperture — reveals headshot on open */}
-          <div ref={apertureRef} id="obs-aperture">
-            <img
-              id="obs-headshot"
-              src={profileImg}
-              alt="Courtney Green"
-            />
+            {/* Iris aperture — reveals headshot on open */}
+            <div ref={apertureRef} id="obs-aperture">
+              <img
+                id="obs-headshot"
+                src={profileImg}
+                alt="Courtney Green"
+              />
+            </div>
+
           </div>
-
-        </div>
 
         </div>
 
@@ -187,7 +187,7 @@ export default function About({ onBack }) {
           </div>
 
           <div id="obs-bio">
-            I'm a data scientist and policy analyst based in Washington, D.C., finishing my M.S. in Data Science &amp; Analytics at Georgetown this spring. I think the most interesting part of any analysis is what you do with it after. This year I've been scraping live election results for the Associated Press and working as a Scholars Program Associate at Georgetown's Prisons and Justice Initiative, and this summer I'm joining Guidehouse as a Tech, Data &amp; AI Consultant. I've always been the kind of person who can't quite call something finished. There's always one more question worth asking.
+            I'm a data scientist and policy analyst based in Washington, D.C., finishing my M.S. in Data Science &amp; Analytics at Georgetown this spring.  I think the most interesting part of any analysis is what you do with it afterward. This year, I've been scraping live election results for the Associated Press and working as a Scholars Program Associate at Georgetown's Prisons and Justice Initiative, and this summer I'm joining Guidehouse as a Tech, Data & AI Consultant. I've always been the kind of person who can't quite call something finished. There's always one more question worth asking.
           </div>
         </div>
       </div>
