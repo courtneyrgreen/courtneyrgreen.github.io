@@ -274,13 +274,13 @@
   font-family: 'Karla', sans-serif;
   font-size: 9px;
   letter-spacing: 0.28em;
-  color: rgba(100, 148, 255, 0.35);
+  color: rgba(100, 200, 255, 0.75);
   text-transform: uppercase;
   text-decoration: none;
   transition: color 0.3s;
 }
 
-.ctc-link:hover { color: rgba(188, 218, 255, 0.85); }
+.ctc-link:hover { color: rgba(160, 230, 255, 1); }
 
 .ctc-sep {
   color: rgba(72, 100, 200, 0.22);
