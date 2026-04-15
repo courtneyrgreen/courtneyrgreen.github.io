@@ -52,7 +52,7 @@ export const PROJECTS = [
     linkLabel:  'View Analysis',
     link2:      'https://github.com/courtneyrgreen/maternal_health',
     link2Label: 'View Repository',
-    img:        '/maternal_health/maternal_health.png',
+    img:        '/mhealth/preview.png',
     imgFit:     'contain',
     imgBg:      '#ffffff',
     wip:        false,
