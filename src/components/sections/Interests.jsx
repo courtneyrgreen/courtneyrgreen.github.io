@@ -4,15 +4,15 @@ import '../../styles/sections/Interests.css'
 const INTERESTS = [
   {
     id: 'spin', name: 'The Cyclist', short: 'Move', freq: '91.5',
-    note: "SoulCycle, three times a week, over 200 rides in. I'm a group workout person: other people's energy is what keeps me going. Left to my own devices I will absolutely give up early. The darkness and the music blasting at full volume don't hurt either.",
+    note: "I'm a SoulCycle (spin class) regular with 200+ rides under my belt. I try to hit the Georgetown or Clarendon studios three times a week. The shared energy of a group workout is a huge motivator for me, especially with the dark room and the volume turned up.",
   },
   {
     id: 'maker', name: 'The Maker', short: 'Make', freq: '97.3',
-    note: "Childhood food allergies got me into the kitchen and I've been there ever since. For me, cooking is creativity meeting intuition: experimentation, adaptability, and making something worth sharing. Outside of that: embroidery, scrapbooking, gift making, nails, web design (building this portfolio has been genuinely fun), and yes, a lot of unfinished projects.",
+    note: "My food allergies as a child got me interested in cooking, and I've loved it ever since. For me, it's about being creative and following my instincts, trying new things, adjusting, and making food I'm excited to share. When I'm not cooking, I enjoy embroidery, scrapbooking, making gifts, doing nails, and web design. Putting together this portfolio has been really fun, and just another way for me to channel my creativity.",
   },
   {
     id: 'scholar', name: 'The Scholar', short: 'Learn', freq: '102.9',
-    note: "I find European monarchal history (the Tudors, the succession crises, the absolute chaos of it all) genuinely fascinating. For US history, I'm particularly drawn to the social movements of the 60s and 70s. Also the New Deal. On the astronomy and astrology front: sure, one is scientific and the other is vibes, but I respect both equally. I've also been learning tarot for a couple of years.",
+    note: "I really like learning about European monarchical history—especially the Tudors, all those succession crises, and the general chaos of it all. In US history, I'm most interested in the social movements of the 60s and 70s, and the New Deal. Watching how people and societies shift and adapt over time always keeps me curious.<br><br>I like picking up new things and digging into different subjects; right now, that includes astronomy and astrology. I know one is science and the other is intuition, but I enjoy both for different reasons. I've also been learning tarot for a while, and it's become a nice way to unwind and think about things from new angles.",
   },
   {
     id: 'games', name: 'The Gamer', short: 'Play', freq: '107.5',

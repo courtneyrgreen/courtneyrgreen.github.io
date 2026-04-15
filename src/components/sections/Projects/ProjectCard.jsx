@@ -21,24 +21,20 @@ export default function ProjectCard({ project, onClose }) {
       <div id="project-card" className={isOpen ? 'open' : ''}>
         {isOpen && (
           <>
-            <button id="project-card-close" onClick={onClose}>
-              Close
-            </button>
-
-            <div id="project-card-img">
-              {project.imgs
-                ? (
-                  <div className="pc-img-grid" style={{ '--pc-img-count': project.imgs.length }}>
-                    {project.imgs.map((src, i) => (
-                      <img key={i} src={src} alt={`${project.label} figure ${i + 1}`} />
-                    ))}
-                  </div>
-                )
-                : project.img
-                  ? <img src={project.img} alt={project.label} />
-                  : <div className="img-placeholder">{project.label}</div>
-              }
-            </div>
+            {(project.img || project.imgs) && (
+              <div id="project-card-img" style={project.imgBg ? { background: project.imgBg } : {}}>
+                {project.imgs
+                  ? (
+                    <div className="pc-img-grid" style={{ '--pc-img-count': project.imgs.length }}>
+                      {project.imgs.map((src, i) => (
+                        <img key={i} src={src} alt={`${project.label} figure ${i + 1}`} />
+                      ))}
+                    </div>
+                  )
+                  : <img src={project.img} alt={project.label} style={{ objectFit: project.imgFit || 'cover', objectPosition: project.imgPosition || 'center' }} />
+                }
+              </div>
+            )}
 
             <div id="project-card-body">
               <div id="project-card-eyebrow">

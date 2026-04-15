@@ -1,5 +1,5 @@
 // ── true in production builds, false in dev — flip to false to launch ──
-const MAINTENANCE = import.meta.env.PROD
+const MAINTENANCE = false
 
 import { AppProvider, useApp } from './context/AppContext.jsx'
 import StarField from './components/StarField.jsx'
