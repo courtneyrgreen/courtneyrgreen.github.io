@@ -131,8 +131,53 @@ function Maintenance() {
   )
 }
 
+function MobileBlock() {
+  return (
+    <>
+      <StarField />
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 99,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        gap: '18px', textAlign: 'center', padding: '0 32px',
+      }}>
+        <div style={{
+          fontFamily: "'Cinzel', serif",
+          fontSize: 'clamp(11px, 1.6vmin, 14px)',
+          letterSpacing: '0.45em',
+          color: 'rgba(200,168,80,0.55)',
+          textTransform: 'uppercase',
+        }}>
+          Courtney Green
+        </div>
+        <div style={{
+          fontFamily: "'Cinzel', serif",
+          fontSize: 'clamp(16px, 5vw, 26px)',
+          letterSpacing: '0.2em',
+          color: 'rgba(232,240,255,0.88)',
+          textTransform: 'uppercase',
+        }}>
+          Desktop Only
+        </div>
+        <div style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: 'italic',
+          fontSize: 'clamp(13px, 3.5vw, 17px)',
+          letterSpacing: '0.08em',
+          color: 'rgba(138,143,168,0.65)',
+          maxWidth: '280px',
+          lineHeight: 1.6,
+        }}>
+          This site isn't optimized for mobile yet. Please visit on a desktop or laptop for the full experience.
+        </div>
+      </div>
+    </>
+  )
+}
+
 export default function App() {
   if (MAINTENANCE) return <Maintenance />
+  if (window.innerWidth < 768) return <MobileBlock />
   return (
     <AppProvider>
       <AppInner />
