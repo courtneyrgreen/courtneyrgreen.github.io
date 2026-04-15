@@ -87,7 +87,7 @@ export const PROJECTS = [
   {
     id:         'voter',
     label:      'Voter Turnout',
-    eyebrow:    'Applied Research · 2024',
+    eyebrow:    'Applied Research · 2025',
     title:      'Machine Learning Models for County-Level Analysis of Voter Turnout and Partisan Lean in the 2024 U.S. Presidential Election',
     desc:       'Partial election results can be used to call the winner of an election before all votes have been counted. Linear regression methods and an artificial neural network were trained on election and demographic data to predict the Democratic vote share and total turnout in various counties for the 2024 election. To simulate a scenario where partial returns are used to predict final election results, the test set was manually selected to be counties in states in the western United States that report their results later in the night. The best-performing model correctly predicted the winner of each state in the test set. Additionally, random forest models achieved high accuracy in predicting whether a county in the test set would vote for a Democrat or have above-average voter turnout.',
     tags:       ['Python', 'Random Forest', 'Neural Networks', 'Linear Regression', 'Electoral Data', 'Supervised Learning'],
