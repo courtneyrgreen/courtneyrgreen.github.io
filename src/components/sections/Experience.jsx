@@ -351,7 +351,6 @@ export default function Experience({ onBack }) {
       </div>
 
       <div id="exp-patch-area">
-        <div className="patch-bay-label">Select a mission patch</div>
         <div className="patch-grid">
           {allEntries.map((e, i) => (
             <button
@@ -380,6 +379,7 @@ export default function Experience({ onBack }) {
             </div>
           ))}
         </div>
+        <div className="patch-bay-label">Select a mission patch</div>
       </div>
 
       {selected !== null && entry && (
