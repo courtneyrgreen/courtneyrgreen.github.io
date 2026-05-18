@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import '../../styles/sections/Experience.css'
 
 const EDU_ENTRIES = [
@@ -104,11 +104,23 @@ function PatchIcon({ id, size = 38 }) {
   switch (id) {
     case 'gu': return (
       <svg {...p}>
-        <polygon points="16,6 28,12 16,18 4,12" fill="rgba(100,160,240,0.8)" stroke="rgba(140,190,255,0.6)" strokeWidth="0.8"/>
-        <rect x="10" y="17" width="12" height="7" rx="1" fill="rgba(80,130,210,0.7)" stroke="rgba(120,170,240,0.5)" strokeWidth="0.7"/>
-        <line x1="25" y1="12" x2="25" y2="20" stroke="rgba(140,190,255,0.6)" strokeWidth="1.2"/>
-        <circle cx="25" cy="21" r="1.5" fill="rgba(210,182,88,0.85)"/>
-        <line x1="16" y1="18" x2="16" y2="24" stroke="rgba(120,170,240,0.5)" strokeWidth="0.8" strokeDasharray="2 1.5"/>
+        {/* Cap board — wide diamond */}
+        <polygon points="16,4 30,11 16,18 2,11"
+          fill="rgba(100,160,240,0.68)" stroke="rgba(150,195,255,0.7)" strokeWidth="0.9" strokeLinejoin="round"/>
+        {/* Crown — trapezoid visible below board */}
+        <path d="M11,11 L21,11 L20,18 L12,18 Z"
+          fill="rgba(55,105,195,0.6)" stroke="rgba(110,165,240,0.3)" strokeWidth="0.5"/>
+        {/* Board top-right edge highlight */}
+        <line x1="16" y1="4" x2="30" y2="11" stroke="rgba(190,220,255,0.4)" strokeWidth="0.5"/>
+        {/* Center button */}
+        <circle cx="16" cy="11" r="2" fill="rgba(210,182,88,0.92)" stroke="rgba(235,205,110,0.45)" strokeWidth="0.4"/>
+        {/* Tassel cord */}
+        <line x1="16" y1="11" x2="24" y2="11" stroke="rgba(210,182,88,0.58)" strokeWidth="0.9"/>
+        <line x1="24" y1="11" x2="24" y2="20" stroke="rgba(210,182,88,0.58)" strokeWidth="0.9"/>
+        {/* Tassel strands */}
+        <line x1="22" y1="20" x2="21.5" y2="25" stroke="rgba(210,182,88,0.5)" strokeWidth="0.8"/>
+        <line x1="24" y1="20" x2="24"   y2="25" stroke="rgba(210,182,88,0.5)" strokeWidth="0.8"/>
+        <line x1="26" y1="20" x2="26.5" y2="25" stroke="rgba(210,182,88,0.5)" strokeWidth="0.8"/>
       </svg>
     )
     case 'uva': return (
@@ -143,24 +155,22 @@ function PatchIcon({ id, size = 38 }) {
     )
     case 'pji': return (
       <svg {...p}>
-        {/* Outer glow ring */}
-        <circle cx="16" cy="16" r="12" fill="none" stroke="rgba(100,140,225,0.15)" strokeWidth="0.8"/>
-        {/* Radiating light lines */}
-        <line x1="16" y1="2"  x2="16" y2="5"  stroke="rgba(100,140,225,0.35)" strokeWidth="0.8"/>
-        <line x1="24" y1="4"  x2="22" y2="6"  stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
-        <line x1="28" y1="12" x2="25" y2="13" stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
-        <line x1="8"  y1="4"  x2="10" y2="6"  stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
-        <line x1="4"  y1="12" x2="7"  y2="13" stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
-        {/* Head */}
-        <circle cx="16" cy="8" r="2.6" fill="rgba(100,140,225,0.75)" stroke="rgba(130,165,245,0.6)" strokeWidth="0.7"/>
-        {/* Body */}
-        <line x1="16" y1="10.6" x2="16" y2="19" stroke="rgba(100,140,225,0.7)" strokeWidth="1.5" strokeLinecap="round"/>
-        {/* Arms raised in V */}
-        <line x1="16" y1="13" x2="9"  y2="9"  stroke="rgba(100,140,225,0.8)" strokeWidth="1.4" strokeLinecap="round"/>
-        <line x1="16" y1="13" x2="23" y2="9"  stroke="rgba(100,140,225,0.8)" strokeWidth="1.4" strokeLinecap="round"/>
-        {/* Legs */}
-        <line x1="16" y1="19" x2="12" y2="26" stroke="rgba(100,140,225,0.65)" strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="16" y1="19" x2="20" y2="26" stroke="rgba(100,140,225,0.65)" strokeWidth="1.2" strokeLinecap="round"/>
+        {/* Base */}
+        <rect x="13" y="27" width="6" height="1.5" rx="0.75" fill="rgba(100,140,225,0.55)"/>
+        {/* Pole */}
+        <line x1="16" y1="8" x2="16" y2="28" stroke="rgba(100,140,225,0.62)" strokeWidth="1.4" strokeLinecap="round"/>
+        {/* Top ornament */}
+        <circle cx="16" cy="7.5" r="1.6" fill="rgba(100,140,225,0.78)" stroke="rgba(140,175,255,0.55)" strokeWidth="0.5"/>
+        {/* Beam */}
+        <line x1="5" y1="12" x2="27" y2="12" stroke="rgba(130,165,245,0.78)" strokeWidth="1.3" strokeLinecap="round"/>
+        {/* Left chain */}
+        <line x1="6" y1="12" x2="6" y2="21" stroke="rgba(100,140,225,0.45)" strokeWidth="0.85"/>
+        {/* Right chain */}
+        <line x1="26" y1="12" x2="26" y2="21" stroke="rgba(100,140,225,0.45)" strokeWidth="0.85"/>
+        {/* Left pan */}
+        <path d="M3,21 Q6,25.5 9,21" fill="rgba(100,140,225,0.1)" stroke="rgba(110,155,235,0.72)" strokeWidth="1.1" strokeLinecap="round"/>
+        {/* Right pan */}
+        <path d="M23,21 Q26,25.5 29,21" fill="rgba(100,140,225,0.1)" stroke="rgba(110,155,235,0.72)" strokeWidth="1.1" strokeLinecap="round"/>
       </svg>
     )
     case 'gh': return (
@@ -217,9 +227,7 @@ function Detail({ entry }) {
           </div>
         </div>
         <div className="ed-role">{entry.role}</div>
-        <div className={`ed-status ${entry.active ? 'active' : 'complete'}`}>
-          {entry.active ? '● Active' : '✓ Complete'}
-        </div>
+        {entry.active && <div className="ed-status active">● Active</div>}
         <div className="ed-meta-row">
           <span>{entry.dates}</span>
           {entry.location && <span>{entry.location}</span>}
@@ -284,9 +292,9 @@ function Detail({ entry }) {
 }
 
 export default function Experience({ onBack }) {
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(null)
   const allEntries = [...EDU_ENTRIES, ...WORK_ENTRIES]
-  const entry = allEntries[selected]
+  const entry = selected !== null ? allEntries[selected] : null
   const circleRefs = useRef([])
 
   const handlePatchEnter = useCallback((i) => {
@@ -296,43 +304,55 @@ export default function Experience({ onBack }) {
     el.addEventListener('animationend', () => el.classList.remove('spinning'), { once: true })
   }, [])
 
+  const closeModal = useCallback(() => setSelected(null), [])
+
+  useEffect(() => {
+    if (selected === null) return
+    const onKey = (e) => { if (e.key === 'Escape') setSelected(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [selected])
+
   return (
     <div id="exp-layer">
 
       <div id="exp-hdr">
-        <div id="exp-eyebrow">Earth &nbsp;·&nbsp; Mission Log</div>
+        <div id="exp-eyebrow">Mission Patch Collection</div>
         <h1 id="exp-title">Experience</h1>
       </div>
 
-      <div id="exp-panels">
-
-        <div id="exp-patch-bay">
-          <div className="patch-bay-label">Mission Patch Collection</div>
-          <div className="patch-grid">
-            {allEntries.map((e, i) => (
-              <button
-                key={e.id}
-                className={`patch-btn${selected === i ? ' active' : ''}`}
-                style={{ '--pac': e.ac }}
-                onClick={() => setSelected(i)}
-                onMouseEnter={() => handlePatchEnter(i)}
+      <div id="exp-patch-area">
+        <div className="patch-bay-label">Select a mission patch</div>
+        <div className="patch-grid">
+          {allEntries.map((e, i) => (
+            <button
+              key={e.id}
+              className={`patch-btn${selected === i ? ' active' : ''}`}
+              style={{ '--pac': e.ac }}
+              onClick={() => setSelected(i)}
+              onMouseEnter={() => handlePatchEnter(i)}
+            >
+              <div
+                className="patch-circle"
+                ref={el => { circleRefs.current[i] = el }}
               >
-                <div
-                  className="patch-circle"
-                  ref={el => { circleRefs.current[i] = el }}
-                >
-                  <PatchIcon id={e.id} size={38} />
-                </div>
-                <span className="patch-name-label">{e.patchName}</span>
-                <span className="patch-mission-num">M·{String(i + 1).padStart(2, '0')}</span>
-              </button>
-            ))}
+                <PatchIcon id={e.id} size={38} />
+              </div>
+              <span className="patch-name-label">{e.patchName}</span>
+              <span className="patch-mission-num">M·{String(i + 1).padStart(2, '0')}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {selected !== null && entry && (
+        <div id="exp-modal-overlay" onClick={closeModal}>
+          <div id="exp-modal-box" style={{ '--ed-ac': entry.ac }} onClick={e => e.stopPropagation()}>
+            <button id="exp-modal-close" onClick={closeModal}>✕</button>
+            <Detail key={entry.id} entry={entry} />
           </div>
         </div>
-
-        <Detail key={entry.id} entry={entry} />
-
-      </div>
+      )}
 
       <button className="sec-back-btn" onClick={onBack}>← Solar System</button>
     </div>
