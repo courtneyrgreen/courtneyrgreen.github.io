@@ -21,29 +21,29 @@
 
 #exp-eyebrow {
   font-family: 'Karla', sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(210,182,88,0.65);
-  margin-bottom: 8px;
+  color: rgba(210,182,88,0.72);
+  margin-bottom: 10px;
 }
 
 #exp-title {
   font-family: 'Cinzel', serif;
-  font-size: 30px;
+  font-size: 42px;
   font-weight: 400;
   letter-spacing: 0.18em;
-  color: rgba(230,238,255,0.90);
+  color: rgba(230,238,255,0.92);
   margin: 0;
 }
 
-/* ── Patch area (centered in remaining space) ── */
+/* ── Patch area ── */
 #exp-patch-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 18px;
   padding: 24px 20px 0;
   border-top: 1px solid rgba(180,170,220,0.10);
@@ -56,16 +56,34 @@
   font-size: 7px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: rgba(210,182,88,0.45);
+  color: rgba(210,182,88,0.72);
   text-align: center;
 }
 
 .patch-grid {
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 18px;
   flex-wrap: wrap;
+}
+
+.patch-grid::after {
+  content: '';
+  position: absolute;
+  top: 46px;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(180,170,220,0.18) 6%,
+    rgba(180,170,220,0.18) 94%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .patch-btn {
@@ -77,11 +95,13 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .patch-circle {
-  width: 75px;
-  height: 75px;
+  width: 92px;
+  height: 92px;
   border-radius: 50%;
   position: relative;
   display: flex;
@@ -136,25 +156,36 @@
 
 .patch-name-label {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 6.5px;
+  font-size: 7px;
   letter-spacing: 0.12em;
-  color: rgba(180,170,220,0.32);
+  color: rgba(200,195,235,0.72);
   text-align: center;
-  max-width: 78px;
+  max-width: 96px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-transform: uppercase;
 }
-.patch-btn.active .patch-name-label { color: rgba(210,182,88,0.7); }
+.patch-btn.active .patch-name-label { color: rgba(210,182,88,0.85); }
 
 .patch-mission-num {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 6px;
-  color: rgba(180,170,220,0.2);
+  color: rgba(180,170,220,0.38);
   letter-spacing: 0.1em;
 }
-.patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.45); }
+.patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.55); }
+
+.patch-tl-date {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 5.5px;
+  color: rgba(180,170,220,0.35);
+  letter-spacing: 0.06em;
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+.patch-btn.active .patch-tl-date { color: rgba(var(--pac), 0.5); }
 
 /* ── Detail (inside modal) ── */
 #exp-detail {

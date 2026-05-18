@@ -3,7 +3,7 @@ import '../../styles/sections/Experience.css'
 
 const EDU_ENTRIES = [
   {
-    id: 'gu', ac: '100,160,240',
+    id: 'gu', ac: '100,160,240', tl: '2024–2026',
     patchName: 'Georgetown',
     tag: 'Education · Georgetown University',
     org: 'Georgetown University',
@@ -22,7 +22,7 @@ const EDU_ENTRIES = [
     coursework: ['Probabilistic Modeling & Statistical Computing', 'Neural Networks & Advanced Deep Learning', 'Reinforcement Learning', 'Advanced Data Visualization', 'Statistical Learning for Analysis', 'Database Systems & SQL', 'Big Data & Cloud Computing', 'Machine Learning for App Development', 'Causal Inference for Computational Social Science'],
   },
   {
-    id: 'uva', ac: '200,80,60',
+    id: 'uva', ac: '200,80,60', tl: '2020–2024',
     patchName: 'Virginia',
     tag: 'Education · University of Virginia',
     org: 'University of Virginia',
@@ -38,7 +38,7 @@ const EDU_ENTRIES = [
 
 const WORK_ENTRIES = [
   {
-    id: 'ap', ac: '195,90,80', active: true,
+    id: 'ap', ac: '195,90,80', active: true, tl: '2025–now',
     patchName: 'Assoc. Press',
     tag: 'Work · The Associated Press',
     org: 'The Associated Press', sub: 'Remote',
@@ -48,7 +48,7 @@ const WORK_ENTRIES = [
     skills: ['Python', 'Web Scraping', 'BeautifulSoup', 'Data Verification', 'Real-Time Monitoring'],
   },
   {
-    id: 'pji', ac: '100,140,225',
+    id: 'pji', ac: '100,140,225', tl: '2024–2026',
     patchName: 'GU · PJI',
     tag: 'Work · Georgetown PJI',
     org: 'Georgetown Prisons and Justice Initiative', sub: 'Washington, D.C.',
@@ -58,7 +58,7 @@ const WORK_ENTRIES = [
     skills: ['Data Analysis', 'Database Design', 'Performance Metrics', 'Data Visualization', 'Program Evaluation'],
   },
   {
-    id: 'gh', ac: '80,205,100',
+    id: 'gh', ac: '80,205,100', tl: '2025',
     patchName: 'Guidehouse',
     tag: 'Work · Guidehouse',
     org: 'Guidehouse', sub: 'Arlington, VA',
@@ -68,7 +68,7 @@ const WORK_ENTRIES = [
     skills: ['R', 'ARIMA', 'Random Forest', 'Predictive Modeling', 'CMIP6', 'Excel', 'Power BI', 'CDP', 'Climate Risk'],
   },
   {
-    id: 'evgo', ac: '60,195,215',
+    id: 'evgo', ac: '60,195,215', tl: '2024',
     patchName: 'EVgo',
     tag: 'Work · EVgo',
     org: 'EVgo', sub: 'Los Angeles, CA',
@@ -78,7 +78,7 @@ const WORK_ENTRIES = [
     skills: ['Policy Research', 'Energy Policy', 'Data Analysis', 'Excel', 'Regulatory Analysis', 'Cross-functional Collaboration'],
   },
   {
-    id: 'vox', ac: '80,185,205',
+    id: 'vox', ac: '80,185,205', tl: '2023',
     patchName: 'VOX Global',
     tag: 'Work · VOX Global',
     org: 'VOX Global', sub: 'Washington, D.C.',
@@ -88,7 +88,7 @@ const WORK_ENTRIES = [
     skills: ['Excel', 'Tableau', 'CSR Analysis', 'Media Strategy', 'Stakeholder Engagement', 'Report Writing'],
   },
   {
-    id: 'ms', ac: '80,195,95',
+    id: 'ms', ac: '80,195,95', tl: '2021–2022',
     patchName: 'Mindset',
     tag: 'Work · Mindset',
     org: 'Mindset', sub: 'Washington, D.C.',
@@ -293,7 +293,16 @@ function Detail({ entry }) {
 
 export default function Experience({ onBack }) {
   const [selected, setSelected] = useState(null)
-  const allEntries = [...EDU_ENTRIES, ...WORK_ENTRIES]
+  const allEntries = [
+    WORK_ENTRIES.find(e => e.id === 'ap'),
+    EDU_ENTRIES.find(e => e.id === 'gu'),
+    WORK_ENTRIES.find(e => e.id === 'pji'),
+    WORK_ENTRIES.find(e => e.id === 'gh'),
+    EDU_ENTRIES.find(e => e.id === 'uva'),
+    WORK_ENTRIES.find(e => e.id === 'evgo'),
+    WORK_ENTRIES.find(e => e.id === 'vox'),
+    WORK_ENTRIES.find(e => e.id === 'ms'),
+  ]
   const entry = selected !== null ? allEntries[selected] : null
   const circleRefs = useRef([])
 
@@ -336,10 +345,11 @@ export default function Experience({ onBack }) {
                 className="patch-circle"
                 ref={el => { circleRefs.current[i] = el }}
               >
-                <PatchIcon id={e.id} size={38} />
+                <PatchIcon id={e.id} size={46} />
               </div>
               <span className="patch-name-label">{e.patchName}</span>
               <span className="patch-mission-num">M·{String(i + 1).padStart(2, '0')}</span>
+              <span className="patch-tl-date">{e.tl}</span>
             </button>
           ))}
         </div>
