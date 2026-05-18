@@ -37,10 +37,10 @@
   margin: 0;
 }
 
-/* ── Two-panel layout ── */
+/* ── Stacked layout: patch strip on top, detail below ── */
 #exp-panels {
-  display: grid;
-  grid-template-columns: 300px 1fr;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 1060px;
   flex: 1;
@@ -48,16 +48,19 @@
   border-top: 1px solid rgba(180,170,220,0.10);
 }
 
-/* ── Patch bay (left sidebar) ── */
+/* ── Patch strip (horizontal top row) ── */
 #exp-patch-bay {
-  border-right: 1px solid rgba(180,170,220,0.08);
-  overflow-y: auto;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(180,170,220,0.08);
+  overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(180,170,220,0.10) transparent;
-  padding: 18px 10px 24px;
+  padding: 16px 24px 14px;
+  background: rgba(180,170,220,0.012);
 }
 
-#exp-patch-bay::-webkit-scrollbar { width: 4px; }
+#exp-patch-bay::-webkit-scrollbar { height: 3px; }
 #exp-patch-bay::-webkit-scrollbar-thumb { background: rgba(180,170,220,0.12); border-radius: 2px; }
 
 .patch-bay-label {
@@ -67,14 +70,14 @@
   text-transform: uppercase;
   color: rgba(210,182,88,0.45);
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .patch-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px 6px;
-  justify-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 16px;
 }
 
 .patch-btn {
@@ -165,12 +168,14 @@
 }
 .patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.45); }
 
-/* ── Right detail ── */
+/* ── Detail panel (full-width below strip) ── */
 #exp-detail {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(180,170,220,0.10) transparent;
-  padding: 36px 48px 60px;
+  padding: 32px 60px 60px;
 }
 
 #exp-detail::-webkit-scrollbar { width: 4px; }
@@ -242,6 +247,29 @@
   font-family: 'Karla', sans-serif;
   margin-bottom: 8px;
 }
+.ed-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+.ed-status.active {
+  color: rgba(80,220,120,0.9);
+  background: rgba(80,220,120,0.07);
+  border: 1px solid rgba(80,220,120,0.22);
+}
+.ed-status.complete {
+  color: rgba(180,170,220,0.4);
+  background: rgba(180,170,220,0.04);
+  border: 1px solid rgba(180,170,220,0.1);
+}
+
 .ed-meta-row {
   display: flex;
   gap: 24px;

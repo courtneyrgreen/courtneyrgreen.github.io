@@ -48,7 +48,7 @@ const WORK_ENTRIES = [
     skills: ['Python', 'Web Scraping', 'BeautifulSoup', 'Data Verification', 'Real-Time Monitoring'],
   },
   {
-    id: 'pji', ac: '100,140,225', active: true,
+    id: 'pji', ac: '100,140,225',
     patchName: 'GU · PJI',
     tag: 'Work · Georgetown PJI',
     org: 'Georgetown Prisons and Justice Initiative', sub: 'Washington, D.C.',
@@ -113,11 +113,22 @@ function PatchIcon({ id, size = 38 }) {
     )
     case 'uva': return (
       <svg {...p}>
-        <path d="M4,24 L6,14 Q16,4 26,14 L28,24" fill="rgba(200,80,60,0.3)" stroke="rgba(220,110,90,0.7)" strokeWidth="1"/>
-        <rect x="4" y="23" width="24" height="3" rx="0.5" fill="rgba(200,80,60,0.7)" stroke="rgba(220,110,90,0.5)" strokeWidth="0.6"/>
-        <rect x="8" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
-        <rect x="14.5" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
-        <rect x="21" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+        {/* Dome */}
+        <path d="M6,14 Q6,4 16,4 Q26,4 26,14 Z" fill="rgba(200,80,60,0.2)" stroke="rgba(220,110,90,0.75)" strokeWidth="1.1"/>
+        {/* Dome oculus window */}
+        <circle cx="16" cy="9" r="1.8" fill="none" stroke="rgba(220,110,90,0.55)" strokeWidth="0.7"/>
+        {/* Drum */}
+        <rect x="10" y="13" width="12" height="3" fill="rgba(200,80,60,0.15)" stroke="rgba(220,110,90,0.45)" strokeWidth="0.7"/>
+        {/* Entablature */}
+        <rect x="5" y="16" width="22" height="2.5" fill="rgba(200,80,60,0.5)" stroke="rgba(220,110,90,0.5)" strokeWidth="0.6"/>
+        {/* 4 columns */}
+        <rect x="7"    y="18.5" width="2.5" height="7" rx="0.5" fill="rgba(200,80,60,0.58)"/>
+        <rect x="12"   y="18.5" width="2.5" height="7" rx="0.5" fill="rgba(200,80,60,0.58)"/>
+        <rect x="17"   y="18.5" width="2.5" height="7" rx="0.5" fill="rgba(200,80,60,0.58)"/>
+        <rect x="22"   y="18.5" width="2.5" height="7" rx="0.5" fill="rgba(200,80,60,0.58)"/>
+        {/* Steps */}
+        <rect x="4" y="25.5" width="24" height="2"   fill="rgba(200,80,60,0.42)" stroke="rgba(220,110,90,0.3)" strokeWidth="0.5"/>
+        <rect x="2" y="27.5" width="28" height="2.5" fill="rgba(200,80,60,0.35)" stroke="rgba(220,110,90,0.25)" strokeWidth="0.5"/>
       </svg>
     )
     case 'ap': return (
@@ -132,12 +143,24 @@ function PatchIcon({ id, size = 38 }) {
     )
     case 'pji': return (
       <svg {...p}>
-        <line x1="16" y1="6" x2="16" y2="26" stroke="rgba(100,140,225,0.6)" strokeWidth="1.2"/>
-        <line x1="7" y1="12" x2="25" y2="12" stroke="rgba(100,140,225,0.7)" strokeWidth="1"/>
-        <circle cx="16" cy="9" r="1.8" fill="rgba(100,140,225,0.8)"/>
-        <path d="M7,12 L5,18 Q7,21 9,18 L11,12" stroke="rgba(100,140,225,0.65)" strokeWidth="0.9" fill="rgba(100,140,225,0.1)"/>
-        <path d="M21,12 L19,18 Q21,21 23,18 L25,12" stroke="rgba(100,140,225,0.65)" strokeWidth="0.9" fill="rgba(100,140,225,0.1)"/>
-        <rect x="13.5" y="24" width="5" height="2" rx="0.5" fill="rgba(100,140,225,0.6)"/>
+        {/* Outer glow ring */}
+        <circle cx="16" cy="16" r="12" fill="none" stroke="rgba(100,140,225,0.15)" strokeWidth="0.8"/>
+        {/* Radiating light lines */}
+        <line x1="16" y1="2"  x2="16" y2="5"  stroke="rgba(100,140,225,0.35)" strokeWidth="0.8"/>
+        <line x1="24" y1="4"  x2="22" y2="6"  stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
+        <line x1="28" y1="12" x2="25" y2="13" stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
+        <line x1="8"  y1="4"  x2="10" y2="6"  stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
+        <line x1="4"  y1="12" x2="7"  y2="13" stroke="rgba(100,140,225,0.28)" strokeWidth="0.8"/>
+        {/* Head */}
+        <circle cx="16" cy="8" r="2.6" fill="rgba(100,140,225,0.75)" stroke="rgba(130,165,245,0.6)" strokeWidth="0.7"/>
+        {/* Body */}
+        <line x1="16" y1="10.6" x2="16" y2="19" stroke="rgba(100,140,225,0.7)" strokeWidth="1.5" strokeLinecap="round"/>
+        {/* Arms raised in V */}
+        <line x1="16" y1="13" x2="9"  y2="9"  stroke="rgba(100,140,225,0.8)" strokeWidth="1.4" strokeLinecap="round"/>
+        <line x1="16" y1="13" x2="23" y2="9"  stroke="rgba(100,140,225,0.8)" strokeWidth="1.4" strokeLinecap="round"/>
+        {/* Legs */}
+        <line x1="16" y1="19" x2="12" y2="26" stroke="rgba(100,140,225,0.65)" strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="16" y1="19" x2="20" y2="26" stroke="rgba(100,140,225,0.65)" strokeWidth="1.2" strokeLinecap="round"/>
       </svg>
     )
     case 'gh': return (
@@ -194,6 +217,9 @@ function Detail({ entry }) {
           </div>
         </div>
         <div className="ed-role">{entry.role}</div>
+        <div className={`ed-status ${entry.active ? 'active' : 'complete'}`}>
+          {entry.active ? '● Active' : '✓ Complete'}
+        </div>
         <div className="ed-meta-row">
           <span>{entry.dates}</span>
           {entry.location && <span>{entry.location}</span>}
