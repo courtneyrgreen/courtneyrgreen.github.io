@@ -23,7 +23,7 @@ const EDU_ENTRIES = [
   },
   {
     id: 'uva', ac: '200,80,60', tl: '2020–2024',
-    patchName: 'Virginia',
+    patchName: 'Univ. of Virginia',
     tag: 'Education · University of Virginia',
     org: 'University of Virginia',
     sub: 'Frank Batten School of Leadership & Public Policy',
@@ -104,23 +104,27 @@ function PatchIcon({ id, size = 38 }) {
   switch (id) {
     case 'gu': return (
       <svg {...p}>
-        {/* Cap board — wide diamond */}
-        <polygon points="16,4 30,11 16,18 2,11"
-          fill="rgba(100,160,240,0.68)" stroke="rgba(150,195,255,0.7)" strokeWidth="0.9" strokeLinejoin="round"/>
-        {/* Crown — trapezoid visible below board */}
-        <path d="M11,11 L21,11 L20,18 L12,18 Z"
-          fill="rgba(55,105,195,0.6)" stroke="rgba(110,165,240,0.3)" strokeWidth="0.5"/>
-        {/* Board top-right edge highlight */}
-        <line x1="16" y1="4" x2="30" y2="11" stroke="rgba(190,220,255,0.4)" strokeWidth="0.5"/>
-        {/* Center button */}
-        <circle cx="16" cy="11" r="2" fill="rgba(210,182,88,0.92)" stroke="rgba(235,205,110,0.45)" strokeWidth="0.4"/>
-        {/* Tassel cord */}
-        <line x1="16" y1="11" x2="24" y2="11" stroke="rgba(210,182,88,0.58)" strokeWidth="0.9"/>
-        <line x1="24" y1="11" x2="24" y2="20" stroke="rgba(210,182,88,0.58)" strokeWidth="0.9"/>
-        {/* Tassel strands */}
-        <line x1="22" y1="20" x2="21.5" y2="25" stroke="rgba(210,182,88,0.5)" strokeWidth="0.8"/>
-        <line x1="24" y1="20" x2="24"   y2="25" stroke="rgba(210,182,88,0.5)" strokeWidth="0.8"/>
-        <line x1="26" y1="20" x2="26.5" y2="25" stroke="rgba(210,182,88,0.5)" strokeWidth="0.8"/>
+        {/* Eagle body */}
+        <ellipse cx="16" cy="17" rx="3.5" ry="5" fill="rgba(100,160,240,0.7)" stroke="rgba(140,190,255,0.55)" strokeWidth="0.8"/>
+        {/* Head */}
+        <circle cx="16" cy="10.5" r="3" fill="rgba(100,160,240,0.8)" stroke="rgba(150,200,255,0.6)" strokeWidth="0.7"/>
+        {/* Beak */}
+        <path d="M18.5,11 L21,12.5 L18.5,13" fill="rgba(210,182,88,0.85)" stroke="none"/>
+        {/* Left wing */}
+        <path d="M12.5,15 Q6,11 3,13 Q5,17 10,17 Z" fill="rgba(100,160,240,0.65)" stroke="rgba(140,190,255,0.5)" strokeWidth="0.7"/>
+        {/* Right wing */}
+        <path d="M19.5,15 Q26,11 29,13 Q27,17 22,17 Z" fill="rgba(100,160,240,0.65)" stroke="rgba(140,190,255,0.5)" strokeWidth="0.7"/>
+        {/* Wing feather details — left */}
+        <line x1="9"  y1="13" x2="7"  y2="16" stroke="rgba(140,190,255,0.35)" strokeWidth="0.6"/>
+        <line x1="6"  y1="14" x2="5"  y2="16" stroke="rgba(140,190,255,0.28)" strokeWidth="0.6"/>
+        {/* Wing feather details — right */}
+        <line x1="23" y1="13" x2="25" y2="16" stroke="rgba(140,190,255,0.35)" strokeWidth="0.6"/>
+        <line x1="26" y1="14" x2="27" y2="16" stroke="rgba(140,190,255,0.28)" strokeWidth="0.6"/>
+        {/* Tail */}
+        <path d="M13.5,22 Q16,26 18.5,22" fill="rgba(100,160,240,0.5)" stroke="rgba(140,190,255,0.45)" strokeWidth="0.7"/>
+        {/* Talons */}
+        <line x1="14" y1="22" x2="12" y2="26" stroke="rgba(100,160,240,0.55)" strokeWidth="1" strokeLinecap="round"/>
+        <line x1="18" y1="22" x2="20" y2="26" stroke="rgba(100,160,240,0.55)" strokeWidth="1" strokeLinecap="round"/>
       </svg>
     )
     case 'uva': return (
@@ -363,7 +367,7 @@ export default function Experience({ onBack }) {
                 <PatchIcon id={e.id} size={46} />
               </div>
               <span className="patch-name-label">{e.patchName}</span>
-              <span className="patch-mission-num">M·{String(i + 1).padStart(2, '0')}</span>
+              <span className="patch-mission-num">M·{String(allEntries.length - i).padStart(2, '0')}</span>
             </button>
           ))}
         </div>
