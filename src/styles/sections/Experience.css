@@ -72,14 +72,14 @@
 .patch-grid::after {
   content: '';
   position: absolute;
-  top: 46px;
+  top: 94px;
   left: 6%;
   right: 6%;
   height: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(180,170,220,0.18) 6%,
-    rgba(180,170,220,0.18) 94%,
+    rgba(180,170,220,0.22) 6%,
+    rgba(180,170,220,0.22) 94%,
     transparent 100%
   );
   pointer-events: none;
@@ -156,9 +156,9 @@
 
 .patch-name-label {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 7px;
+  font-size: 8px;
   letter-spacing: 0.12em;
-  color: rgba(200,195,235,0.72);
+  color: rgba(215,210,248,0.88);
   text-align: center;
   max-width: 96px;
   overflow: hidden;
@@ -166,26 +166,26 @@
   white-space: nowrap;
   text-transform: uppercase;
 }
-.patch-btn.active .patch-name-label { color: rgba(210,182,88,0.85); }
+.patch-btn.active .patch-name-label { color: rgba(210,182,88,0.92); }
 
 .patch-mission-num {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 6px;
-  color: rgba(180,170,220,0.38);
+  font-size: 6.5px;
+  color: rgba(180,170,220,0.55);
   letter-spacing: 0.1em;
 }
-.patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.55); }
+.patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.65); }
 
 .patch-tl-date {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 5.5px;
-  color: rgba(180,170,220,0.35);
+  font-size: 6px;
+  color: rgba(180,170,220,0.5);
   letter-spacing: 0.06em;
   text-align: center;
   white-space: nowrap;
   margin-top: 1px;
 }
-.patch-btn.active .patch-tl-date { color: rgba(var(--pac), 0.5); }
+.patch-btn.active .patch-tl-date { color: rgba(var(--pac), 0.65); }
 
 /* ── Detail (inside modal) ── */
 #exp-detail {

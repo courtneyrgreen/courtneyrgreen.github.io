@@ -145,12 +145,27 @@ function PatchIcon({ id, size = 38 }) {
     )
     case 'ap': return (
       <svg {...p}>
-        <circle cx="16" cy="16" r="9" stroke="rgba(195,90,80,0.7)" strokeWidth="1.2" fill="rgba(195,90,80,0.08)"/>
-        <line x1="7" y1="13" x2="25" y2="13" stroke="rgba(195,90,80,0.4)" strokeWidth="0.8"/>
-        <line x1="7" y1="19" x2="25" y2="19" stroke="rgba(195,90,80,0.4)" strokeWidth="0.8"/>
-        <path d="M16,7 Q19,16 16,25 Q13,16 16,7" stroke="rgba(195,90,80,0.6)" strokeWidth="1"/>
-        <path d="M22,6 Q26,9 26,13" stroke="rgba(210,182,88,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M24,4 Q30,8 30,14" stroke="rgba(210,182,88,0.5)" strokeWidth="1.2" strokeLinecap="round"/>
+        {/* Paper body */}
+        <rect x="4" y="3" width="24" height="28" rx="1.5" fill="rgba(195,90,80,0.1)" stroke="rgba(220,110,90,0.68)" strokeWidth="1.1"/>
+        {/* Masthead band */}
+        <rect x="4" y="3" width="24" height="8.5" rx="1.5" fill="rgba(195,90,80,0.55)"/>
+        <rect x="4" y="8" width="24" height="3.5" fill="rgba(195,90,80,0.55)"/>
+        {/* Masthead label bar */}
+        <rect x="7" y="5" width="18" height="4" rx="0.5" fill="rgba(240,200,190,0.45)"/>
+        {/* Divider rule */}
+        <line x1="6" y1="13.5" x2="26" y2="13.5" stroke="rgba(220,110,90,0.35)" strokeWidth="0.7"/>
+        {/* Bold headline */}
+        <rect x="7" y="15.5" width="18" height="2.5" rx="0.4" fill="rgba(195,90,80,0.62)"/>
+        {/* Column divider */}
+        <line x1="16" y1="19.5" x2="16" y2="28" stroke="rgba(220,110,90,0.2)" strokeWidth="0.6"/>
+        {/* Left column lines */}
+        <rect x="7"    y="20"   width="7.5" height="1.2" rx="0.3" fill="rgba(195,90,80,0.32)"/>
+        <rect x="7"    y="22.5" width="7.5" height="1.2" rx="0.3" fill="rgba(195,90,80,0.32)"/>
+        <rect x="7"    y="25"   width="5"   height="1.2" rx="0.3" fill="rgba(195,90,80,0.32)"/>
+        {/* Right column lines */}
+        <rect x="17.5" y="20"   width="7.5" height="1.2" rx="0.3" fill="rgba(195,90,80,0.32)"/>
+        <rect x="17.5" y="22.5" width="7.5" height="1.2" rx="0.3" fill="rgba(195,90,80,0.32)"/>
+        <rect x="17.5" y="25"   width="5"   height="1.2" rx="0.3" fill="rgba(195,90,80,0.32)"/>
       </svg>
     )
     case 'pji': return (
