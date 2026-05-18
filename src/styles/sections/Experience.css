@@ -58,6 +58,8 @@
   text-transform: uppercase;
   color: rgba(210,182,88,0.80);
   text-align: center;
+  font-style: italic;
+  margin-top: 28px;
 }
 
 .patch-grid {
