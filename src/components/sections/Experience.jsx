@@ -364,8 +364,15 @@ export default function Experience({ onBack }) {
               </div>
               <span className="patch-name-label">{e.patchName}</span>
               <span className="patch-mission-num">M·{String(i + 1).padStart(2, '0')}</span>
-              <span className="patch-tl-date">{e.tl}</span>
             </button>
+          ))}
+        </div>
+        <div className="patch-timeline">
+          {allEntries.map((e) => (
+            <div key={e.id} className="patch-tl-node" style={{ '--pac': e.ac }}>
+              <div className="patch-tl-dot" />
+              <span className="patch-tl-year">{e.tl}</span>
+            </div>
           ))}
         </div>
       </div>

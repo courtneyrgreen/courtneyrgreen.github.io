@@ -69,22 +69,6 @@
   flex-wrap: wrap;
 }
 
-.patch-grid::after {
-  content: '';
-  position: absolute;
-  top: 94px;
-  left: 6%;
-  right: 6%;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(180,170,220,0.22) 6%,
-    rgba(180,170,220,0.22) 94%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
 
 .patch-btn {
   display: flex;
@@ -97,6 +81,7 @@
   padding: 0;
   position: relative;
   z-index: 1;
+  width: 96px;
 }
 
 .patch-circle {
@@ -176,16 +161,61 @@
 }
 .patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.65); }
 
-.patch-tl-date {
+/* ── Timeline bar ── */
+.patch-timeline {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.patch-timeline::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(180,170,220,0.2) 6%,
+    rgba(180,170,220,0.2) 94%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.patch-tl-node {
+  width: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.patch-tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(var(--pac), 0.55);
+  border: 1px solid rgba(var(--pac), 0.85);
+  box-shadow: 0 0 6px rgba(var(--pac), 0.35);
+  flex-shrink: 0;
+}
+
+.patch-tl-year {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 6px;
-  color: rgba(180,170,220,0.5);
+  font-size: 7px;
+  color: rgba(180,170,220,0.55);
   letter-spacing: 0.06em;
   text-align: center;
   white-space: nowrap;
-  margin-top: 1px;
 }
-.patch-btn.active .patch-tl-date { color: rgba(var(--pac), 0.65); }
 
 /* ── Detail (inside modal) ── */
 #exp-detail {
