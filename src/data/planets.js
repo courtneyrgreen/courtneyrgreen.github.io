@@ -170,7 +170,7 @@ export const PLANET_DEFS = [
 
   /* ── 7. URANUS → Interests ──────────────────────────────────────── */
   {
-    id: 'uranus', label: 'Uranus', lineupLabel: 'Interests', section: 'interests',
+    id: 'uranus', label: 'Uranus', lineupLabel: 'Off the Clock', section: 'interests',
     orbitR: 340, size: 32, lineupSize: 34, glowColor: 'rgba(95,205,205,0.85)',
     speed: 0.000020, startAngle: Math.PI * 1.78,
     rings: 'uranus',
