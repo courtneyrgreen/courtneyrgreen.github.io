@@ -52,9 +52,9 @@
 }
 
 .patch-bay-label {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: 'Karla', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(210,182,88,0.80);
   text-align: center;
