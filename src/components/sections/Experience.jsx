@@ -1,412 +1,314 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import '../../styles/sections/Experience.css'
 
-const EDUCATION = [
-  {
-    school: 'Georgetown University',
-    sub: 'Graduate School of Arts & Sciences',
-    location: 'Washington, D.C.',
-    dates: '2024 – 2026',
-    degree: 'M.S. Data Science & Analytics (DSAN)',
-    gpa: '4.0 / 4.0',
-    coursework: [
-      'Probabilistic Modeling & Statistical Computing',
-      'Neural Networks & Advanced Deep Learning',
-      'Reinforcement Learning',
-      'Advanced Data Visualization',
-      'Statistical Learning for Analysis',
-      'Database Systems & SQL',
-      'Big Data & Cloud Computing',
-      'Machine Learning for App Development',
-      'Causal Inference for Computational Social Science',
-    ],
-    roles: [
-      {
-        title: 'Graduate Teaching Assistant',
-        items: [
-          {
-            course: 'Causal Inference for Computational Social Science',
-            semester: 'Summer 2025',
-            desc: 'Supported instruction on propensity score matching, synthetic controls, instrumental variables, causal forests, and double-debiased ML. Co-developed labs and final project materials.',
-          },
-          {
-            course: 'Probabilistic Modeling & Statistical Computing',
-            semester: 'Fall 2025',
-            desc: 'Covered probability theory, Monte Carlo simulation, Bayesian models, EM, hidden Markov models, and graphical models. Held office hours and graded in R.',
-          },
-        ],
-      },
-    ],
-    highlights: [
-      {
-        label: 'Georgetown University Merit Scholarship Recipient (2025)',
-        desc: 'Competitive merit-based scholarship awarded through anonymous faculty review, recognized for Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.',
-      },
-      {
-        label: 'First Place · DC Metro StatConnect 2025 Graduate Research Poster Competition',
-        desc: 'Awarded 1st place in the MS category at George Mason University, recognized for Data vs. Dogma: Examining the Intersection of Abortion Policy and Maternal Health Disparities in the U.S.',
-      },
-    ],
-  },
-  {
-    school: 'University of Virginia',
-    sub: 'Frank Batten School of Leadership and Public Policy',
-    location: 'Charlottesville, VA',
-    dates: '2020 – 2024',
-    degree: 'B.A. Public Policy and Leadership · Minor in Computer Science',
-    coursework: [
-      'Data Structures & Algorithms',
-      'Discrete Mathematics & Theory',
-      'Computer Architecture & Systems',
-      'Software Development',
-      'Cybersecurity',
-      'Cybersecurity Policy, Law & Ethics',
-      'Research Methods & Data Analysis',
-      'Economics of Public Policy',
-      'Value & Bias in Public Policy',
-      'Police-Community Relations',
-      'National Security in the New Tech Age',
-      'Designing Human Security Policy',
-    ],
-    highlights: [
-      {
-        label: 'University Achievement Award Scholar (2020 – 2024)',
-        desc: 'Merit-based scholarship recognizing academic excellence, leadership, and citizenship; covers full tuition and fees. Awarded to 40–50 students per graduating class.',
-      },
-    ],
-  },
-]
-
-const WORK = [
-  {
-    org: 'The Associated Press',
-    location: 'Remote',
-    dates: 'Oct 2025 – Present',
-    role: 'Elections Web Scraper',
-    bullets: [
-      'Collect and verify live election results for AP across 20+ counties using Python, supporting 6+ elections across 2025–2026.',
-      'Monitor live scrapes in real time on election nights to ensure data accuracy and flag discrepancies, contributing to AP\'s trusted election coverage.',
-    ],
-    skills: ['Python', 'Web Scraping', 'BeautifulSoup', 'Data Verification', 'Real-Time Monitoring'],
-  },
-  {
-    org: 'Georgetown Prisons and Justice Initiative',
-    location: 'Washington, D.C.',
-    dates: 'Oct 2024 – May 2026',
-    role: 'Scholars Program Associate',
-    bullets: [
-      'Maintained and organized complex data sets related to program operations and performance; conducted data analysis to inform program development and reported key performance metrics to the DC Department of Corrections (DOC).',
-      'Assisted in creating and refining database structures and processes for more effective data collection and visualization, contributing to long-term program sustainability and data-driven decision-making.',
-    ],
-    skills: ['Data Analysis', 'Database Design', 'Performance Metrics', 'Data Visualization', 'Program Evaluation'],
-  },
-  {
-    org: 'Guidehouse',
-    location: 'Arlington, VA',
-    dates: 'Jun – Aug 2025',
-    role: 'Commercial Sustainability Intern',
-    bullets: [
-      'Developed and refined an internal scoring tool to evaluate corporate CDP (Carbon Disclosure Project) responses; implemented complex formulas and conditional logic to automate scoring, flag data gaps, and generate dashboards for climate disclosure performance assessment.',
-      'Led the design of an AI-powered Retrofit Portfolio Ranking Engine prototype, applying predictive modeling to help affordable housing agencies prioritize retrofit projects based on emissions impact, deferred maintenance needs, and funding alignment.',
-      'Supported a 20-year energy demand forecast for NYISO using time series and ensemble models (ARIMA, linear regression, random forest) in R; contributed to model tuning and analysis of demand, wind, and nuclear generation data.',
-      'Analyzed downscaled climate models (e.g., CMIP6 variants) to assess fitness for localized climate risk forecasting; compared model resolution, variable treatment, and performance across key climate indicators.',
-    ],
-    skills: ['R', 'ARIMA', 'Random Forest', 'Predictive Modeling', 'CMIP6', 'Excel', 'Power BI', 'CDP', 'Climate Risk'],
-  },
-  {
-    org: 'EVgo',
-    location: 'Los Angeles, CA',
-    dates: 'Jun – Aug 2024',
-    role: 'Market Development & Public Policy Intern',
-    bullets: [
-      'Researched and analyzed government incentives, including the 30C tax credit and NEVI program funds, to support the development of electric vehicle charging infrastructure.',
-      'Drafted and optimized data-driven reports, evaluating electricity rate designs and charging infrastructure development.',
-      'Collaborated on cross-functional teams, working closely with software developers, policy experts, and data analysis teams to support infrastructure expansion through the Department of Energy\'s Title 17 Clean Financing program.',
-    ],
-    skills: ['Policy Research', 'Energy Policy', 'Data Analysis', 'Excel', 'Regulatory Analysis', 'Cross-functional Collaboration'],
-  },
-  {
-    org: 'VOX Global',
-    location: 'Washington, D.C.',
-    dates: 'May – Aug 2023',
-    role: 'Public Affairs Intern',
-    bullets: [
-      'Performed comprehensive audits and data collection to inform client reports, using analytical tools like Excel and Tableau to identify trends in corporate social responsibility (CSR) initiatives.',
-      'Developed media outreach strategies with team members, managing stakeholder engagement data, and supporting decision-making for Fortune 500 clients.',
-      'Wrote, edited, and proofread various reports and internal communications, helping streamline client information-sharing processes.',
-    ],
-    skills: ['Excel', 'Tableau', 'CSR Analysis', 'Media Strategy', 'Stakeholder Engagement', 'Report Writing'],
-  },
-  {
-    org: 'Mindset',
-    location: 'Washington, D.C.',
-    dates: 'Jun 2021 – Aug 2022',
-    role: 'Policy Research Intern',
-    bullets: [
-      'Performed qualitative and quantitative research on cybersecurity and privacy, analyzing policy frameworks and conducting risk assessments to provide actionable recommendations for clients.',
-      'Tracked legislative trends in cybersecurity and privacy to assess the potential impacts of regulatory changes for clients.',
-      'Created and regularly maintained an extensive cybersecurity and privacy legislative database of congressional floor activity, the Biden Administration, and independent regulators for clients.',
-    ],
-    skills: ['Policy Research', 'Cybersecurity Policy', 'Legislative Tracking', 'Risk Assessment', 'Database Management'],
-  },
-]
-
-// logo: swap null → import path once images are uploaded
 const EDU_ENTRIES = [
   {
-    id: 'gu', tag: 'EDU',
-    org: 'Georgetown University', sub: 'Graduate School of Arts & Sciences',
-    location: 'Washington, D.C.', role: 'M.S. Data Science & Analytics',
-    dates: '2024 – 2026', gpa: '4.0 / 4.0',
-    logo: null, logoColor: '#041E42', initials: 'GU',
-    coursework: EDUCATION[0].coursework,
-    roles: EDUCATION[0].roles,
-    highlights: EDUCATION[0].highlights,
+    id: 'gu', ac: '100,160,240',
+    patchName: 'Georgetown',
+    tag: 'Education · Georgetown University',
+    org: 'Georgetown University',
+    sub: 'Graduate School of Arts & Sciences',
+    role: 'M.S. Data Science & Analytics',
+    dates: '2024 – 2026', location: 'Washington, D.C.',
+    gpa: '4.0 / 4.0',
+    highlights: [
+      { label: 'Georgetown University Merit Scholarship (2025)', desc: 'Competitive merit-based scholarship awarded through anonymous faculty review, recognized for Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.' },
+      { label: '1st Place · DC Metro StatConnect 2025', desc: 'Graduate Research Poster Competition at George Mason University, MS category, for Data vs. Dogma: Examining the Intersection of Abortion Policy and Maternal Health Disparities in the U.S.' },
+    ],
+    tas: [
+      { course: 'Causal Inference for Computational Social Science', sem: 'Graduate Teaching Assistant · Summer 2025', desc: 'Supported instruction on propensity score matching, synthetic controls, instrumental variables, causal forests, and double-debiased ML. Co-developed labs and final project materials.' },
+      { course: 'Probabilistic Modeling & Statistical Computing', sem: 'Graduate Teaching Assistant · Fall 2025', desc: 'Covered probability theory, Monte Carlo simulation, Bayesian models, EM, hidden Markov models, and graphical models. Held office hours and graded in R.' },
+    ],
+    coursework: ['Probabilistic Modeling & Statistical Computing', 'Neural Networks & Advanced Deep Learning', 'Reinforcement Learning', 'Advanced Data Visualization', 'Statistical Learning for Analysis', 'Database Systems & SQL', 'Big Data & Cloud Computing', 'Machine Learning for App Development', 'Causal Inference for Computational Social Science'],
   },
   {
-    id: 'uva', tag: 'EDU',
-    org: 'University of Virginia', sub: 'Frank Batten School of Leadership & Public Policy',
-    location: 'Charlottesville, VA', role: 'B.A. Public Policy & Leadership · Minor in CS',
-    dates: '2020 – 2024',
-    logo: null, logoColor: '#232D4B', initials: 'UVA', initialsColor: '#E57200',
-    coursework: EDUCATION[1].coursework,
-    highlights: EDUCATION[1].highlights,
+    id: 'uva', ac: '200,80,60',
+    patchName: 'Virginia',
+    tag: 'Education · University of Virginia',
+    org: 'University of Virginia',
+    sub: 'Frank Batten School of Leadership & Public Policy',
+    role: 'B.A. Public Policy & Leadership · Minor in CS',
+    dates: '2020 – 2024', location: 'Charlottesville, VA',
+    highlights: [
+      { label: 'University Achievement Award Scholar (2020 – 2024)', desc: 'Merit-based scholarship recognizing academic excellence, leadership, and citizenship; covers full tuition and fees. Awarded to 40–50 students per graduating class.' },
+    ],
+    coursework: ['Data Structures & Algorithms', 'Discrete Mathematics & Theory', 'Computer Architecture & Systems', 'Software Development', 'Cybersecurity', 'Cybersecurity Policy, Law & Ethics', 'Research Methods & Data Analysis', 'Economics of Public Policy', 'Value & Bias in Public Policy', 'Police-Community Relations', 'National Security in the New Tech Age', 'Designing Human Security Policy'],
   },
 ]
 
 const WORK_ENTRIES = [
   {
-    id: 'ap', tag: 'WORK',
+    id: 'ap', ac: '195,90,80', active: true,
+    patchName: 'Assoc. Press',
+    tag: 'Work · The Associated Press',
     org: 'The Associated Press', sub: 'Remote',
     role: 'Elections Web Scraper',
-    dates: 'October 2025 – Present', shortDates: 'Oct 2025 – Present',
-    logo: null, logoColor: '#f5f5f5', initials: 'AP', initialsColor: '#1a1a1a',
-    bullets: WORK[0].bullets, skills: WORK[0].skills,
+    dates: 'Oct 2025 – Present',
+    bullets: ['Collect and verify live election results for AP across 20+ counties using Python, supporting 6+ elections across 2025–2026.', "Monitor live scrapes in real time on election nights to ensure data accuracy and flag discrepancies, contributing to AP's trusted election coverage."],
+    skills: ['Python', 'Web Scraping', 'BeautifulSoup', 'Data Verification', 'Real-Time Monitoring'],
   },
   {
-    id: 'pji', tag: 'WORK',
+    id: 'pji', ac: '100,140,225', active: true,
+    patchName: 'GU · PJI',
+    tag: 'Work · Georgetown PJI',
     org: 'Georgetown Prisons and Justice Initiative', sub: 'Washington, D.C.',
     role: 'Scholars Program Associate',
-    dates: 'October 2024 – May 2026', shortDates: 'Oct 2024 – May 2026',
-    logo: null, logoColor: '#041E42', initials: 'PJI',
-    bullets: WORK[1].bullets, skills: WORK[1].skills,
+    dates: 'Oct 2024 – May 2026',
+    bullets: ['Maintained and organized complex data sets related to program operations and performance; conducted data analysis to inform program development and reported key performance metrics to the DC Department of Corrections.', 'Assisted in creating and refining database structures and processes for more effective data collection and visualization, contributing to long-term program sustainability and data-driven decision-making.'],
+    skills: ['Data Analysis', 'Database Design', 'Performance Metrics', 'Data Visualization', 'Program Evaluation'],
   },
   {
-    id: 'gh', tag: 'WORK',
+    id: 'gh', ac: '80,205,100',
+    patchName: 'Guidehouse',
+    tag: 'Work · Guidehouse',
     org: 'Guidehouse', sub: 'Arlington, VA',
     role: 'Commercial Sustainability Intern',
-    dates: 'June – August 2025', shortDates: 'Jun – Aug 2025',
-    logo: null, logoColor: '#1a1a1a', initials: 'GH', initialsColor: '#6CC24A',
-    bullets: WORK[2].bullets, skills: WORK[2].skills,
+    dates: 'Jun – Aug 2025',
+    bullets: ['Developed and refined an internal scoring tool to evaluate corporate CDP responses; implemented complex formulas and conditional logic to automate scoring, flag data gaps, and generate dashboards for climate disclosure performance assessment.', 'Led the design of an AI-powered Retrofit Portfolio Ranking Engine prototype, applying predictive modeling to help affordable housing agencies prioritize retrofit projects based on emissions impact, deferred maintenance needs, and funding alignment.', 'Supported a 20-year energy demand forecast for NYISO using time series and ensemble models (ARIMA, linear regression, random forest) in R; contributed to model tuning and analysis of demand, wind, and nuclear generation data.', 'Analyzed downscaled climate models (e.g., CMIP6 variants) to assess fitness for localized climate risk forecasting; compared model resolution, variable treatment, and performance across key climate indicators.'],
+    skills: ['R', 'ARIMA', 'Random Forest', 'Predictive Modeling', 'CMIP6', 'Excel', 'Power BI', 'CDP', 'Climate Risk'],
   },
   {
-    id: 'evgo', tag: 'WORK',
+    id: 'evgo', ac: '60,195,215',
+    patchName: 'EVgo',
+    tag: 'Work · EVgo',
     org: 'EVgo', sub: 'Los Angeles, CA',
     role: 'Market Development & Public Policy Intern',
-    dates: 'June – August 2024', shortDates: 'Jun – Aug 2024',
-    logo: null, logoColor: '#1E7A9C', initials: 'EV',
-    bullets: WORK[3].bullets, skills: WORK[3].skills,
+    dates: 'Jun – Aug 2024',
+    bullets: ['Researched and analyzed government incentives, including the 30C tax credit and NEVI program funds, to support the development of electric vehicle charging infrastructure.', 'Drafted and optimized data-driven reports, evaluating electricity rate designs and charging infrastructure development.', "Collaborated on cross-functional teams, working closely with software developers, policy experts, and data analysis teams to support infrastructure expansion through the Department of Energy's Title 17 Clean Financing program."],
+    skills: ['Policy Research', 'Energy Policy', 'Data Analysis', 'Excel', 'Regulatory Analysis', 'Cross-functional Collaboration'],
   },
   {
-    id: 'vox', tag: 'WORK',
+    id: 'vox', ac: '80,185,205',
+    patchName: 'VOX Global',
+    tag: 'Work · VOX Global',
     org: 'VOX Global', sub: 'Washington, D.C.',
     role: 'Public Affairs Intern',
-    dates: 'May – August 2023', shortDates: 'May – Aug 2023',
-    logo: null, logoColor: '#0A1628', initials: 'VX', initialsColor: '#3EC6C6',
-    bullets: WORK[4].bullets, skills: WORK[4].skills,
+    dates: 'May – Aug 2023',
+    bullets: ['Performed comprehensive audits and data collection to inform client reports, using analytical tools like Excel and Tableau to identify trends in corporate social responsibility initiatives.', 'Developed media outreach strategies with team members, managing stakeholder engagement data, and supporting decision-making for Fortune 500 clients.', 'Wrote, edited, and proofread various reports and internal communications, helping streamline client information-sharing processes.'],
+    skills: ['Excel', 'Tableau', 'CSR Analysis', 'Media Strategy', 'Stakeholder Engagement', 'Report Writing'],
   },
   {
-    id: 'mindset', tag: 'WORK',
+    id: 'ms', ac: '80,195,95',
+    patchName: 'Mindset',
+    tag: 'Work · Mindset',
     org: 'Mindset', sub: 'Washington, D.C.',
     role: 'Policy Research Intern',
-    dates: 'June 2021 – August 2022', shortDates: 'Jun 2021 – Aug 2022',
-    logo: null, logoColor: '#12B035', initials: 'MS',
-    bullets: WORK[5].bullets, skills: WORK[5].skills,
+    dates: 'Jun 2021 – Aug 2022',
+    bullets: ['Performed qualitative and quantitative research on cybersecurity and privacy, analyzing policy frameworks and conducting risk assessments to provide actionable recommendations for clients.', 'Tracked legislative trends in cybersecurity and privacy to assess the potential impacts of regulatory changes for clients.', 'Created and regularly maintained an extensive cybersecurity and privacy legislative database of congressional floor activity, the Biden Administration, and independent regulators for clients.'],
+    skills: ['Policy Research', 'Cybersecurity Policy', 'Legislative Tracking', 'Risk Assessment', 'Database Management'],
   },
 ]
 
-const ALL_ENTRIES = [...EDU_ENTRIES, ...WORK_ENTRIES]
-
-// ── Logo placeholder ──────────────────────────────────────────────
-function OrgLogo({ entry, size = 36 }) {
-  if (entry.logo) {
-    return (
-      <img
-        src={entry.logo}
-        alt={entry.org}
-        className="exp-logo-img"
-        style={{ width: size, height: size }}
-      />
+function PatchIcon({ id, size = 38 }) {
+  const p = { width: size, height: size, viewBox: '0 0 32 32', fill: 'none' }
+  switch (id) {
+    case 'gu': return (
+      <svg {...p}>
+        <polygon points="16,6 28,12 16,18 4,12" fill="rgba(100,160,240,0.8)" stroke="rgba(140,190,255,0.6)" strokeWidth="0.8"/>
+        <rect x="10" y="17" width="12" height="7" rx="1" fill="rgba(80,130,210,0.7)" stroke="rgba(120,170,240,0.5)" strokeWidth="0.7"/>
+        <line x1="25" y1="12" x2="25" y2="20" stroke="rgba(140,190,255,0.6)" strokeWidth="1.2"/>
+        <circle cx="25" cy="21" r="1.5" fill="rgba(210,182,88,0.85)"/>
+        <line x1="16" y1="18" x2="16" y2="24" stroke="rgba(120,170,240,0.5)" strokeWidth="0.8" strokeDasharray="2 1.5"/>
+      </svg>
     )
+    case 'uva': return (
+      <svg {...p}>
+        <path d="M4,24 L6,14 Q16,4 26,14 L28,24" fill="rgba(200,80,60,0.3)" stroke="rgba(220,110,90,0.7)" strokeWidth="1"/>
+        <rect x="4" y="23" width="24" height="3" rx="0.5" fill="rgba(200,80,60,0.7)" stroke="rgba(220,110,90,0.5)" strokeWidth="0.6"/>
+        <rect x="8" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+        <rect x="14.5" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+        <rect x="21" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+      </svg>
+    )
+    case 'ap': return (
+      <svg {...p}>
+        <circle cx="16" cy="16" r="9" stroke="rgba(195,90,80,0.7)" strokeWidth="1.2" fill="rgba(195,90,80,0.08)"/>
+        <line x1="7" y1="13" x2="25" y2="13" stroke="rgba(195,90,80,0.4)" strokeWidth="0.8"/>
+        <line x1="7" y1="19" x2="25" y2="19" stroke="rgba(195,90,80,0.4)" strokeWidth="0.8"/>
+        <path d="M16,7 Q19,16 16,25 Q13,16 16,7" stroke="rgba(195,90,80,0.6)" strokeWidth="1"/>
+        <path d="M22,6 Q26,9 26,13" stroke="rgba(210,182,88,0.8)" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M24,4 Q30,8 30,14" stroke="rgba(210,182,88,0.5)" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    )
+    case 'pji': return (
+      <svg {...p}>
+        <line x1="16" y1="6" x2="16" y2="26" stroke="rgba(100,140,225,0.6)" strokeWidth="1.2"/>
+        <line x1="7" y1="12" x2="25" y2="12" stroke="rgba(100,140,225,0.7)" strokeWidth="1"/>
+        <circle cx="16" cy="9" r="1.8" fill="rgba(100,140,225,0.8)"/>
+        <path d="M7,12 L5,18 Q7,21 9,18 L11,12" stroke="rgba(100,140,225,0.65)" strokeWidth="0.9" fill="rgba(100,140,225,0.1)"/>
+        <path d="M21,12 L19,18 Q21,21 23,18 L25,12" stroke="rgba(100,140,225,0.65)" strokeWidth="0.9" fill="rgba(100,140,225,0.1)"/>
+        <rect x="13.5" y="24" width="5" height="2" rx="0.5" fill="rgba(100,140,225,0.6)"/>
+      </svg>
+    )
+    case 'gh': return (
+      <svg {...p}>
+        <path d="M16,26 Q7,20 9,11 Q11,4 22,7 Q25,15 16,26Z" fill="rgba(80,205,100,0.25)" stroke="rgba(100,220,120,0.7)" strokeWidth="1.1"/>
+        <path d="M16,26 Q14,20 13,14" stroke="rgba(80,205,100,0.5)" strokeWidth="0.9" strokeLinecap="round"/>
+        <path d="M13,14 Q17,12 20,10" stroke="rgba(80,205,100,0.35)" strokeWidth="0.7" strokeLinecap="round"/>
+        <path d="M13,17 Q16,16 18,14" stroke="rgba(80,205,100,0.3)" strokeWidth="0.7" strokeLinecap="round"/>
+        <path d="M14,20 Q16.5,19 18.5,17" stroke="rgba(80,205,100,0.3)" strokeWidth="0.7" strokeLinecap="round"/>
+      </svg>
+    )
+    case 'evgo': return (
+      <svg {...p}>
+        <polygon points="19,5 10,17 16,17 13,29 22,16 16,16" fill="rgba(60,195,215,0.85)" stroke="rgba(90,220,240,0.7)" strokeWidth="0.8" strokeLinejoin="round"/>
+        <circle cx="8" cy="22" r="3" stroke="rgba(60,195,215,0.3)" strokeWidth="0.8"/>
+        <circle cx="24" cy="22" r="2.2" stroke="rgba(60,195,215,0.25)" strokeWidth="0.7"/>
+      </svg>
+    )
+    case 'vox': return (
+      <svg {...p}>
+        <rect x="12" y="5" width="8" height="13" rx="4" fill="rgba(80,185,205,0.35)" stroke="rgba(100,200,220,0.7)" strokeWidth="1"/>
+        <path d="M7,17 Q7,26 16,26 Q25,26 25,17" stroke="rgba(80,185,205,0.65)" strokeWidth="1.2" strokeLinecap="round"/>
+        <line x1="16" y1="26" x2="16" y2="30" stroke="rgba(80,185,205,0.5)" strokeWidth="1"/>
+        <line x1="12" y1="30" x2="20" y2="30" stroke="rgba(80,185,205,0.5)" strokeWidth="1"/>
+        <line x1="4" y1="14" x2="7" y2="14" stroke="rgba(80,185,205,0.4)" strokeWidth="0.8"/>
+        <line x1="25" y1="14" x2="28" y2="14" stroke="rgba(80,185,205,0.4)" strokeWidth="0.8"/>
+      </svg>
+    )
+    case 'ms': return (
+      <svg {...p}>
+        <path d="M16,4 L27,9 L27,18 Q27,26 16,30 Q5,26 5,18 L5,9 Z" fill="rgba(80,195,95,0.15)" stroke="rgba(100,215,115,0.65)" strokeWidth="1"/>
+        <rect x="12" y="17" width="8" height="7" rx="1.5" fill="rgba(80,195,95,0.5)" stroke="rgba(100,215,115,0.6)" strokeWidth="0.8"/>
+        <path d="M13,17 Q13,12 16,12 Q19,12 19,17" stroke="rgba(100,215,115,0.65)" strokeWidth="1"/>
+        <circle cx="16" cy="20.5" r="1.2" fill="rgba(100,215,115,0.8)"/>
+      </svg>
+    )
+    default: return null
   }
-  return (
-    <div
-      className="exp-logo-placeholder"
-      style={{
-        width: size, height: size,
-        background: entry.logoColor,
-        color: entry.initialsColor || 'rgba(255,255,255,0.80)',
-      }}
-    >
-      {entry.initials}
-    </div>
-  )
 }
 
-// ── Shared detail body ────────────────────────────────────────────
-function EntryDetail({ e }) {
-  const [hoveredPill, setHoveredPill] = useState(null)
-
+function Detail({ entry }) {
   return (
-    <>
-      {e.gpa && <div className="exp-gpa">GPA: {e.gpa}</div>}
-      {e.coursework && (
-        <div className="exp-tag-section">
-          <div className="exp-cw-label">Relevant Coursework</div>
-          <div className="exp-tag-cloud">
-            {e.coursework.map(c => <span key={c} className="exp-cw-tag">{c}</span>)}
+    <div id="exp-detail" style={{ '--ed-ac': entry.ac }}>
+
+      <div className="ed-header">
+        <div className="ed-header-top">
+          <div className="ed-badge-circle">
+            <PatchIcon id={entry.id} size={34} />
+          </div>
+          <div>
+            <div className="ed-tag">{entry.tag}</div>
+            <div className="ed-org">{entry.org}</div>
+            {entry.sub && <div className="ed-sub">{entry.sub}</div>}
           </div>
         </div>
-      )}
-      {e.activities && (
-        <div className="exp-tag-section">
-          <div className="exp-cw-label">Activities</div>
-          <div className="exp-tag-cloud">
-            {e.activities.map(a => <span key={a} className="exp-cw-tag">{a}</span>)}
-          </div>
+        <div className="ed-role">{entry.role}</div>
+        <div className="ed-meta-row">
+          <span>{entry.dates}</span>
+          {entry.location && <span>{entry.location}</span>}
+          {entry.gpa && <span>GPA {entry.gpa}</span>}
         </div>
-      )}
-      {e.roles?.map(r => (
-        <div key={r.title} className="exp-ta-block">
-          <div className="exp-ta-title">{r.title}</div>
-          <div className="exp-ta-items">
-            {r.items.map((item, i) => (
-              <div key={i} className="exp-ta-item">
-                <div className="exp-ta-item-header">
-                  <span className="exp-ta-course">{item.course}</span>
-                  <span className="exp-ta-semester">{item.semester}</span>
-                </div>
-                <p className="exp-ta-desc">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-      {e.bullets && (
-        <ul className="exp-bullets" style={{ marginTop: 12 }}>
-          {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
-        </ul>
-      )}
-      {e.skills && (
-        <div className="exp-tag-section" style={{ marginTop: 16 }}>
-          <div className="exp-cw-label">Skills & Tools</div>
-          <div className="exp-tag-cloud">
-            {e.skills.map(s => <span key={s} className="exp-cw-tag exp-skill-tag">{s}</span>)}
-          </div>
-        </div>
-      )}
-      {e.highlights && (
-        <div className="exp-highlights">
-          {e.highlights.map((h, i) => (
-            <div
-              key={h.label}
-              className="exp-highlight-wrap"
-              onMouseEnter={() => setHoveredPill(i)}
-              onMouseLeave={() => setHoveredPill(null)}
-            >
-              <span className={`exp-highlight-pill${h.desc ? ' has-desc' : ''}`}>
-                ✦ {h.label}
-              </span>
-              {h.desc && hoveredPill === i && (
-                <div className="exp-highlight-tooltip">{h.desc}</div>
-              )}
+      </div>
+
+      {entry.highlights && (
+        <div className="ed-section">
+          <div className="ed-section-label">Awards</div>
+          {entry.highlights.map(h => (
+            <div key={h.label} className="ed-highlight">
+              <div className="ed-highlight-mark">✦</div>
+              <div><strong>{h.label}</strong>{h.desc}</div>
             </div>
           ))}
         </div>
       )}
-    </>
-  )
-}
 
-// ── Explorer ──────────────────────────────────────────────────────
-function PanelView() {
-  const [selected, setSelected] = useState(0)
-  const e = ALL_ENTRIES[selected]
-
-  const renderListItem = (entry, i) => (
-    <button
-      key={entry.id}
-      className={`exp-panel-item${selected === i ? ' active' : ''}`}
-      onClick={() => setSelected(i)}
-    >
-      <OrgLogo entry={entry} size={32} />
-      <div className="exp-panel-item-text">
-        <div className="exp-panel-org">{entry.org}</div>
-        <div className="exp-panel-role">{entry.role}</div>
-        <div className="exp-panel-dates">{entry.shortDates || entry.dates}</div>
-      </div>
-    </button>
-  )
-
-  return (
-    <div id="exp-panel-wrap">
-      {/* Left list with sections */}
-      <div id="exp-panel-list">
-        <div className="exp-panel-section-hd">Education</div>
-        {EDU_ENTRIES.map((e, i) => renderListItem(e, i))}
-        <div className="exp-panel-section-hd">Work Experience</div>
-        {WORK_ENTRIES.map((e, i) => renderListItem(e, EDU_ENTRIES.length + i))}
-      </div>
-
-      {/* Right detail */}
-      <div id="exp-panel-detail">
-        <div className="exp-pd-header">
-          <div className="exp-pd-logo-row">
-            <OrgLogo entry={e} size={60} />
-            <div>
-              <div className="exp-org">{e.org}</div>
-              {e.sub && <div className="exp-sub">{e.sub}</div>}
-              <div className="exp-role" style={{ marginTop: 6 }}>{e.role}</div>
+      {entry.tas && (
+        <div className="ed-section">
+          <div className="ed-section-label">Teaching</div>
+          {entry.tas.map(t => (
+            <div key={t.course} className="ed-ta-item">
+              <div className="ed-ta-course">{t.course}</div>
+              <div className="ed-ta-sem">{t.sem}</div>
+              <div className="ed-ta-desc">{t.desc}</div>
             </div>
-          </div>
-          <div className="exp-pd-meta">
-            <div className="exp-dates">{e.dates}</div>
-            {e.location && <div className="exp-location">{e.location}</div>}
+          ))}
+        </div>
+      )}
+
+      {entry.bullets && (
+        <div className="ed-section">
+          <div className="ed-section-label">Responsibilities</div>
+          <ul className="ed-bullets">
+            {entry.bullets.map((b, i) => <li key={i}>{b}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {entry.skills && (
+        <div className="ed-section">
+          <div className="ed-section-label">Skills & Tools</div>
+          <div className="ed-tags">
+            {entry.skills.map(s => <span key={s} className="ed-tag-item skill">{s}</span>)}
           </div>
         </div>
-        <div className="exp-pd-body">
-          <EntryDetail e={e} />
+      )}
+
+      {entry.coursework && (
+        <div className="ed-section">
+          <div className="ed-section-label">Relevant Coursework</div>
+          <div className="ed-tags">
+            {entry.coursework.map(c => <span key={c} className="ed-tag-item">{c}</span>)}
+          </div>
         </div>
-      </div>
+      )}
+
     </div>
   )
 }
 
-// ── Main component ────────────────────────────────────────────────
 export default function Experience({ onBack }) {
-  const cardRef = useRef(null)
+  const [selected, setSelected] = useState(0)
+  const allEntries = [...EDU_ENTRIES, ...WORK_ENTRIES]
+  const entry = allEntries[selected]
+  const circleRefs = useRef([])
 
-  useEffect(() => {
-    const t = setTimeout(() => cardRef.current?.classList.add('visible'), 120)
-    return () => { clearTimeout(t); cardRef.current?.classList.remove('visible') }
+  const handlePatchEnter = useCallback((i) => {
+    const el = circleRefs.current[i]
+    if (!el || el.classList.contains('spinning')) return
+    el.classList.add('spinning')
+    el.addEventListener('animationend', () => el.classList.remove('spinning'), { once: true })
   }, [])
 
   return (
     <div id="exp-layer">
-      <div id="exp-glow" />
-      <div id="exp-card" ref={cardRef}>
 
+      <div id="exp-hdr">
         <div id="exp-eyebrow">Earth &nbsp;·&nbsp; Mission Log</div>
         <h1 id="exp-title">Experience</h1>
-        <div id="exp-rule" />
+      </div>
 
-        <PanelView />
+      <div id="exp-panels">
+
+        <div id="exp-patch-bay">
+          <div className="patch-bay-label">Mission Patch Collection</div>
+          <div className="patch-grid">
+            {allEntries.map((e, i) => (
+              <button
+                key={e.id}
+                className={`patch-btn${selected === i ? ' active' : ''}`}
+                style={{ '--pac': e.ac }}
+                onClick={() => setSelected(i)}
+                onMouseEnter={() => handlePatchEnter(i)}
+              >
+                <div
+                  className="patch-circle"
+                  ref={el => { circleRefs.current[i] = el }}
+                >
+                  <PatchIcon id={e.id} size={38} />
+                </div>
+                <span className="patch-name-label">{e.patchName}</span>
+                <span className="patch-mission-num">M·{String(i + 1).padStart(2, '0')}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <Detail key={entry.id} entry={entry} />
 
       </div>
 
-      <button className="sec-back-btn" onClick={onBack}>
-        ← Solar System
-      </button>
+      <button className="sec-back-btn" onClick={onBack}>← Solar System</button>
     </div>
   )
 }
