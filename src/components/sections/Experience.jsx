@@ -4,7 +4,7 @@ import '../../styles/sections/Experience.css'
 const EDU_ENTRIES = [
   {
     id: 'gu', ac: '100,160,240', tl: '2024–2026',
-    patchName: 'Georgetown',
+    patchName: 'Georgetown University',
     tag: 'Education · Georgetown University',
     org: 'Georgetown University',
     sub: 'Graduate School of Arts & Sciences',
@@ -104,27 +104,28 @@ function PatchIcon({ id, size = 38 }) {
   switch (id) {
     case 'gu': return (
       <svg {...p}>
-        {/* Eagle body */}
-        <ellipse cx="16" cy="17" rx="3.5" ry="5" fill="rgba(100,160,240,0.7)" stroke="rgba(140,190,255,0.55)" strokeWidth="0.8"/>
-        {/* Head */}
-        <circle cx="16" cy="10.5" r="3" fill="rgba(100,160,240,0.8)" stroke="rgba(150,200,255,0.6)" strokeWidth="0.7"/>
-        {/* Beak */}
-        <path d="M18.5,11 L21,12.5 L18.5,13" fill="rgba(210,182,88,0.85)" stroke="none"/>
-        {/* Left wing */}
-        <path d="M12.5,15 Q6,11 3,13 Q5,17 10,17 Z" fill="rgba(100,160,240,0.65)" stroke="rgba(140,190,255,0.5)" strokeWidth="0.7"/>
-        {/* Right wing */}
-        <path d="M19.5,15 Q26,11 29,13 Q27,17 22,17 Z" fill="rgba(100,160,240,0.65)" stroke="rgba(140,190,255,0.5)" strokeWidth="0.7"/>
-        {/* Wing feather details — left */}
-        <line x1="9"  y1="13" x2="7"  y2="16" stroke="rgba(140,190,255,0.35)" strokeWidth="0.6"/>
-        <line x1="6"  y1="14" x2="5"  y2="16" stroke="rgba(140,190,255,0.28)" strokeWidth="0.6"/>
-        {/* Wing feather details — right */}
-        <line x1="23" y1="13" x2="25" y2="16" stroke="rgba(140,190,255,0.35)" strokeWidth="0.6"/>
-        <line x1="26" y1="14" x2="27" y2="16" stroke="rgba(140,190,255,0.28)" strokeWidth="0.6"/>
-        {/* Tail */}
-        <path d="M13.5,22 Q16,26 18.5,22" fill="rgba(100,160,240,0.5)" stroke="rgba(140,190,255,0.45)" strokeWidth="0.7"/>
-        {/* Talons */}
-        <line x1="14" y1="22" x2="12" y2="26" stroke="rgba(100,160,240,0.55)" strokeWidth="1" strokeLinecap="round"/>
-        <line x1="18" y1="22" x2="20" y2="26" stroke="rgba(100,160,240,0.55)" strokeWidth="1" strokeLinecap="round"/>
+        {/* Gothic spire — narrow, pointed */}
+        <polygon points="16,2 18,10 14,10"
+          fill="rgba(100,160,240,0.82)" stroke="rgba(150,195,255,0.62)" strokeWidth="0.8" strokeLinejoin="round"/>
+        {/* Tower body */}
+        <rect x="13" y="10" width="6" height="14" rx="0.5"
+          fill="rgba(80,125,205,0.65)" stroke="rgba(130,178,248,0.55)" strokeWidth="0.8"/>
+        {/* Gothic arched window */}
+        <path d="M14.5,13 Q16,11 17.5,13 L17.5,18 L14.5,18 Z"
+          fill="rgba(210,182,88,0.52)" stroke="rgba(220,190,100,0.4)" strokeWidth="0.5"/>
+        {/* Left buttress */}
+        <rect x="8" y="17" width="5" height="9" rx="0.4"
+          fill="rgba(70,110,195,0.55)" stroke="rgba(130,178,248,0.42)" strokeWidth="0.7"/>
+        {/* Right buttress */}
+        <rect x="19" y="17" width="5" height="9" rx="0.4"
+          fill="rgba(70,110,195,0.55)" stroke="rgba(130,178,248,0.42)" strokeWidth="0.7"/>
+        {/* Left window */}
+        <rect x="9.5" y="19.5" width="2" height="3" rx="0.4" fill="rgba(210,182,88,0.38)"/>
+        {/* Right window */}
+        <rect x="20.5" y="19.5" width="2" height="3" rx="0.4" fill="rgba(210,182,88,0.38)"/>
+        {/* Steps */}
+        <rect x="5" y="26" width="22" height="2"   fill="rgba(100,155,230,0.38)" stroke="rgba(130,178,248,0.28)" strokeWidth="0.5"/>
+        <rect x="3" y="28" width="26" height="2.5" fill="rgba(90,140,215,0.3)"/>
       </svg>
     )
     case 'uva': return (
