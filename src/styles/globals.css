@@ -65,15 +65,22 @@ html, body {
   letter-spacing: 0.4em;
   color: var(--pale);
   text-transform: uppercase;
+  text-shadow:
+    0 0 8px  rgba(220, 225, 255, 0.90),
+    0 0 22px rgba(200, 210, 255, 0.60),
+    0 0 55px rgba(170, 185, 255, 0.30);
 }
 
 #name-header p {
   margin-top: 7px;
   font-family: 'Karla', sans-serif;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.3em;
-  color: var(--pale);
+  color: rgba(160, 148, 210, 0.72);
   text-transform: uppercase;
+  text-shadow:
+    0 0 10px rgba(160, 148, 210, 0.55),
+    0 0 28px rgba(140, 128, 200, 0.25);
 }
 
 /* ── Solar hint text (pulsing prompt) ───────────────────────────── */

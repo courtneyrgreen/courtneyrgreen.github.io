@@ -10,7 +10,7 @@ import About from './components/sections/About.jsx'
 import Experience from './components/sections/Experience.jsx'
 import Resume from './components/sections/Resume.jsx'
 import Projects from './components/sections/Projects/Projects.jsx'
-import Skills from './components/sections/Skills.jsx'
+import Skills from './components/sections/SkillsCarousel.jsx'
 import Interests from './components/sections/Interests.jsx'
 import Contact from './components/sections/Contact.jsx'
 

@@ -14,7 +14,7 @@
 export const SKILL_GROUPS = [
   {
     label: 'Programming',
-    rgb: '140,130,225',
+    rgb: '192,172,95',  /* Jupiter gold — carousel entry planet */
     skills: [
       {
         name: 'Python',
@@ -33,7 +33,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: 'Machine Learning',
-    rgb: '85,155,230',
+    rgb: '55,82,152',  /* Earth — deep cobalt blue */
     skills: [
       { name: 'Supervised Learning',    subs: ['Classification', 'Regression', 'XGBoost', 'Random Forest', 'Ensemble Methods', 'Feature Engineering'] },
       { name: 'Unsupervised Learning',  subs: ['K-means', 'PCA', 't-SNE', 'DBSCAN', 'Hierarchical Clustering'] },
@@ -46,7 +46,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: 'Statistics',
-    rgb: '115,195,160',
+    rgb: '138,200,218',  /* Uranus — icy pale blue */
     skills: [
       { name: 'Bayesian Inference',  subs: ['MCMC', 'Probabilistic Modeling', 'Hidden Markov Models', 'EM Algorithm'] },
       { name: 'Causal Inference',    subs: ['Propensity Score Matching', 'Synthetic Controls', 'Instrumental Variables', 'Causal Forests', 'Double-Debiased ML'] },
@@ -58,7 +58,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: 'Data Engineering',
-    rgb: '220,175,100',
+    rgb: '188,138,60',  /* Mars — warm amber-bronze */
     skills: [
       { name: 'ETL Pipelines' },
       { name: 'Database Design',  subs: ['PostgreSQL', 'pgvector', 'Schema Design', 'AsyncPG'] },
@@ -70,7 +70,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: 'Cloud & Tools',
-    rgb: '215,125,120',
+    rgb: '118,128,165',  /* Pluto — steel periwinkle */
     skills: [
       { name: 'AWS',             subs: ['S3', 'Cloud Storage', 'Deployment'] },
       { name: 'Azure' },
@@ -83,7 +83,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: 'Policy & Communication',
-    rgb: '195,155,120',
+    rgb: '215,118,68',  /* Venus — warm coral-peach */
     skills: [
       { name: 'Policy Analysis',      subs: ['Legislative Research', 'Regulatory Review', 'Impact Assessment', 'Stakeholder Mapping'] },
       { name: 'Technical Writing',    subs: ['Research Reports', 'Policy Memos', 'Data Narratives', 'Documentation'] },
@@ -95,7 +95,7 @@ export const SKILL_GROUPS = [
   },
   {
     label: 'Visualization & BI',
-    rgb: '185,150,215',
+    rgb: '95,62,168',  /* Neptune purple */
     skills: [
       { name: 'Tableau' },
       { name: 'Power BI' },

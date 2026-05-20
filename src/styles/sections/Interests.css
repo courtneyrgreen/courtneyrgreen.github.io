@@ -4,7 +4,7 @@
   position: fixed;
   inset: 0;
   z-index: 48;
-  background: radial-gradient(ellipse at 48% 52%, #0e0700 0%, #060300 50%, #020202 100%);
+  background: radial-gradient(ellipse at 50% 48%, #120806 0%, #080402 55%, #030101 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,140,55,0.09) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(210,100,60,0.12) 0%, transparent 65%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -26,13 +26,13 @@
 /* ── Card ── */
 #int-card {
   position: relative;
-  width: min(96vw, 560px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0, 0.4, 1);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 #int-card.visible {
@@ -43,9 +43,9 @@
 /* ── Header ── */
 #int-eyebrow {
   font-family: 'Karla', sans-serif;
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.44em;
-  color: rgba(200,140,55,0.32);
+  color: rgba(220,110,70,0.85);
   text-transform: uppercase;
   margin-bottom: 10px;
 }
@@ -55,169 +55,87 @@
   font-size: clamp(22px, 3.6vmin, 36px);
   font-weight: 400;
   letter-spacing: 0.26em;
-  color: rgba(235,220,195,0.9);
+  color: rgba(245,225,210,0.95);
   text-transform: uppercase;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 /* ── Statement ── */
 #int-statement {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(16px, 2.2vmin, 20px);
-  line-height: 1.7;
-  color: rgba(210,180,130,0.60);
+  font-size: clamp(15px, 2vmin, 18px);
+  line-height: 1.8;
+  color: rgba(235,200,175,0.72);
   letter-spacing: 0.02em;
-  margin-bottom: 36px;
-  max-width: 440px;
-}
-
-/* ── Cookbook card ── */
-#int-book {
-  display: flex;
-  width: 100%;
   max-width: 480px;
-  text-decoration: none;
+  margin-bottom: 44px;
+}
+
+/* ── Mission patch ── */
+#int-patch {
+  --kc: 210, 100, 60;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
   position: relative;
-  border: 1px solid rgba(200,140,55,0.18);
-  background: linear-gradient(160deg, #120a02 0%, #0a0601 100%);
-  box-shadow:
-    0 2px 40px rgba(0,0,0,0.6),
-    0 0 0 1px rgba(200,140,55,0.06),
-    inset 0 1px 0 rgba(220,175,90,0.06);
-  transition: border-color 0.3s, box-shadow 0.3s;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-#int-book:hover {
-  border-color: rgba(200,140,55,0.42);
-  box-shadow:
-    0 4px 60px rgba(0,0,0,0.7),
-    0 0 40px rgba(200,120,40,0.08),
-    inset 0 1px 0 rgba(220,175,90,0.10);
-}
-
-#int-book:hover #int-book-open {
-  color: rgba(230,195,120,0.95);
-  letter-spacing: 0.18em;
-}
-
-/* Spine */
-#int-book-spine {
-  width: 14px;
-  flex-shrink: 0;
-  background: linear-gradient(180deg,
-    rgba(200,140,55,0.28) 0%,
-    rgba(160,100,30,0.22) 50%,
-    rgba(200,140,55,0.28) 100%
-  );
-  border-right: 1px solid rgba(200,140,55,0.18);
-  position: relative;
-}
-
-#int-book-spine::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  right: 0;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(255,200,100,0.12), transparent);
-}
-
-/* Body */
-#int-book-body {
-  flex: 1;
-  padding: 28px 28px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  position: relative;
-}
-
-/* Top row: kicker + sprig */
-#int-book-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-#int-book-kicker {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 8px;
-  letter-spacing: 0.28em;
-  color: rgba(200,140,55,0.38);
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-.int-sprig {
-  width: 22px;
-  height: 36px;
-  flex-shrink: 0;
-  opacity: 0.9;
-}
-
-/* Title */
-#int-book-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(18px, 2.8vmin, 26px);
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  color: rgba(235,210,160,0.92);
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-/* Divider */
-#int-book-divider {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  justify-content: center;
+  background: radial-gradient(135deg, rgba(var(--kc), 0.18) 0%, rgba(12, 4, 2, 1) 100%);
+  border: 2.5px solid rgba(var(--kc), 0.55);
+  box-shadow:
+    0 0 20px rgba(var(--kc), 0.22),
+    inset 0 0 14px rgba(var(--kc), 0.08);
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.3s, transform 0.3s;
+  margin-bottom: 20px;
 }
 
-#int-book-divider span:not(.int-divider-dot) {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(200,140,55,0.25), rgba(200,140,55,0.08));
-}
-
-#int-book-divider span:last-child {
-  background: linear-gradient(270deg, rgba(200,140,55,0.25), rgba(200,140,55,0.08));
-}
-
-.int-divider-dot {
-  flex: 0 !important;
-  background: none !important;
-  width: 4px;
-  height: 4px;
+#int-patch::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
   border-radius: 50%;
-  background: rgba(200,140,55,0.4) !important;
+  border: 1.5px dashed rgba(var(--kc), 0.32);
+  pointer-events: none;
 }
 
-/* Subtitle */
-#int-book-sub {
-  font-family: 'Karla', sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  color: rgba(200,140,55,0.38);
-  text-transform: uppercase;
-  margin-bottom: 22px;
+#int-patch::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--kc), 0.16);
+  pointer-events: none;
 }
 
-/* Footer */
-#int-book-footer {
-  border-top: 1px solid rgba(200,140,55,0.08);
-  padding-top: 14px;
+#int-patch:hover {
+  box-shadow:
+    0 0 48px rgba(var(--kc), 0.55),
+    0 0 90px rgba(var(--kc), 0.18),
+    inset 0 0 18px rgba(var(--kc), 0.12);
+  transform: scale(1.07);
 }
 
-#int-book-open {
+#int-patch-svg {
+  width: 72px;
+  height: 72px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Click hint ── */
+#int-patch-hint {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: rgba(200,140,55,0.52);
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  color: rgba(220,110,70,0.78);
   text-transform: uppercase;
-  transition: color 0.25s, letter-spacing 0.25s;
+  transition: color 0.25s;
+}
+
+#int-patch:hover ~ #int-patch-hint {
+  color: rgba(220,110,70,0.90);
 }

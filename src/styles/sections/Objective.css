@@ -1,6 +1,6 @@
 /*
-  Objective.css — Mercury / Mission Brief section.
-  Mercury palette: warm greys, stone, subtle gold accent.
+  Objective.css — Mercury / Mission Brief
+  Accent: cyan-blue rgba(56,188,240) — distinct from About's teal-green rgba(88,185,175)
 */
 
 /* ── Full-screen layer ───────────────────────────────────────────── */
@@ -8,30 +8,54 @@
   position: fixed;
   inset: 0;
   z-index: 48;
-  background: radial-gradient(ellipse at 48% 50%, #100e0c 0%, #08060a 55%, #020106 100%);
+  background: radial-gradient(ellipse at 48% 50%, #060a10 0%, #040608 55%, #020204 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-/* ── Soft mercury-grey bloom ─────────────────────────────────────── */
+/* ── Ambient glow ────────────────────────────────────────────────── */
 #obj-glow {
   position: absolute;
-  width: 900px;
-  height: 900px;
+  width: 800px;
+  height: 800px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(140, 128, 115, 0.13) 0%, rgba(140, 128, 115, 0.04) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 188, 240, 0.07) 0%, rgba(56, 188, 240, 0.02) 45%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
-/* ── Content card ────────────────────────────────────────────────── */
+/* ── Card shell — outer glow (filter: drop-shadow follows clip-path) */
+#obj-card-shell {
+  position: relative;
+  filter:
+    drop-shadow(0 0 26px rgba(56, 188, 240, 0.24))
+    drop-shadow(0 0 7px  rgba(56, 188, 240, 0.12));
+}
+
+/* ── Outer mission panel — diagonal top-right cut ────────────────── */
 #obj-card {
   position: relative;
-  width: min(92vw, 600px);
+  width: min(92vw, 680px);
+  clip-path: polygon(
+    0%                  0%,
+    calc(100% - 30px)   0%,
+    100%                30px,
+    100%                100%,
+    0%                  100%
+  );
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px, transparent 3px,
+      rgba(0, 0, 0, 0.06) 3px, rgba(0, 0, 0, 0.06) 4px
+    ),
+    linear-gradient(rgba(4, 8, 14, 0.97), rgba(4, 8, 14, 0.97))
+      1px 1px / calc(100% - 2px) calc(100% - 2px) no-repeat,
+    rgba(56, 188, 240, 0.38);
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0, 0.4, 1);
@@ -42,58 +66,141 @@
   transform: translateY(0);
 }
 
-/* ── Eyebrow ─────────────────────────────────────────────────────── */
-#obj-eyebrow {
-  font-family: 'Karla', sans-serif;
-  font-size: 8px;
-  letter-spacing: 0.44em;
-  color: rgba(160, 148, 130, 0.45);
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-/* ── Title ───────────────────────────────────────────────────────── */
-#obj-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(20px, 3.2vmin, 32px);
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  color: var(--sw);
-  text-transform: uppercase;
-  margin: 0 0 20px;
-}
-
-/* ── Decorative rule ─────────────────────────────────────────────── */
-#obj-rule {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(160, 148, 130, 0.35) 20%,
-    rgba(160, 148, 130, 0.35) 80%,
-    transparent
-  );
-  margin-bottom: 28px;
-}
-
-/* ── Mission statement — larger, italic ─────────────────────────── */
-#obj-statement {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(15px, 2.2vmin, 20px);
-  line-height: 1.7;
-  color: rgba(210, 205, 195, 0.82);
-  letter-spacing: 0.04em;
-  margin: 0 0 32px;
-}
-
-/* ── Three pillars row ───────────────────────────────────────────── */
-#obj-pillars {
+/* ── Title bar ───────────────────────────────────────────────────── */
+#obj-hdr {
   display: flex;
   align-items: center;
-  gap: 0;
-  margin-bottom: 32px;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(56, 188, 240, 0.10);
+  border-bottom: 1px solid rgba(56, 188, 240, 0.28);
+}
+
+#obj-mission-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  color: rgba(56, 188, 240, 0.70);
+  text-transform: uppercase;
+}
+
+#obj-title-bar {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(16px, 2.6vmin, 24px);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  color: rgba(220, 240, 255, 0.95);
+  text-transform: uppercase;
+}
+
+#obj-class {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: rgba(56, 188, 240, 0.55);
+  border: 1px solid rgba(56, 188, 240, 0.25);
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+
+/* ── Metadata strip ─────────────────────────────────────────────── */
+#obj-meta-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 20px;
+  background: rgba(56, 188, 240, 0.04);
+  border-bottom: 1px solid rgba(56, 188, 240, 0.12);
+  flex-wrap: wrap;
+}
+
+.obj-meta-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(56, 188, 240, 0.52);
+}
+
+.obj-meta-sep {
+  color: rgba(56, 188, 240, 0.22);
+  font-size: 9px;
+}
+
+/* ── Scrollable content ──────────────────────────────────────────── */
+#obj-content {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: calc(88vh - 90px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+#obj-content::-webkit-scrollbar { display: none; }
+
+/* ── Sub-panel — angular top-left cut ───────────────────────────── */
+.obj-panel {
+  clip-path: polygon(
+    16px  0%,
+    100%  0%,
+    100%  100%,
+    0%    100%,
+    0%    16px
+  );
+  background:
+    linear-gradient(rgba(4, 8, 14, 0.96), rgba(4, 8, 14, 0.96))
+      1px 1px / calc(100% - 2px) calc(100% - 2px) no-repeat,
+    rgba(56, 188, 240, 0.22);
+}
+
+/* Panel label bar */
+.obj-panel-hdr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(56, 188, 240, 0.09);
+  border-bottom: 1px solid rgba(56, 188, 240, 0.18);
+}
+
+.obj-panel-hdr-icon {
+  font-size: 9px;
+  color: rgba(56, 188, 240, 0.80);
+  flex-shrink: 0;
+}
+
+.obj-panel-hdr-text {
+  font-family: 'Karla', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: rgba(56, 188, 240, 0.90);
+  text-transform: uppercase;
+}
+
+/* Panel body */
+.obj-panel-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Mission statement ───────────────────────────────────────────── */
+#obj-statement {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(15px, 2.2vmin, 18px);
+  line-height: 1.80;
+  color: rgba(215, 230, 248, 0.96);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+/* ── Three pillars — separated by lines ─────────────────────────── */
+#obj-pillars {
+  display: flex;
+  align-items: stretch;
 }
 
 .obj-pillar {
@@ -101,79 +208,114 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  padding: 0 16px;
 }
+.obj-pillar:first-child { padding-left: 0; }
 
 .obj-pillar-sep {
   width: 1px;
-  height: 36px;
-  background: rgba(160, 148, 130, 0.20);
-  margin: 0 20px;
+  background: rgba(56, 188, 240, 0.18);
   flex-shrink: 0;
 }
 
 .obj-pillar-label {
   font-family: 'Karla', sans-serif;
-  font-size: 7px;
-  letter-spacing: 0.38em;
-  color: rgba(200, 168, 80, 0.50);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  color: rgba(56, 188, 240, 0.80);
   text-transform: uppercase;
 }
 
 .obj-pillar-value {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(8px, 1.1vmin, 10px);
-  letter-spacing: 0.12em;
-  color: rgba(200, 198, 190, 0.75);
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(10px, 1.3vmin, 11px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(185, 228, 248, 0.95);
   line-height: 1.5;
 }
 
 /* ── Body paragraph ──────────────────────────────────────────────── */
 #obj-body {
   font-family: 'Karla', sans-serif;
-  font-size: clamp(11px, 1.4vmin, 13px);
-  line-height: 1.95;
-  color: rgba(170, 165, 155, 0.72);
+  font-size: clamp(13px, 1.6vmin, 14px);
+  line-height: 1.90;
+  color: rgba(155, 175, 200, 0.82);
   font-weight: 300;
-  margin: 0 0 28px;
+  margin: 0;
 }
 
-/* ── Current status line ─────────────────────────────────────────── */
+/* ── Footer bar ──────────────────────────────────────────────────── */
+#obj-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(56, 188, 240, 0.22);
+  background: rgba(56, 188, 240, 0.05);
+}
+
 #obj-status {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  font-family: 'Karla', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: rgba(140, 185, 210, 0.80);
+  text-transform: uppercase;
+}
+
+#obj-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.obj-action-btn {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.22em;
-  color: rgba(160, 148, 130, 0.42);
   text-transform: uppercase;
+  color: rgba(56, 188, 240, 0.78);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 18px;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  background: rgba(56, 188, 240, 0.07);
+  transition: background 0.2s, color 0.2s;
+}
+
+.obj-action-btn:hover {
+  background: rgba(56, 188, 240, 0.16);
+  color: rgba(160, 225, 252, 0.98);
 }
 
 .obj-status-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(200, 168, 80, 0.65);
+  background: rgba(56, 188, 240, 0.75);
   flex-shrink: 0;
+  box-shadow: 0 0 5px rgba(56, 188, 240, 0.50);
   animation: statusPulse 2.4s ease-in-out infinite;
 }
 
 @keyframes statusPulse {
-  0%, 100% { opacity: 0.65; }
-  50%       { opacity: 1; box-shadow: 0 0 6px rgba(200, 168, 80, 0.55); }
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; box-shadow: 0 0 8px rgba(56, 188, 240, 0.65); }
 }
 
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 520px) {
   #obj-pillars {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .obj-pillar-sep {
-    width: 36px;
-    height: 1px;
-    margin: 0;
+    gap: 8px;
   }
 }

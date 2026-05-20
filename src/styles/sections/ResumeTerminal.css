@@ -51,16 +51,16 @@
 
 #rtx-sub {
   font-family: 'Karla', monospace;
-  font-size: clamp(9px, 1.3vmin, 11px);
+  font-size: clamp(10px, 1.4vmin, 12px);
   letter-spacing: 0.16em;
-  color: rgba(100, 160, 100, 0.5);
+  color: rgba(100, 160, 100, 0.75);
   text-transform: lowercase;
 }
 
 /* ── Boot sequence ───────────────────────────────────────────────── */
 #rtx-boot {
   font-family: 'Karla', monospace;
-  font-size: clamp(9px, 1.3vmin, 12px);
+  font-size: clamp(10px, 1.4vmin, 13px);
   font-weight: 300;
   letter-spacing: 0.08em;
   line-height: 2;
@@ -150,17 +150,17 @@
 
 .rtx-pid {
   font-family: 'Cinzel', serif;
-  font-size: clamp(7px, 1vmin, 9px);
+  font-size: clamp(10px, 1.3vmin, 11px);
   letter-spacing: 0.4em;
-  color: rgba(var(--rtx-rgb), 0.45);
+  color: rgba(var(--rtx-rgb), 0.70);
   text-transform: uppercase;
 }
 
 .rtx-ready {
   font-family: 'Karla', monospace;
-  font-size: clamp(8px, 1.1vmin, 10px);
+  font-size: clamp(10px, 1.3vmin, 12px);
   letter-spacing: 0.1em;
-  color: rgba(var(--rtx-rgb), 0.60);
+  color: rgba(var(--rtx-rgb), 0.78);
 }
 
 .rtx-label {
@@ -173,9 +173,9 @@
 
 .rtx-desc {
   font-family: 'Karla', monospace;
-  font-size: clamp(9px, 1.2vmin, 11px);
+  font-size: clamp(10px, 1.4vmin, 12px);
   letter-spacing: 0.06em;
-  color: rgba(var(--rtx-rgb), 0.52);
+  color: rgba(var(--rtx-rgb), 0.72);
   margin-top: -4px;
 }
 
@@ -192,10 +192,10 @@
   flex-direction: column;
   gap: 2px;
   font-family: 'Karla', monospace;
-  font-size: clamp(8px, 1.1vmin, 10px);
+  font-size: clamp(10px, 1.3vmin, 12px);
   font-weight: 300;
   letter-spacing: 0.06em;
-  color: rgba(var(--rtx-rgb), 0.48);
+  color: rgba(var(--rtx-rgb), 0.68);
 }
 
 /* ── Creative download button ────────────────────────────────────── */
@@ -207,7 +207,7 @@
   overflow: hidden;
   margin-top: 6px;
   font-family: 'Karla', monospace;
-  font-size: clamp(9px, 1.3vmin, 11px);
+  font-size: clamp(10px, 1.4vmin, 12px);
   font-weight: 400;
   letter-spacing: 0.06em;
   color: rgba(var(--rtx-rgb), 0.70);

@@ -139,7 +139,7 @@
   font-family: 'Cinzel', serif;
   font-size: 10px;
   letter-spacing: 4px;
-  color: rgba(180, 150, 255, 0.45);
+  color: rgba(180, 150, 255, 0.70);
   text-transform: uppercase;
   background: none;
   border: 1px solid rgba(180, 150, 255, 0.18);
@@ -217,9 +217,9 @@
 /* Placeholder shown when no image is provided */
 .img-placeholder {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.3em;
-  color: rgba(180, 150, 255, 0.25);
+  color: rgba(180, 150, 255, 0.50);
   text-transform: uppercase;
 }
 
@@ -230,10 +230,10 @@
 
 #project-card-eyebrow {
   font-family: 'Cinzel', serif;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.38em;
   text-transform: uppercase;
-  color: rgba(180, 150, 255, 0.45);
+  color: rgba(180, 150, 255, 0.75);
   margin-bottom: 14px;
 }
 
@@ -282,10 +282,10 @@
 .pc-tag {
   display: inline-block;
   font-family: 'Cinzel', serif;
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(200, 180, 255, 0.85);
+  color: rgba(200, 180, 255, 0.90);
   border: 1px solid rgba(180, 150, 255, 0.40);
   padding: 3px 9px;
   margin: 3px 3px 0 0;
@@ -303,10 +303,10 @@
 .project-card-link {
   display: inline-block;
   font-family: 'Cinzel', serif;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(180, 150, 255, 0.65);
+  color: rgba(180, 150, 255, 0.85);
   border-bottom: 1px solid rgba(180, 150, 255, 0.22);
   padding-bottom: 3px;
   text-decoration: none;
@@ -340,7 +340,7 @@
   display: inline-block;
   margin-left: 10px;
   font-family: 'Karla', sans-serif;
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(255, 200, 100, 0.85);
@@ -388,7 +388,7 @@
   border: none;
   cursor: pointer;
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.28em;
   color: #7c3aed;
   text-transform: uppercase;

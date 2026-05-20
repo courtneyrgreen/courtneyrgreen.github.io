@@ -346,7 +346,7 @@ export default function Experience({ onBack }) {
     <div id="exp-layer">
 
       <div id="exp-hdr">
-        <div id="exp-eyebrow">Mission Patch Collection</div>
+        <div id="exp-eyebrow">Earth &nbsp;·&nbsp; Mission Log</div>
         <h1 id="exp-title">Experience</h1>
       </div>
 

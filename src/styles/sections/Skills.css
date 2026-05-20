@@ -1,256 +1,454 @@
 /*
-  Skills.css — Saturn / tag-cloud skills section.
-  Saturn palette: gold, amber, warm dark.
+  Skills.css — "Orbital Survey" planetary systems.
+  Moon labels: only reveal on individual moon hover (eliminates overlap).
+  Expandable moons pulse to signal interactivity.
+  Planets: limb-darkened sphere + hard terminator + band texture + specular.
 */
 
-/* ── Full-screen layer ───────────────────────────────────────────── */
+/* ── Full-screen container ────────────────────────────────────────── */
 #skills-layer {
   position: fixed;
   inset: 0;
   z-index: 48;
-  background: radial-gradient(ellipse at 50% 48%, #0d0a06 0%, #080604 55%, #030202 100%);
+  background: radial-gradient(ellipse at 50% 35%, #041210 0%, #020a08 42%, #010403 100%);
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   overflow-y: auto;
-  padding: 40px 24px 120px;
   scrollbar-width: none;
 }
 
 #skills-layer::-webkit-scrollbar { display: none; }
 
-/* ── Saturn amber glow ───────────────────────────────────────────── */
-#sk-glow {
-  position: fixed;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(195,165,60,0.06) 0%, transparent 68%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-/* ── Content card ────────────────────────────────────────────────── */
-#sk-card {
-  position: relative;
-  width: min(92vw, 780px);
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0, 0.4, 1);
-}
-
-#sk-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── Eyebrow ─────────────────────────────────────────────────────── */
-#sk-eyebrow {
-  font-family: 'Karla', sans-serif;
-  font-size: 8px;
-  letter-spacing: 0.44em;
-  color: rgba(195, 165, 60, 0.40);
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-/* ── Title ───────────────────────────────────────────────────────── */
-#sk-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(20px, 3.2vmin, 32px);
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  color: var(--sw);
-  text-transform: uppercase;
-  margin: 0 0 20px;
-}
-
-/* ── Rule ────────────────────────────────────────────────────────── */
-#sk-rule {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(195, 165, 60, 0.28) 20%,
-    rgba(195, 165, 60, 0.28) 80%,
-    transparent
-  );
-  margin-bottom: 28px;
-}
-
-/* ── Category legend ─────────────────────────────────────────────── */
-#sk-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 16px;
-  margin-bottom: 28px;
-}
-
-.sk-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  background: none;
-  border: none;
-  padding: 4px 2px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.sk-legend-item:hover {
-  transform: scale(1.06);
-}
-
-.sk-legend-active {
-  transform: scale(1.10) !important;
-}
-
-.sk-dot {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
+/* ── Header ───────────────────────────────────────────────────────── */
+#sk-hdr {
+  text-align: center;
+  padding: 34px 0 22px;
   flex-shrink: 0;
-  transition: transform 0.25s, box-shadow 0.25s;
+  animation: skFade 0.8s ease both;
 }
 
-.sk-legend-item:hover .sk-dot {
-  box-shadow: 0 0 8px rgba(var(--sk-rgb), 0.60);
-}
-
-.sk-legend-active .sk-dot {
-  transform: scale(1.3);
-  box-shadow: 0 0 14px rgba(var(--sk-rgb), 0.85);
-}
-
-.sk-legend-label {
-  font-family: 'Karla', sans-serif;
-  font-size: clamp(12px, 1.6vmin, 15px);
-  font-weight: 300;
-  letter-spacing: 0.10em;
-  color: rgba(200, 202, 216, 0.65);
-  transition: color 0.25s, text-shadow 0.25s;
-}
-
-.sk-legend-item:hover .sk-legend-label {
-  color: rgba(var(--sk-rgb), 0.80);
-  text-shadow: 0 0 12px rgba(var(--sk-rgb), 0.40);
-}
-
-.sk-legend-active .sk-legend-label {
-  color: rgba(var(--sk-rgb), 0.95);
-  text-shadow: 0 0 16px rgba(var(--sk-rgb), 0.65);
-}
-
-/* ── Tag cloud ───────────────────────────────────────────────────── */
-#sk-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 32px;
-}
-
-/* ── Badge pill ──────────────────────────────────────────────────── */
-.sk-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(var(--sk-rgb), 0.10);
-  border: 1px solid rgba(var(--sk-rgb), 0.38);
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-family: 'Karla', sans-serif;
-  font-size: clamp(10px, 1.4vmin, 13px);
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  color: rgba(var(--sk-rgb), 0.90);
-  cursor: default;
-  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-  outline: none;
-}
-
-.sk-badge.sk-expandable {
-  cursor: pointer;
-}
-
-.sk-badge:hover {
-  background: rgba(var(--sk-rgb), 0.18);
-  border-color: rgba(var(--sk-rgb), 0.60);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(var(--sk-rgb), 0.18);
-}
-
-.sk-badge.sk-active {
-  background: rgba(var(--sk-rgb), 0.28);
-  border-color: rgba(var(--sk-rgb), 0.80);
-  color: #fff;
-  box-shadow: 0 0 12px rgba(var(--sk-rgb), 0.30);
-}
-
-.sk-badge.sk-dimmed {
-  opacity: 0.18;
-  pointer-events: none;
-}
-
-.sk-arrow {
-  font-size: 11px;
-  opacity: 0.70;
-  line-height: 1;
-}
-
-/* ── Sub-skill popover ───────────────────────────────────────────── */
-#sk-popover {
-  background: rgba(12, 10, 16, 0.95);
-  border: 1px solid rgba(var(--sk-rgb), 0.35);
-  border-radius: 12px;
-  padding: 18px 20px;
-  margin-bottom: 32px;
-  box-shadow: 0 8px 32px rgba(var(--sk-rgb), 0.15);
-  backdrop-filter: blur(12px);
-  animation: popoverIn 0.2s cubic-bezier(0.2, 0, 0.4, 1) forwards;
-}
-
-@keyframes popoverIn {
-  from { opacity: 0; transform: translateY(-6px); }
+@keyframes skFade {
+  from { opacity: 0; transform: translateY(-8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.sk-popover-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(9px, 1.3vmin, 11px);
-  letter-spacing: 0.28em;
-  color: rgba(var(--sk-rgb), 0.80);
+#sk-eyebrow {
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.44em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  color: rgba(210, 182, 88, 0.90);
+  margin-bottom: 8px;
 }
 
-.sk-popover-subs {
+#sk-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 3.2vmin, 34px);
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--sw);
+  margin: 0 0 10px;
+}
+
+#sk-hint {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: rgba(195, 190, 225, 0.72);
+  margin: 0;
+}
+
+/* ── Systems flex container ───────────────────────────────────────── */
+#sk-cosmos {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  justify-content: center;
+  gap: 8px 16px;
+  padding: 8px 24px 100px;
+  width: 100%;
+  max-width: 1400px;
+  animation: skFade 0.9s ease 0.2s both;
 }
 
-.sk-sub-badge {
-  background: rgba(var(--sk-rgb), 0.18);
-  border: 1px solid rgba(var(--sk-rgb), 0.45);
-  border-radius: 14px;
-  padding: 4px 12px;
+/* ── Individual planetary system ──────────────────────────────────── */
+.sk-sys {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  flex-shrink: 0;
+  transition: opacity 0.35s ease, filter 0.35s ease;
+  z-index: 1;
+}
+
+.sk-sys:hover     { z-index: 10; }
+.sk-sys.sys-active { z-index: 20; }
+
+/* Dim everything else when a chip panel is open */
+#sk-cosmos:has(.sys-active) .sk-sys:not(.sys-active) {
+  opacity: 0.26;
+  filter: saturate(0.28);
+}
+
+/* ── Orbit ring + tracer dot ──────────────────────────────────────── */
+.sk-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  width:  calc(var(--or) * 2);
+  height: calc(var(--or) * 2);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(var(--sk-rgb), 0.38);
+  box-shadow: 0 0 6px rgba(var(--sk-rgb), 0.12);
+  pointer-events: none;
+}
+
+.sk-orbit::before {
+  content: '';
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(var(--sk-rgb), 0.55);
+  box-shadow: 0 0 6px rgba(var(--sk-rgb), 0.65);
+  top: -2px;
+  left: calc(50% - 2px);
+  transform-origin: 50% calc(var(--or) + 2px);
+  animation: orbitTrace var(--od, 22s) linear infinite;
+}
+
+@keyframes orbitTrace {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PLANET SPHERE
+   Stack (top → bottom):
+     .sk-core-spec  — specular flash + hard terminator (overlay blend)
+     .sk-core-bands — atmospheric surface texture (soft-light blend)
+     .sk-core       — base sphere: limb-darkened day-side color
+   Isolation context keeps blend modes from bleeding into the layout.
+════════════════════════════════════════════════════════════════════ */
+
+/* Wrapper that provides the stacking/isolation context */
+.sk-core-wrap {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82px; height: 82px;
+  border-radius: 50%;
+  isolation: isolate;
+  cursor: pointer;
+  /* Atmosphere rings + glow */
+  box-shadow:
+    0 0 0 2px  rgba(var(--sk-rgb), 0.18),
+    0 0 0 7px  rgba(var(--sk-rgb), 0.08),
+    0 0 28px   rgba(var(--sk-rgb), 0.42),
+    0 0 64px   rgba(var(--sk-rgb), 0.18);
+  transition: box-shadow 0.30s ease;
+}
+
+.sk-sys:hover .sk-core-wrap {
+  box-shadow:
+    0 0 0 3px  rgba(var(--sk-rgb), 0.32),
+    0 0 0 10px rgba(var(--sk-rgb), 0.14),
+    0 0 42px   rgba(var(--sk-rgb), 0.68),
+    0 0 88px   rgba(var(--sk-rgb), 0.28);
+}
+
+/* Layer 1 (bottom): vibrant day-side sphere + limb darkening */
+.sk-core {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+
+  background:
+    /* Limb darkening — deep shadow at very edge */
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 54%,
+      rgba(0, 0, 0, 0.55) 78%,
+      rgba(0, 0, 0, 0.88) 100%
+    ),
+    /* Day side — full-saturation core, fades toward edge */
+    radial-gradient(
+      circle at 36% 32%,
+      rgba(var(--sk-rgb), 1.00)  0%,
+      rgba(var(--sk-rgb), 0.96) 22%,
+      rgba(var(--sk-rgb), 0.84) 44%,
+      rgba(var(--sk-rgb), 0.56) 64%,
+      rgba(var(--sk-rgb), 0.22) 82%,
+      rgba(var(--sk-rgb), 0.05) 94%,
+      transparent 100%
+    ),
+    /* Base dark colour so unlit side isn't pure black */
+    radial-gradient(circle at 50% 50%, #0c0918 0%, #040208 100%);
+
+  /* Inset depth */
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.20),
+    inset 0 0 16px rgba(0, 0, 0, 0.40);
+}
+
+/* Layer 2: atmospheric surface bands */
+.sk-core-bands {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    162deg,
+    transparent                    0px,
+    transparent                   10px,
+    rgba(255, 255, 255, 0.13)     10px,
+    rgba(255, 255, 255, 0.13)     14px,
+    transparent                   14px,
+    transparent                   24px,
+    rgba(0, 0, 0, 0.12)           24px,
+    rgba(0, 0, 0, 0.12)           28px,
+    transparent                   28px,
+    transparent                   40px,
+    rgba(255, 255, 255, 0.07)     40px,
+    rgba(255, 255, 255, 0.07)     43px
+  );
+}
+
+/* Layer 3 (top): hard terminator + specular highlight */
+.sk-core-spec {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background:
+    /* Specular highlight — bright sun reflection upper-left */
+    radial-gradient(
+      circle at 28% 24%,
+      rgba(255, 255, 255, 0.72)  0%,
+      rgba(255, 255, 255, 0.40) 12%,
+      rgba(255, 255, 255, 0.14) 28%,
+      transparent 48%
+    ),
+    /* Hard terminator — night-side darkness from lower-right */
+    radial-gradient(
+      circle at 115% 118%,
+      rgba(0, 0, 0, 1.00)  0%,
+      rgba(0, 0, 0, 0.96) 18%,
+      rgba(0, 0, 0, 0.82) 32%,
+      rgba(0, 0, 0, 0.54) 46%,
+      rgba(0, 0, 0, 0.22) 58%,
+      rgba(0, 0, 0, 0.06) 68%,
+      transparent 76%
+    );
+}
+
+/* ── Category label — centred inside the planet sphere ───────────── */
+.sk-plabel {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
   font-family: 'Karla', sans-serif;
-  font-size: clamp(10px, 1.3vmin, 12px);
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  color: rgba(var(--sk-rgb), 0.95);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.96);
+  text-align: center;
+  width: 72px;
+  line-height: 1.7;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  pointer-events: none;
+  /* Thick multi-layer shadow creates contrast without any background */
+  text-shadow:
+    0 0 4px  rgba(0, 0, 0, 1),
+    0 0 10px rgba(0, 0, 0, 1),
+    0 0 20px rgba(0, 0, 0, 0.95),
+    0  1px 2px rgba(0, 0, 0, 1),
+    0 -1px 2px rgba(0, 0, 0, 1),
+    -1px 0  2px rgba(0, 0, 0, 1),
+     1px 0  2px rgba(0, 0, 0, 1);
 }
 
-/* ── Back button — fixed ─────────────────────────────────────────── */
+/* ── Moon ─────────────────────────────────────────────────────────── */
+.sk-moon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(calc(var(--mx) - 6px), calc(var(--my) - 6px));
+  width: 12px; height: 12px;
+  animation: moonReveal 0.42s cubic-bezier(0.34, 1.5, 0.64, 1) var(--md, 0s) both;
+}
+
+@keyframes moonReveal {
+  from { opacity: 0; scale: 0; }
+  to   { opacity: 1; scale: 1; }
+}
+
+.sk-ex { cursor: pointer; }
+
+/* ── Moon dot ─────────────────────────────────────────────────────── */
+/* Plain dot — no sub-skills */
+.sk-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: rgba(var(--sk-rgb), 0.55);
+  border: 1.5px solid rgba(var(--sk-rgb), 0.82);
+  margin: -0.5px;
+  transition: transform 0.22s, box-shadow 0.22s, background 0.22s;
+}
+
+/* Expandable dot — noticeably larger + pulsing ring signals it's clickable */
+.sk-ex .sk-dot {
+  width: 14px; height: 14px;
+  margin: -3px;
+  background: rgba(var(--sk-rgb), 0.80);
+  border: 1.5px solid rgba(var(--sk-rgb), 1);
+  animation: exPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes exPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(var(--sk-rgb), 0.14), 0 0 5px rgba(var(--sk-rgb), 0.28);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(var(--sk-rgb), 0.30), 0 0 14px rgba(var(--sk-rgb), 0.52);
+  }
+}
+
+/* Both dot types: hover / open state */
+.sk-ex:hover .sk-dot,
+.sk-open .sk-dot {
+  transform: scale(1.55);
+  background: rgba(var(--sk-rgb), 1);
+  animation-play-state: paused;
+  box-shadow:
+    0 0 0 3px rgba(var(--sk-rgb), 0.32),
+    0 0 10px rgba(var(--sk-rgb), 0.80),
+    0 0 22px rgba(var(--sk-rgb), 0.40);
+}
+
+.sk-moon:not(.sk-ex):hover .sk-dot {
+  transform: scale(1.4);
+  background: rgba(var(--sk-rgb), 0.90);
+  box-shadow: 0 0 8px rgba(var(--sk-rgb), 0.55);
+}
+
+/* ── Moon name label — hidden; shown only on THAT moon's hover/open ─ */
+.sk-mname {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Karla', sans-serif;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(235, 230, 248, 0.96);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  /* Dark backing + planet-colored glow for legibility on any background */
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 0 8px  rgba(0, 0, 0, 0.90),
+    0 0 14px rgba(var(--sk-rgb), 0.55);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.sk-mn-r { left:  17px; }
+.sk-mn-l { right: 17px; text-align: right; }
+
+/* Reveal only the hovered / open moon's label */
+.sk-moon:hover .sk-mname,
+.sk-open .sk-mname {
+  opacity: 1;
+}
+
+/* ── Sub-skill chips panel ────────────────────────────────────────── */
+.sk-chips {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 200px;
+  padding: 9px 11px;
+  background: rgba(4, 2, 14, 0.94);
+  border: 1px solid rgba(var(--sk-rgb), 0.26);
+  border-radius: 3px;
+  backdrop-filter: blur(14px);
+  z-index: 30;
+}
+
+.sk-chips-r {
+  left: 18px;
+  transform: translateY(-50%);
+  animation: chipsInR 0.22s ease both;
+}
+
+.sk-chips-l {
+  right: 18px;
+  transform: translateY(-50%);
+  justify-content: flex-end;
+  animation: chipsInL 0.22s ease both;
+}
+
+/* Show all moon name labels when the planet is clicked (expanded) */
+.sk-sys.sys-expanded .sk-mname {
+  opacity: 1;
+}
+
+/* When a moon is open inside an expanded system, fade other labels out */
+.sk-sys.sys-expanded.sys-active .sk-mname {
+  opacity: 0;
+}
+.sk-sys.sys-expanded.sys-active .sk-open .sk-mname {
+  opacity: 1;
+}
+
+/* Dim other systems when one is expanded */
+#sk-cosmos:has(.sys-expanded) .sk-sys:not(.sys-expanded):not(.sys-active) {
+  opacity: 0.26;
+  filter: saturate(0.28);
+}
+
+@keyframes chipsInR {
+  from { opacity: 0; transform: translateY(-50%) translateX(-6px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+@keyframes chipsInL {
+  from { opacity: 0; transform: translateY(-50%) translateX(6px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.sk-chip {
+  font-family: 'Karla', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(235, 230, 250, 0.95);
+  background: rgba(var(--sk-rgb), 0.14);
+  border: 1px solid rgba(var(--sk-rgb), 0.45);
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+
+/* ── Back button ──────────────────────────────────────────────────── */
 #skills-layer .sec-back-btn {
   position: fixed;
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(6,4,12,0.85);
-  backdrop-filter: blur(8px);
+  background: rgba(4, 2, 10, 0.90);
+  backdrop-filter: blur(10px);
   z-index: 10;
 }

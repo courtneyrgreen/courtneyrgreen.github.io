@@ -2,126 +2,21 @@ import { useEffect, useRef } from 'react'
 import profileImg from '../../assets/images/headshot.jpg'
 import '../../styles/sections/About.css'
 
-/*
-  About — "The Observatory" section.
-
-  Layout:
-    Left  — circular headshot inside the iris-aperture frame,
-            surrounded by the degree-tick ring and a solar-halo glow.
-    Right — astro-sign data cards + name + role + bio.
-    Bottom — comet-path animation tracing the career journey
-             Earth → Mars → Saturn.
-
-  To use your own headshot: place the image at /public/headshot.jpg
-  (or any path) and update the <img src="..."> below.
-
-  Props:
-    onBack {fn} — called when "← Solar System" is clicked
-*/
 export default function About({ onBack }) {
-  const canvasRef = useRef(null)   // degree-tick ring canvas
-  const apertureRef = useRef(null)   // iris aperture (gets .open)
-  const cometRef = useRef(null)   // comet dot element
-  const wp0Ref = useRef(null)   // waypoint 0 — Earth
-  const wp1Ref = useRef(null)   // waypoint 1 — Mars
-  const wp2Ref = useRef(null)   // waypoint 2 — Saturn
-  const wp3Ref = useRef(null)   // waypoint 3 — Next
+  const cometRef = useRef(null)
+  const wp0Ref   = useRef(null)
+  const wp1Ref   = useRef(null)
+  const wp2Ref   = useRef(null)
+  const wp3Ref   = useRef(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const aperture = apertureRef.current
-    if (!canvas || !aperture) return
-
-    // ── Draw degree-tick ring ──────────────────────────────────────
-    const size = canvas.parentElement.offsetWidth
-    canvas.width = canvas.height = size
-    const ctx = canvas.getContext('2d')
-    const cx = size / 2
-    const cy = size / 2
-    const R = size / 2
-
-    ctx.clearRect(0, 0, size, size)
-
-    // ── Tick ring ─────────────────────────────────────────────────
-    for (let i = 0; i < 72; i++) {
-      const angle = (i / 72) * Math.PI * 2 - Math.PI / 2
-      const isCardinal = i % 18 === 0   // 4 gold markers at 90° intervals
-      const isMajor = i % 9 === 0    // 8 medium ticks at 45° intervals
-      const r1 = R - 2
-      const r2 = isCardinal ? R - 18 : isMajor ? R - 11 : R - 6
-      ctx.beginPath()
-      ctx.moveTo(cx + Math.cos(angle) * r1, cy + Math.sin(angle) * r1)
-      ctx.lineTo(cx + Math.cos(angle) * r2, cy + Math.sin(angle) * r2)
-      ctx.strokeStyle = isCardinal
-        ? 'rgba(200,168,80,0.65)'
-        : isMajor
-          ? 'rgba(200,202,216,0.22)'
-          : 'rgba(200,202,216,0.08)'
-      ctx.lineWidth = isCardinal ? 1.5 : isMajor ? 0.8 : 0.5
-      ctx.stroke()
-    }
-
-    // ── Targeting arc segments at cardinal positions ───────────────
-    const cardinalAngles = [0, Math.PI / 2, Math.PI, Math.PI * 1.5]
-    cardinalAngles.forEach(base => {
-      const span = Math.PI / 10
-      const start = base - Math.PI / 2 - span / 2
-      const end = base - Math.PI / 2 + span / 2
-      ctx.beginPath()
-      ctx.arc(cx, cy, R - 22, start, end)
-      ctx.strokeStyle = 'rgba(200,168,80,0.25)'
-      ctx.lineWidth = 1
-      ctx.stroke()
-    })
-
-    // ── Diamond markers at cardinal positions ──────────────────────
-    cardinalAngles.forEach((base, idx) => {
-      const a = base - Math.PI / 2
-      const r = R - 30
-      const dx = cx + Math.cos(a) * r
-      const dy = cy + Math.sin(a) * r
-      const s = 3.5
-      ctx.save()
-      ctx.translate(dx, dy)
-      ctx.rotate(base)
-      ctx.beginPath()
-      ctx.moveTo(0, -s)
-      ctx.lineTo(s, 0)
-      ctx.lineTo(0, s)
-      ctx.lineTo(-s, 0)
-      ctx.closePath()
-      ctx.fillStyle = 'rgba(200,168,80,0.5)'
-      ctx.fill()
-      ctx.restore()
-    })
-
-    // ── Inner dashed reference circle ──────────────────────────────
-    ctx.beginPath()
-    ctx.arc(cx, cy, R * 0.84, 0, Math.PI * 2)
-    ctx.strokeStyle = 'rgba(200,202,216,0.05)'
-    ctx.lineWidth = 0.5
-    ctx.setLineDash([2, 10])
-    ctx.stroke()
-    ctx.setLineDash([])
-
-    // ── Open iris aperture ─────────────────────────────────────────
-    const t1 = setTimeout(() => aperture.classList.add('open'), 200)
-
-    // ── Activate journey waypoints as comet passes ─────────────────
-    // Comet CSS animation starts at 1.8 s and takes 2.5 s (ends at 4.3 s).
-    // Waypoints light up at roughly equal quarters of that journey.
-    const t2 = setTimeout(() => wp0Ref.current?.classList.add('active'), 1900)
-    const t3 = setTimeout(() => wp1Ref.current?.classList.add('active'), 2700)
-    const t4 = setTimeout(() => wp2Ref.current?.classList.add('active'), 3500)
-    const t5 = setTimeout(() => wp3Ref.current?.classList.add('active'), 4300)
+    const t1 = setTimeout(() => wp0Ref.current?.classList.add('active'), 400)
+    const t2 = setTimeout(() => wp1Ref.current?.classList.add('active'), 1200)
+    const t3 = setTimeout(() => wp2Ref.current?.classList.add('active'), 2000)
+    const t4 = setTimeout(() => wp3Ref.current?.classList.add('active'), 2800)
 
     return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-      clearTimeout(t4)
-      clearTimeout(t5)
-      aperture.classList.remove('open')
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4)
       wp0Ref.current?.classList.remove('active')
       wp1Ref.current?.classList.remove('active')
       wp2Ref.current?.classList.remove('active')
@@ -135,34 +30,23 @@ export default function About({ onBack }) {
       {/* ── Two-column content ───────────────────────────────────── */}
       <div id="about-layout">
 
-        {/* ── Left: headshot frame + socials below ─────────────── */}
+        {/* ── Left: portrait ───────────────────────────────────── */}
         <div id="obs-left">
-          <div id="obs-frame">
-            {/* Solar halo glow behind the frame */}
-            <div id="obs-solar-halo" />
-
-            {/* Degree-tick ring drawn on canvas */}
-            <canvas ref={canvasRef} id="obs-canvas" />
-
-            {/* Decorative ring borders */}
-            <div id="obs-ring" />
-            <div id="obs-ring-inner" />
-
-            {/* Iris aperture — reveals headshot on open */}
-            <div ref={apertureRef} id="obs-aperture">
-              <img
-                id="obs-headshot"
-                src={profileImg}
-                alt="Courtney Green"
-              />
-            </div>
-
+          <div id="obs-portrait">
+            <img id="obs-headshot" src={profileImg} alt="Courtney Green" />
+            <div id="obs-scan" />
+            <div id="obs-portrait-overlay" />
           </div>
-
+          <div id="obs-status">
+            <span id="obs-status-dot" />
+            <span className="obs-status-txt">Crew · Active</span>
+            <span className="obs-status-txt">C. Green</span>
+          </div>
         </div>
 
-        {/* ── Right: astro-sign cards + bio ────────────────────── */}
+        {/* ── Right: info panel (screen) ───────────────────────── */}
         <div id="obs-info">
+          <div id="obs-panel-hdr">▸ signal received</div>
           <div id="obs-eyebrow">The Observatory</div>
           <div id="obs-name">Courtney Green</div>
           <div id="obs-role">Incoming Tech, Data, &amp; AI Consultant II @ Guidehouse</div>
@@ -187,45 +71,42 @@ export default function About({ onBack }) {
           </div>
 
           <div id="obs-bio">
-            I'm a data scientist and policy analyst based in Washington, D.C., finishing my M.S. in Data Science &amp; Analytics at Georgetown this spring.  I think the most interesting part of any analysis is what you do with it afterward. This year, I've been scraping live election results for the Associated Press and working as a Scholars Program Associate at Georgetown's Prisons and Justice Initiative, and this summer I'm joining Guidehouse as a Tech, Data & AI Consultant. I've always been the kind of person who can't quite call something finished. There's always one more question worth asking.
+            I'm a data scientist and policy analyst based in Washington, D.C., having just finished my M.S. in Data Science &amp; Analytics at Georgetown. I think the most interesting part of any analysis is what you do with it afterward. This year, I've been scraping live election results for the Associated Press and working as a Scholars Program Associate at Georgetown's Prisons and Justice Initiative, and this summer I'm joining Guidehouse as a Tech, Data &amp; AI Consultant. I've always been the kind of person who can't quite call something finished. There's always one more question worth asking.
           </div>
         </div>
       </div>
 
-      {/* ── Bottom: comet journey path ───────────────────────────── */}
-      <div id="obs-journey">
+      {/* ── Bottom: transmission log ─────────────────────────────── */}
+      <div id="obs-journey-wrap">
+        <div id="obs-journey-lbl">Transmission Log</div>
+        <div id="obs-journey">
+          <div id="obs-journey-line" />
+          <div ref={cometRef} id="obs-comet" />
 
-        {/* Dashed path line */}
-        <div id="obs-journey-line" />
+          <div className="obs-wp" ref={wp0Ref} style={{ left: '5%' }}>
+            <div className="obs-wp-dot" />
+            <div className="obs-wp-label">UVA</div>
+            <div className="obs-wp-desc">Policy &amp; CS</div>
+          </div>
 
-        {/* Comet dot — CSS animation drives it left → right */}
-        <div ref={cometRef} id="obs-comet" />
+          <div className="obs-wp" ref={wp1Ref} style={{ left: '35%' }}>
+            <div className="obs-wp-dot" />
+            <div className="obs-wp-label">Georgetown</div>
+            <div className="obs-wp-desc">MS Data Science</div>
+          </div>
 
-        {/* Waypoint nodes — activated by JS as comet passes */}
-        <div className="obs-wp" ref={wp0Ref} style={{ left: '5%' }}>
-          <div className="obs-wp-dot" />
-          <div className="obs-wp-label">UVA</div>
-          <div className="obs-wp-desc">Policy &amp; CS</div>
+          <div className="obs-wp" ref={wp2Ref} style={{ left: '65%' }}>
+            <div className="obs-wp-dot" />
+            <div className="obs-wp-label">Now</div>
+            <div className="obs-wp-desc">AP Elections Web Scraper</div>
+          </div>
+
+          <div className="obs-wp" ref={wp3Ref} style={{ left: '95%' }}>
+            <div className="obs-wp-dot" />
+            <div className="obs-wp-label">Next</div>
+            <div className="obs-wp-desc">Consultant II @ Guidehouse</div>
+          </div>
         </div>
-
-        <div className="obs-wp" ref={wp1Ref} style={{ left: '35%' }}>
-          <div className="obs-wp-dot" />
-          <div className="obs-wp-label">Georgetown</div>
-          <div className="obs-wp-desc">MS Data Science</div>
-        </div>
-
-        <div className="obs-wp" ref={wp2Ref} style={{ left: '65%' }}>
-          <div className="obs-wp-dot" />
-          <div className="obs-wp-label">Now</div>
-          <div className="obs-wp-desc">AP Elections Web Scraper</div>
-        </div>
-
-        <div className="obs-wp" ref={wp3Ref} style={{ left: '95%' }}>
-          <div className="obs-wp-dot" />
-          <div className="obs-wp-label">Next</div>
-          <div className="obs-wp-desc">Consultant II @ Guidehouse</div>
-        </div>
-
       </div>
 
       <button className="sec-back-btn" onClick={onBack}>

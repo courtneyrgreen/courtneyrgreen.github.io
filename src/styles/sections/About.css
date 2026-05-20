@@ -1,9 +1,7 @@
 /*
   About.css — "The Observatory" section.
-
-  Layout:
-    Two-column (#about-layout): orbital headshot frame (left) + info panel (right).
-    Full-width journey strip (#obs-journey) at the bottom.
+  Intercom / crew manifest aesthetic.
+  Accent: teal rgba(88, 185, 175, ...)
 */
 
 /* ── Full-screen layer ───────────────────────────────────────────── */
@@ -11,7 +9,7 @@
   position: fixed;
   inset: 0;
   z-index: 48;
-  background: radial-gradient(ellipse at 50% 46%, #0e0c1e 0%, #060410 58%, #020208 100%);
+  background: radial-gradient(ellipse at 50% 46%, #060e0b 0%, #030806 58%, #010402 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,111 +29,164 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   LEFT COLUMN — orbital headshot frame + socials
+   LEFT COLUMN — portrait panel
 ══════════════════════════════════════════════════════════════════ */
 #obs-left {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
   flex: 0 0 auto;
 }
 
+/* Portrait frame */
+#obs-portrait {
+  position: relative;
+  width: min(30vmin, 220px);
+  height: min(42vmin, 310px);
+  overflow: hidden;
+  background: #000;
+  flex: 0 0 auto;
+  border: 2px solid rgba(88,185,175,0.35);
+}
+
+/* Corner brackets */
+#obs-portrait::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px;
+  width: 24px; height: 24px;
+  border-top: 2px solid rgba(88,185,175,0.9);
+  border-left: 2px solid rgba(88,185,175,0.9);
+  z-index: 4;
+  pointer-events: none;
+}
+#obs-portrait::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; right: -2px;
+  width: 24px; height: 24px;
+  border-bottom: 2px solid rgba(88,185,175,0.9);
+  border-right: 2px solid rgba(88,185,175,0.9);
+  z-index: 4;
+  pointer-events: none;
+}
+
+#obs-headshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 5%;
+  display: block;
+}
+
+/* Scanlines — wipe from top to bottom on page open, then vanish */
+#obs-scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
+    rgba(0,0,0,0.38) 2px, rgba(0,0,0,0.38) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+  animation: scanWipe 1.3s cubic-bezier(0.4,0,0.6,1) 0.4s forwards;
+}
+
+/* Bright teal scan head moves top → bottom */
+#obs-scan::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent 0%, rgba(88,220,200,0.9) 30%, rgba(88,220,200,0.9) 70%, transparent 100%);
+  animation: scanHead 1.3s cubic-bezier(0.4,0,0.6,1) 0.4s forwards;
+}
+
+@keyframes scanWipe {
+  0%   { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(100% 0 0 0); }
+}
+
+@keyframes scanHead {
+  0%   { top: 0%;   opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Moderate edge vignette — sides and bottom only, face stays clear */
+#obs-portrait-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,  rgba(3,8,6,0.50) 0%, transparent 25%, transparent 75%, rgba(3,8,6,0.50) 100%),
+    linear-gradient(to bottom, transparent 50%, rgba(3,8,6,0.92) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Status bar below portrait */
+#obs-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(30vmin, 220px);
+  padding: 5px 8px;
+  border: 1px solid rgba(88,185,175,0.18);
+  border-top: none;
+  background: rgba(0,8,6,0.90);
+  gap: 6px;
+}
+
+#obs-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(80,220,160,0.85);
+  box-shadow: 0 0 5px rgba(80,220,160,0.5);
+  flex-shrink: 0;
+  animation: statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; }
+}
+
+.obs-status-txt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  color: rgba(88,185,175,0.80);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── Social nodes ────────────────────────────────────────────────── */
 #obs-socials-inline {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-#obs-frame {
-  position: relative;
-  width: min(38vmin, 280px);
-  height: min(38vmin, 280px);
-}
-
-/* ── Solar halo — warm golden bloom behind the frame ────────────── */
-#obs-solar-halo {
-  position: absolute;
-  inset: -28px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(220, 165, 40, 0.14) 0%,
-    rgba(200, 140, 20, 0.07) 45%,
-    transparent 72%
-  );
-  pointer-events: none;
-  animation: haloBreath 4s ease-in-out infinite;
-}
-
-@keyframes haloBreath {
-  0%, 100% { opacity: 0.7; transform: scale(1);    }
-  50%       { opacity: 1;   transform: scale(1.06); }
-}
-
-/* ── Astrolabe ring canvas — rotates slowly ──────────────────────── */
-#obs-canvas {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: obsRingRotate 80s linear infinite;
-}
-
-@keyframes obsRingRotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* ── Outer bezel ring borders ────────────────────────────────────── */
-#obs-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(200, 202, 216, 0.14);
-}
-
-/* Inner ring counter-rotates for astrolabe effect */
-#obs-ring-inner {
-  position: absolute;
-  inset: 14px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  animation: obsRingCounter 55s linear infinite;
-}
-
-@keyframes obsRingCounter {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(-360deg); }
-}
-
-#obs-ring-inner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px dashed rgba(200, 202, 216, 0.06);
-}
-
-/* ── Social nodes below frame ────────────────────────────────────── */
 .obs-social-node {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1px solid rgba(200, 202, 216, 0.15);
-  background: rgba(6, 5, 10, 0.85);
+  border: 1px solid rgba(88,185,175,0.18);
+  background: rgba(0,8,6,0.85);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(138, 143, 168, 0.45);
+  color: rgba(88,185,175,0.40);
   transition: color 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 
 .obs-social-node:hover {
-  color: rgba(200, 202, 216, 0.9);
-  border-color: rgba(200, 202, 216, 0.4);
-  box-shadow: 0 0 10px rgba(200, 202, 216, 0.12);
+  color: rgba(88,200,190,0.9);
+  border-color: rgba(88,185,175,0.5);
+  box-shadow: 0 0 10px rgba(88,185,175,0.15);
 }
 
 .obs-social-node svg {
@@ -143,65 +194,37 @@
   height: 14px;
 }
 
-/* ── Iris aperture — clips to reveal headshot ────────────────────── */
-#obs-aperture {
-  position: absolute;
-  inset: 28px;
-  border-radius: 50%;
-  border: 1px solid rgba(200, 202, 216, 0.18);
-  overflow: hidden;
-  clip-path: circle(0% at 50% 50%);
-  transition: clip-path 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: radial-gradient(circle at 40% 38%, #1a1530, #080612);
-}
-
-#obs-aperture.open {
-  clip-path: circle(50% at 50% 50%);
-}
-
-/* ── Headshot image ──────────────────────────────────────────────── */
-#obs-headshot {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-}
-
 /* ══════════════════════════════════════════════════════════════════
-   RIGHT COLUMN — info panel
+   RIGHT COLUMN — info panel (screen)
 ══════════════════════════════════════════════════════════════════ */
 #obs-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transform: translateX(14px);
-  transition: opacity 1s ease 0.6s, transform 1s ease 0.6s;
-}
-
-/* Info panel fades in once aperture opens */
-#obs-aperture.open ~ * #obs-info,
-#about-layout:has(#obs-aperture.open) #obs-info {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Fallback: animate info in after a delay regardless */
-#obs-info {
-  animation: infoReveal 0.8s ease 1s forwards;
+  animation: infoReveal 0.8s ease 0.3s both;
 }
 
 @keyframes infoReveal {
-  to { opacity: 1; transform: translateX(0); }
+  from { opacity: 0; transform: translateX(14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Panel header ────────────────────────────────────────────────── */
+#obs-panel-hdr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  color: rgba(88,185,175,0.65);
+  text-transform: uppercase;
+  margin-bottom: 14px;
 }
 
 /* ── Eyebrow ─────────────────────────────────────────────────────── */
 #obs-eyebrow {
   font-family: 'Karla', sans-serif;
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.44em;
-  color: rgba(200, 168, 80, 0.45);
+  color: rgba(88,185,175,0.80);
   text-transform: uppercase;
   margin-bottom: 10px;
 }
@@ -223,11 +246,11 @@
   font-style: italic;
   font-size: clamp(12px, 1.7vmin, 16px);
   letter-spacing: 0.16em;
-  color: rgba(200, 202, 216, 0.50);
+  color: rgba(120, 200, 188, 0.82);
   margin-bottom: 22px;
 }
 
-/* ── Astro-sign cards row ────────────────────────────────────────── */
+/* ── Data cards row ──────────────────────────────────────────────── */
 #obs-cards {
   display: flex;
   gap: 10px;
@@ -236,25 +259,25 @@
 }
 
 .asc-card {
-  border: 1px solid rgba(200, 202, 216, 0.10);
+  border: 1px solid rgba(88,185,175,0.12);
   padding: 9px 14px;
   min-width: 90px;
 }
 
 .asc-label {
   font-family: 'Karla', sans-serif;
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.36em;
-  color: rgba(200, 168, 80, 0.42);
+  color: rgba(88,185,175,0.80);
   text-transform: uppercase;
   margin-bottom: 4px;
 }
 
 .asc-value {
   font-family: 'Cinzel', serif;
-  font-size: clamp(9px, 1.2vmin, 11px);
+  font-size: clamp(10px, 1.4vmin, 12px);
   letter-spacing: 0.14em;
-  color: rgba(200, 202, 216, 0.78);
+  color: rgba(180,220,210,0.80);
 }
 
 /* ── Bio ─────────────────────────────────────────────────────────── */
@@ -269,11 +292,26 @@
 
 
 /* ══════════════════════════════════════════════════════════════════
-   COMET JOURNEY STRIP
+   TRANSMISSION LOG
 ══════════════════════════════════════════════════════════════════ */
+#obs-journey-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(92vw, 820px);
+}
+
+#obs-journey-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: rgba(88,185,175,0.60);
+  text-transform: uppercase;
+}
+
 #obs-journey {
   position: relative;
-  width: min(92vw, 820px);
+  width: 100%;
   height: 68px;
   flex-shrink: 0;
 }
@@ -287,27 +325,27 @@
   height: 1px;
   background: repeating-linear-gradient(
     to right,
-    rgba(200, 202, 216, 0.15) 0px,
-    rgba(200, 202, 216, 0.15) 6px,
+    rgba(88,185,175,0.22) 0px,
+    rgba(88,185,175,0.22) 6px,
     transparent 6px,
     transparent 14px
   );
   transform: translateY(-50%);
 }
 
-/* ── Comet dot with trailing glow ────────────────────────────────── */
+/* Signal dot */
 #obs-comet {
   position: absolute;
   top: 50%;
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(255, 242, 180, 0.95);
+  background: rgba(88,220,200,0.95);
   box-shadow:
-    0 0  5px rgba(255, 228, 120, 0.95),
-    0 0 12px rgba(255, 200,  80, 0.65),
-    -14px 0 8px  rgba(255, 190,  60, 0.30),
-    -28px 0 14px rgba(255, 170,  40, 0.12);
+    0 0  5px rgba(88,220,200,0.95),
+    0 0 12px rgba(60,185,175,0.65),
+    -14px 0 8px  rgba(40,160,150,0.30),
+    -28px 0 14px rgba(20,140,130,0.12);
   transform: translateY(-50%);
   animation: cometTravel 2.5s cubic-bezier(0.25, 0, 0.55, 1) forwards;
   animation-delay: 1.8s;
@@ -341,21 +379,28 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 1px solid rgba(200, 202, 216, 0.35);
-  background: rgba(200, 202, 216, 0.10);
+  border: 1px solid rgba(88,185,175,0.35);
+  background: rgba(88,185,175,0.10);
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .obs-wp.active .obs-wp-dot {
-  background: rgba(200, 202, 216, 0.55);
-  box-shadow: 0 0 8px rgba(200, 202, 216, 0.35);
+  background: rgba(88,185,175,0.55);
+  box-shadow: 0 0 8px rgba(88,185,175,0.35);
+  animation: signalPing 2s ease-out infinite;
+}
+
+@keyframes signalPing {
+  0%   { box-shadow: 0 0 0 0   rgba(88,185,175,0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(88,185,175,0);   }
+  100% { box-shadow: 0 0 0 0   rgba(88,185,175,0);   }
 }
 
 .obs-wp-label {
   font-family: 'Cinzel', serif;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.28em;
-  color: rgba(200, 202, 216, 0.65);
+  color: rgba(88,185,175,0.78);
   text-transform: uppercase;
   margin-top: 30px;
   white-space: nowrap;
@@ -363,22 +408,30 @@
 
 .obs-wp-desc {
   font-family: 'Karla', sans-serif;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.22em;
-  color: rgba(200, 168, 80, 0.42);
+  color: rgba(205,215,212,0.75);
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* ── Responsive: stack vertically on small screens ───────────────── */
+/* ── Stubs ───────────────────────────────────────────────────────── */
+#obs-ring-inner { display: none; }
+
+@keyframes obsRingCounter {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 600px) {
   #about-layout {
     flex-direction: column;
   }
 
-  #obs-frame {
+  #obs-portrait {
     width: min(52vmin, 220px);
-    height: min(52vmin, 220px);
+    height: min(62vmin, 300px);
   }
 
   #obs-info {

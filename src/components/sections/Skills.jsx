@@ -1,106 +1,129 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { SKILL_GROUPS } from '../../data/skills.js'
 import '../../styles/sections/Skills.css'
 
+// Split skills across orbit rings based on count
+function getRings(skills) {
+  if (skills.length <= 5) {
+    return [{ r: 78, items: skills, offset: -20 }]
+  }
+  const split = Math.ceil(skills.length / 2)
+  // For 3 inner moons (6-skill groups), offset outer ring by 60° so outer
+  // moons land exactly between inner moons and labels never share the same height.
+  // For 4 inner moons (7-skill groups), 25° avoids the crowded lower-right.
+  const outerOffset = split === 3 ? 60 : 25
+  return [
+    { r: 62, items: skills.slice(0, split), offset: 0 },
+    { r: 96, items: skills.slice(split),   offset: outerOffset },
+  ]
+}
+
+// x,y positions for N items evenly spaced on a circle of radius r
+function orbitPositions(count, r, offsetDeg = 0) {
+  return Array.from({ length: count }, (_, i) => {
+    const rad = ((i * 360 / count) + offsetDeg) * (Math.PI / 180)
+    return { x: Math.cos(rad) * r, y: Math.sin(rad) * r }
+  })
+}
+
 export default function Skills({ onBack }) {
-  const cardRef  = useRef(null)
-  const [active,      setActive]      = useState(null)  // { skill, group } or null
-  const [filterGroup, setFilterGroup] = useState(null)  // group label or null
+  const [open,     setOpen]     = useState(null) // { gLabel, sName } — open chips panel
+  const [expanded, setExpanded] = useState(null) // gLabel — planet clicked, all names visible
 
-  useEffect(() => {
-    const t = setTimeout(() => cardRef.current?.classList.add('visible'), 120)
-    return () => {
-      clearTimeout(t)
-      cardRef.current?.classList.remove('visible')
-    }
-  }, [])
-
-  const handleBadge = (skill, group) => {
-    if (!skill.subs?.length) return
-    setActive(prev => prev?.skill.name === skill.name ? null : { skill, group })
-  }
-
-  const handleFilter = (label) => {
-    setFilterGroup(prev => prev === label ? null : label)
-    setActive(null)
-  }
-
-  const closePopover = (e) => {
-    if (e.target.id === 'skills-layer') { setActive(null); setFilterGroup(null) }
+  function handleBackdropClick() {
+    setOpen(null)
+    setExpanded(null)
   }
 
   return (
-    <div id="skills-layer" onClick={closePopover}>
-      <div id="sk-glow" />
+    <div id="skills-layer" onClick={handleBackdropClick}>
 
-      <div id="sk-card" ref={cardRef}>
-
-        <div id="sk-eyebrow">Saturn &nbsp;·&nbsp; Arsenal</div>
+      <div id="sk-hdr">
+        <div id="sk-eyebrow">Orbital Survey · Arsenal</div>
         <h1 id="sk-title">Skills</h1>
-        <div id="sk-rule" />
-
-        {/* ── Category legend / filter ────────────────────────────── */}
-        <div id="sk-legend">
-          {SKILL_GROUPS.map(g => {
-            const isFiltered = filterGroup === g.label
-            return (
-              <button
-                key={g.label}
-                className={['sk-legend-item', isFiltered ? 'sk-legend-active' : ''].filter(Boolean).join(' ')}
-                style={{ '--sk-rgb': g.rgb }}
-                onClick={() => handleFilter(g.label)}
-              >
-                <span className="sk-dot" style={{ background: `rgba(${g.rgb},${isFiltered ? 1 : 0.85})` }} />
-                <span className="sk-legend-label">{g.label}</span>
-              </button>
-            )
-          })}
-        </div>
-
-        {/* ── Tag cloud ──────────────────────────────────────────── */}
-        <div id="sk-cloud">
-          {SKILL_GROUPS.map(group =>
-            group.skills.map(skill => {
-              const isActive   = active?.skill.name === skill.name
-              const expandable = !!skill.subs?.length
-              const dimmed     = filterGroup !== null && filterGroup !== group.label
-              return (
-                <button
-                  key={skill.name}
-                  className={[
-                    'sk-badge',
-                    expandable ? 'sk-expandable' : '',
-                    isActive   ? 'sk-active'     : '',
-                    dimmed     ? 'sk-dimmed'      : '',
-                  ].filter(Boolean).join(' ')}
-                  style={{ '--sk-rgb': group.rgb }}
-                  onClick={() => handleBadge(skill, group)}
-                >
-                  {skill.name}
-                  {expandable && <span className="sk-arrow">{isActive ? '▲' : '▾'}</span>}
-                </button>
-              )
-            })
-          )}
-        </div>
-
-        {/* ── Sub-skill popover ──────────────────────────────────── */}
-        {active && (
-          <div id="sk-popover" style={{ '--sk-rgb': active.group.rgb }}>
-            <div className="sk-popover-title">{active.skill.name}</div>
-            <div className="sk-popover-subs">
-              {active.skill.subs.map(sub => (
-                <span key={sub} className="sk-sub-badge">{sub}</span>
-              ))}
-            </div>
-          </div>
-        )}
-
+        <p id="sk-hint">click a planet to reveal all · click a moon for detail</p>
       </div>
 
-      <button className="sec-back-btn" onClick={onBack}>
-        ← Solar System
-      </button>
+      <div id="sk-cosmos">
+        {SKILL_GROUPS.map(group => {
+          const rings       = getRings(group.skills)
+          const isGroupOpen = open?.gLabel === group.label
+          const isExpanded  = expanded === group.label
+
+          return (
+            <div
+              key={group.label}
+              className={`sk-sys${isGroupOpen ? ' sys-active' : ''}${isExpanded ? ' sys-expanded' : ''}`}
+              style={{ '--sk-rgb': group.rgb }}
+            >
+              {/* Orbit ring visuals with animated tracer dot */}
+              {rings.map((ring, ri) => (
+                <div
+                  key={ri}
+                  className="sk-orbit"
+                  style={{ '--or': `${ring.r}px`, '--od': `${ri === 0 ? 20 : 30}s` }}
+                />
+              ))}
+
+              {/* Planet sphere — click to reveal all moon names */}
+              <div
+                className="sk-core-wrap"
+                onClick={e => {
+                  e.stopPropagation()
+                  setExpanded(prev => prev === group.label ? null : group.label)
+                  setOpen(null)
+                }}
+              >
+                <div className="sk-core" />
+                <div className="sk-core-bands" />
+                <div className="sk-core-spec" />
+                <span className="sk-plabel">{group.label}</span>
+              </div>
+
+              {/* Moon skill dots */}
+              {rings.flatMap((ring, ri) =>
+                orbitPositions(ring.items.length, ring.r, ring.offset).map((pos, si) => {
+                  const skill   = ring.items[si]
+                  const hasMore = !!skill.subs?.length
+                  const isOpen  = open?.gLabel === group.label && open?.sName === skill.name
+                  const side    = pos.x >= 0 ? 'r' : 'l'
+                  const delay   = `${(ri * 4 + si) * 0.055}s`
+
+                  return (
+                    <div
+                      key={skill.name}
+                      className={`sk-moon${hasMore ? ' sk-ex' : ''}${isOpen ? ' sk-open' : ''}`}
+                      style={{ '--mx': `${pos.x}px`, '--my': `${pos.y}px`, '--md': delay }}
+                      onClick={e => {
+                        e.stopPropagation()
+                        if (!hasMore) return
+                        setOpen(prev =>
+                          prev?.sName === skill.name
+                            ? null
+                            : { gLabel: group.label, sName: skill.name }
+                        )
+                      }}
+                    >
+                      <div className="sk-dot" />
+                      <span className={`sk-mname sk-mn-${side}`}>{skill.name}</span>
+
+                      {isOpen && (
+                        <div className={`sk-chips sk-chips-${side}`}>
+                          {skill.subs.map(s => (
+                            <span key={s} className="sk-chip">{s}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      <button className="sec-back-btn" onClick={onBack}>← Solar System</button>
     </div>
   )
 }

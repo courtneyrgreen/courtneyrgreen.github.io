@@ -4,7 +4,7 @@
   position: fixed;
   inset: 0;
   z-index: 48;
-  background: #05030e;
+  background: radial-gradient(ellipse at 50% 40%, #03060f 0%, #020408 55%, #010204 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,10 +21,10 @@
 
 #exp-eyebrow {
   font-family: 'Karla', sans-serif;
-  font-size: 12px;
+  font-size: 9px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(210,182,88,0.72);
+  color: rgba(210,182,88,0.90);
   margin-bottom: 10px;
 }
 
@@ -156,8 +156,8 @@
 
 .patch-mission-num {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  color: rgba(180,170,220,0.62);
+  font-size: 10px;
+  color: rgba(180,170,220,0.82);
   letter-spacing: 0.1em;
 }
 .patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.72); }
@@ -211,8 +211,8 @@
 
 .patch-tl-year {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  color: rgba(180,170,220,0.65);
+  font-size: 10px;
+  color: rgba(180,170,220,0.82);
   letter-spacing: 0.06em;
   text-align: center;
   white-space: nowrap;
@@ -262,9 +262,9 @@
 
 .ed-tag {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.20em;
-  color: rgba(var(--ed-ac), 0.62);
+  color: rgba(var(--ed-ac), 0.82);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -281,7 +281,7 @@
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
-  color: rgba(180,170,220,0.68);
+  color: rgba(180,170,220,0.84);
   margin-bottom: 10px;
 }
 .ed-role {
@@ -296,7 +296,7 @@
   align-items: center;
   gap: 5px;
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   padding: 3px 10px;
@@ -314,7 +314,7 @@
   gap: 24px;
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 10px;
-  color: rgba(180,170,220,0.62);
+  color: rgba(180,170,220,0.82);
   letter-spacing: 0.06em;
   flex-wrap: wrap;
 }
@@ -326,10 +326,10 @@
 
 .ed-section-label {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 8.5px;
+  font-size: 10px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(var(--ed-ac), 0.72);
+  color: rgba(var(--ed-ac), 0.85);
   margin-bottom: 12px;
 }
 
@@ -414,8 +414,8 @@
 }
 .ed-ta-sem {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  color: rgba(180,170,220,0.62);
+  font-size: 10px;
+  color: rgba(180,170,220,0.82);
   margin-bottom: 5px;
   letter-spacing: 0.06em;
 }
