@@ -368,13 +368,15 @@
 .sc-arrow-l { left: 220px; }
 .sc-arrow-r { right: 220px; }
 
-/* ── Back button ── */
-.sc-layer .sec-back-btn,
-#sc-layer .sec-back-btn {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
+/* ── Back button — desktop: keep centered at bottom ── */
+@media (min-width: 769px) {
+  .sc-layer .sec-back-btn,
+  #sc-layer .sec-back-btn {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 768px) {
@@ -440,12 +442,5 @@
     top: calc(50% + 222px);
   }
 
-  #sc-layer .sec-back-btn,
-  .sc-layer .sec-back-btn {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
