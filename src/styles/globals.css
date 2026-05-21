@@ -148,6 +148,13 @@ html, body {
     min-height: 44px;
     padding: 10px 18px;
     font-size: 9px;
+    border: none;
+    color: rgba(200, 202, 216, 0.45);
+  }
+
+  .sec-back-btn:hover {
+    color: rgba(200, 202, 216, 0.75);
+    border-color: transparent;
   }
 
 
