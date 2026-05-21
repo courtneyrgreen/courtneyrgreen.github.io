@@ -140,6 +140,7 @@ html, body {
   }
 
   .sec-back-btn {
+    position: fixed;
     min-height: 44px;
     padding: 12px 24px;
     bottom: 24px;

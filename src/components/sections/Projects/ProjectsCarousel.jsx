@@ -74,7 +74,7 @@ export default function ProjectsCarousel({ onBack }) {
                   <span key={tag} className="pcar-tag">{tag}</span>
                 ))}
               </div>
-              <div className="pcar-tap-hint">tap to open full details ↗</div>
+              <div className="pcar-tap-hint">tap to open full details</div>
             </div>
           </div>
         ))}
