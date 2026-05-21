@@ -332,9 +332,9 @@
     display: none;
   }
 
-  /* Center the OBJECTIVE title */
+  /* Center the OBJECTIVE title, leave room for top-left back button */
   #obj-hdr {
-    padding: 10px 14px;
+    padding: 68px 14px 10px;
     justify-content: center;
     gap: 0;
   }
@@ -349,7 +349,7 @@
   }
 
   #obj-content {
-    padding: 10px 12px 100px;
+    padding: 10px 12px 40px;
     max-height: none;
   }
 

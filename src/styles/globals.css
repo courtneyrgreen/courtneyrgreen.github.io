@@ -141,9 +141,13 @@ html, body {
 
   .sec-back-btn {
     position: fixed;
+    top: 16px;
+    left: 16px;
+    bottom: auto;
+    transform: none;
     min-height: 44px;
-    padding: 12px 24px;
-    bottom: 24px;
+    padding: 10px 18px;
+    font-size: 9px;
   }
 
 

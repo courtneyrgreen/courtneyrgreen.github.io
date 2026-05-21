@@ -443,10 +443,9 @@
 
 @media (max-width: 768px) {
   #about-layer {
-    padding: 16px 20px 100px;
+    padding: 76px 20px 40px;
     gap: 20px;
     justify-content: flex-start;
-    padding-top: 40px;
     overflow-y: auto;
   }
 
