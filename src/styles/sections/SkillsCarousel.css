@@ -412,6 +412,10 @@
     top: 28px;
   }
 
+  #sc-eyebrow {
+    display: none;
+  }
+
   #sc-stage {
     transform: scale(0.50);
     transform-origin: center top;
