@@ -319,3 +319,26 @@
     gap: 8px;
   }
 }
+
+@media (max-width: 480px) {
+  #obj-class {
+    display: none;
+  }
+
+  #obj-hdr {
+    padding: 8px 14px;
+    gap: 6px;
+  }
+
+  #obj-content {
+    padding: 10px 12px;
+  }
+
+  .obj-panel-body {
+    padding: 10px 12px;
+  }
+
+  #obj-footer {
+    padding: 10px 14px;
+  }
+}

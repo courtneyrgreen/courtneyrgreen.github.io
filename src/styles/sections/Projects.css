@@ -415,3 +415,217 @@
   opacity: 1;
   pointer-events: all;
 }
+
+/* ── Mobile swipeable carousel ───────────────────────────────────── */
+@media (max-width: 768px) {
+  #pcar-hdr {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  #pcar-eyebrow {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: rgba(190,170,255,0.50);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  #pcar-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: rgba(225,215,255,0.90);
+    text-transform: uppercase;
+    text-shadow: 0 0 28px rgba(180,140,255,0.35), 0 0 55px rgba(80,30,160,0.3);
+    margin: 0;
+  }
+
+  #pcar-hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(180,150,255,0.45);
+    margin-top: 5px;
+  }
+
+  #pcar-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 16px;
+    padding: 0 calc(50vw - 140px);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #pcar-track::-webkit-scrollbar { display: none; }
+
+  .pcar-card {
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    width: 280px;
+    background: rgba(18,8,40,0.95);
+    border: 1px solid rgba(180,150,255,0.18);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .pcar-card:active { border-color: rgba(180,150,255,0.4); }
+
+  .pcar-img {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    background: rgba(20,16,40,0.8);
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(180,150,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pcar-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pcar-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 7px;
+    letter-spacing: 0.12em;
+    background: rgba(180,150,255,0.10);
+    border: 1px solid rgba(180,150,255,0.22);
+    color: rgba(180,150,255,0.70);
+    padding: 2px 7px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .pcar-body {
+    padding: 14px 16px 16px;
+  }
+
+  .pcar-label {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: rgba(225,215,255,0.92);
+    margin-bottom: 7px;
+  }
+
+  .pcar-desc {
+    font-family: 'Karla', sans-serif;
+    font-size: 11px;
+    line-height: 1.65;
+    color: rgba(180,160,255,0.52);
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pcar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .pcar-tag {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    color: rgba(200,180,255,0.75);
+    border: 1px solid rgba(180,150,255,0.28);
+    padding: 2px 6px;
+    border-radius: 1px;
+  }
+
+  .pcar-tap-hint {
+    font-family: 'Karla', sans-serif;
+    font-size: 9px;
+    color: rgba(180,150,255,0.35);
+    letter-spacing: 0.06em;
+    text-align: center;
+    border-top: 1px solid rgba(180,150,255,0.08);
+    padding-top: 10px;
+  }
+
+  #pcar-dots {
+    position: absolute;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .pcar-dot {
+    width: 5px;
+    height: 3px;
+    background: rgba(180,150,255,0.20);
+    border-radius: 2px;
+    transition: width 0.2s, background 0.2s;
+  }
+
+  .pcar-dot.active {
+    width: 16px;
+    background: rgba(180,150,255,0.75);
+  }
+
+  /* Expanded project card — mobile padding overrides */
+  #project-card {
+    width: min(92vw, 480px);
+  }
+
+  #project-card-body {
+    padding: 20px 20px 24px;
+  }
+
+  #project-card-title {
+    font-size: clamp(17px, 4.5vw, 24px);
+  }
+
+  /* Back button for carousel */
+  #projects-back {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: 1px solid rgba(200,202,216,0.15);
+    color: rgba(200,202,216,0.55);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    padding: 12px 24px;
+    min-height: 44px;
+    cursor: pointer;
+    z-index: 10;
+    white-space: nowrap;
+  }
+}

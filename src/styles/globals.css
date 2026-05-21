@@ -128,3 +128,36 @@ html, body {
   color: rgba(200, 202, 216, 0.9);
   border-color: rgba(200, 202, 216, 0.45);
 }
+
+/* ── Mobile base ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .sec-back-btn {
+    min-height: 44px;
+    padding: 12px 24px;
+    bottom: 24px;
+  }
+
+  #name-header h1 {
+    font-size: clamp(12px, 4.5vw, 18px);
+    letter-spacing: 0.22em;
+  }
+
+  #name-header p {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    white-space: normal;
+    text-align: center;
+    padding: 0 16px;
+  }
+
+  #solar-hint {
+    font-size: 11px;
+    bottom: 28px;
+    white-space: normal;
+    text-align: center;
+  }
+}

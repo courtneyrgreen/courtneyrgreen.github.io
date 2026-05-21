@@ -10,6 +10,7 @@ import About from './components/sections/About.jsx'
 import Experience from './components/sections/Experience.jsx'
 import Resume from './components/sections/Resume.jsx'
 import Projects from './components/sections/Projects/Projects.jsx'
+import ProjectsCarousel from './components/sections/Projects/ProjectsCarousel.jsx'
 import Skills from './components/sections/SkillsCarousel.jsx'
 import Interests from './components/sections/Interests.jsx'
 import Contact from './components/sections/Contact.jsx'
@@ -18,7 +19,7 @@ import Contact from './components/sections/Contact.jsx'
   AppInner — renders whichever view is currently active.
   Must be a child of AppProvider so it can call useApp().
 */
-function AppInner() {
+function AppInner({ isMobile }) {
   const {
     view,
     veilActive,
@@ -67,6 +68,7 @@ function AppInner() {
         mode={solarMode}
         onSunClick={handleSunClick}
         onPlanetClick={goToSection}
+        isMobile={isMobile}
       />
 
       {/* ── Section layers — each is a full-screen immersive view ── */}
@@ -74,7 +76,11 @@ function AppInner() {
       {view === 'about'      && <About      onBack={returnFromSection} />}
       {view === 'experience' && <Experience onBack={returnFromSection} />}
       {view === 'resume'     && <Resume     onBack={returnFromSection} />}
-      {view === 'projects'   && <Projects   onBack={returnFromSection} />}
+      {view === 'projects'   && (
+        isMobile
+          ? <ProjectsCarousel onBack={returnFromSection} />
+          : <Projects         onBack={returnFromSection} />
+      )}
       {view === 'skills'     && <Skills     onBack={returnFromSection} />}
       {view === 'interests'  && <Interests  onBack={returnFromSection} />}
       {view === 'contact'    && <Contact    onBack={returnFromSection} />}
@@ -177,10 +183,10 @@ function MobileBlock() {
 
 export default function App() {
   if (MAINTENANCE) return <Maintenance />
-  if (window.innerWidth < 768) return <MobileBlock />
+  const isMobile = window.innerWidth < 768
   return (
     <AppProvider>
-      <AppInner />
+      <AppInner isMobile={isMobile} />
     </AppProvider>
   )
 }

@@ -25,7 +25,7 @@ import '../../styles/SolarSystem.css'
 
 const SUN_SIZE = 58 // Sun canvas diameter in pixels
 
-export default function SolarSystem({ visible, zooming, entering, mode = 'orbit', onSunClick, onPlanetClick }) {
+export default function SolarSystem({ visible, zooming, entering, mode = 'orbit', onSunClick, onPlanetClick, isMobile }) {
   // Ref to the solar-system root div — used to calculate orbit pixel radii
   const sysRef = useRef(null)
 
@@ -344,6 +344,39 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
         })}
 
       </div>
+
+      {/* ── Mobile vertical lineup ──────────────────────────────── */}
+      {isMobile && mode === 'lineup' && (
+        <div id="slm-overlay">
+          <button id="slm-sun-btn" onClick={onSunClick}>
+            <div id="slm-sun-circle" />
+            <span id="slm-sun-label">← Orbit</span>
+          </button>
+          <div id="slm-divider" />
+          <div id="slm-list">
+            {PLANET_DEFS.filter(p => p.section).map(planet => (
+              <button
+                key={planet.id}
+                className="slm-row"
+                style={{ '--pg': planet.glowColor }}
+                onClick={() => onPlanetClick(planet.section)}
+              >
+                <div
+                  className="slm-dot"
+                  style={{
+                    background: `radial-gradient(circle at 35% 35%, ${planet.paintConfig.sphere[0][1]}, ${planet.paintConfig.sphere[2][1]})`,
+                  }}
+                />
+                <div className="slm-text">
+                  <span className="slm-section">{planet.lineupLabel}</span>
+                  <span className="slm-planet">{planet.label}</span>
+                </div>
+                <span className="slm-chevron">→</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

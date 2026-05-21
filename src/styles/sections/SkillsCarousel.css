@@ -376,3 +376,33 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+@media (max-width: 768px) {
+  #sc-hdr {
+    top: 24px;
+  }
+
+  #sc-stage {
+    transform: scale(0.68);
+    transform-origin: center top;
+    margin-bottom: -160px;
+  }
+
+  .sc-arrow-l { left: 8px; }
+  .sc-arrow-r { right: 8px; }
+
+  #sc-active-label {
+    font-size: 11px;
+  }
+
+  #sc-hint {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  #sc-stage {
+    transform: scale(0.52);
+    margin-bottom: -240px;
+  }
+}

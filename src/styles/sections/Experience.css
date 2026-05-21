@@ -501,3 +501,50 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+@media (max-width: 768px) {
+  #exp-hdr {
+    padding: 24px 0 16px;
+  }
+
+  #exp-title {
+    font-size: 28px;
+  }
+
+  #exp-patch-area {
+    padding: 4vh 12px 0;
+    gap: 12px;
+  }
+
+  #exp-detail {
+    padding: 24px 20px 28px;
+  }
+
+  .ed-org {
+    font-size: 17px;
+  }
+
+  #exp-modal-box {
+    width: min(92vw, 700px);
+    max-height: 88vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .patch-btn {
+    width: 88px;
+  }
+
+  .patch-circle {
+    width: 76px;
+    height: 76px;
+  }
+
+  .patch-timeline {
+    gap: 10px;
+  }
+
+  .patch-tl-node {
+    width: 88px;
+  }
+}

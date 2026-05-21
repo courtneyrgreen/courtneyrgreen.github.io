@@ -286,3 +286,32 @@
   color: rgba(72, 100, 200, 0.22);
   font-size: 10px;
 }
+
+@media (max-width: 768px) {
+  #ctc-card {
+    padding: 20px 18px 20px;
+    width: min(92vw, 560px);
+  }
+
+  #ctc-status-bar {
+    font-size: 9px;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  #ctc-title {
+    font-size: clamp(14px, 5vw, 22px);
+    margin-bottom: 18px;
+  }
+
+  #ctc-send-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  #ctc-links {
+    margin-top: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

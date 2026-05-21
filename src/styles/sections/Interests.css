@@ -139,3 +139,20 @@
 #int-patch:hover ~ #int-patch-hint {
   color: rgba(220,110,70,0.90);
 }
+
+@media (max-width: 480px) {
+  #int-patch {
+    width: 140px;
+    height: 140px;
+  }
+
+  #int-patch-svg {
+    width: 70px;
+    height: 70px;
+  }
+
+  #int-statement {
+    font-size: 14px;
+    padding: 0 8px;
+  }
+}
