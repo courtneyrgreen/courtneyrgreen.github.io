@@ -96,7 +96,9 @@ export default function Objective({ onBack }) {
           <div id="obj-footer">
             <div id="obj-status">
               <span className="obj-status-dot" />
-              M.S. Data Science &amp; Analytics &nbsp;·&nbsp; B.A. Public Policy &amp; Leadership
+              <span className="obj-degree">M.S. Data Science &amp; Analytics</span>
+              <span className="obj-degree-sep">&nbsp;·&nbsp;</span>
+              <span className="obj-degree">B.A. Public Policy &amp; Leadership</span>
             </div>
           </div>
 

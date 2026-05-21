@@ -49,14 +49,20 @@ function AppInner({ isMobile }) {
       {view === 'solar' && (
         <div id="name-header">
           <h1>Courtney Green</h1>
-          <p>Data Scientist &nbsp;·&nbsp; Policy Analyst &nbsp;·&nbsp; Digital Storyteller</p>
+          <p>
+            <span className="role">Data Scientist</span>
+            <span className="role-sep"> · </span>
+            <span className="role">Policy Analyst</span>
+            <span className="role-sep"> · </span>
+            <span className="role">Digital Storyteller</span>
+          </p>
         </div>
       )}
 
       {/* ── Hint text: orbit screen only ── */}
       {view === 'solar' && (
         <div id="solar-hint">
-          click the sun to explore
+          click the sun to enter
         </div>
       )}
 

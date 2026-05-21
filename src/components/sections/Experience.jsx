@@ -368,6 +368,7 @@ export default function Experience({ onBack }) {
               </div>
               <span className="patch-name-label">{e.patchName}</span>
               <span className="patch-mission-num">M·{String(allEntries.length - i).padStart(2, '0')}</span>
+              <span className="patch-tl-inline">{e.tl}</span>
             </button>
           ))}
         </div>

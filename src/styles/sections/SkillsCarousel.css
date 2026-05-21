@@ -378,31 +378,74 @@
 }
 
 @media (max-width: 768px) {
+  /* Chips always open below the moon on mobile, centered — prevents off-screen overflow */
+  .sc-chips {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 10px);
+    justify-content: center;
+    max-width: min(190px, 80vw);
+  }
+
+  .sc-chips-l {
+    right: auto;
+  }
+
+  /* Constrain moon labels so they wrap instead of clipping off-screen */
+  .sc-mname {
+    max-width: 78px;
+    white-space: normal;
+    line-height: 1.25;
+    font-size: 9.5px;
+  }
+
+  #sc-layer {
+    overflow: hidden;
+    justify-content: flex-start;
+    padding-top: 120px;
+  }
+
   #sc-hdr {
-    top: 24px;
+    top: 28px;
   }
 
   #sc-stage {
-    transform: scale(0.68);
+    transform: scale(0.50);
     transform-origin: center top;
-    margin-bottom: -160px;
+    margin-bottom: -250px;
   }
 
-  .sc-arrow-l { left: 8px; }
-  .sc-arrow-r { right: 8px; }
+  /* Arrows below hint text, centered side by side */
+  .sc-arrow-l {
+    left: calc(50% - 52px);
+    right: auto;
+    top: calc(50% + 252px);
+    transform: none;
+  }
+  .sc-arrow-r {
+    left: calc(50% + 6px);
+    right: auto;
+    top: calc(50% + 252px);
+    transform: none;
+  }
 
   #sc-active-label {
     font-size: 11px;
+    top: calc(50% + 200px);
   }
 
   #sc-hint {
     font-size: 9px;
+    top: calc(50% + 222px);
+  }
+
+  #sc-layer .sec-back-btn,
+  .sc-layer .sec-back-btn {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
-@media (max-width: 480px) {
-  #sc-stage {
-    transform: scale(0.52);
-    margin-bottom: -240px;
-  }
-}

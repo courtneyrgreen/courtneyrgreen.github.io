@@ -67,6 +67,7 @@ export const PLANET_DEFS = [
   {
     id: 'earth', label: 'Earth', lineupLabel: 'Experience', section: 'experience',
     orbitR: 150, size: 24, lineupSize: 32, glowColor: 'rgba(72,155,255,0.85)',
+    dotGradient: 'radial-gradient(circle at 36% 32%, #3aaa48 0%, #2878d8 48%, #082060 100%)',
     speed: 0.00013, startAngle: Math.PI * 1.50,
     paintConfig: {
       // Brighter, more saturated blue ocean
@@ -194,15 +195,15 @@ export const PLANET_DEFS = [
     orbitR: 392, size: 30, lineupSize: 32, glowColor: 'rgba(55,115,240,0.85)',
     speed: 0.000012, startAngle: Math.PI * 0.95,
     paintConfig: {
-      // Deep vivid blue base
-      sphere: [[0,'#2878e8'],[0.30,'#1c62d0'],[0.58,'#1248a8'],[0.82,'#062878'],[1,'#010818']],
+      // Deep indigo-blue — noticeably darker/richer than Earth's medium blue
+      sphere: [[0,'#1440d8'],[0.30,'#0c28b8'],[0.58,'#081090'],[0.82,'#040860'],[1,'#010118']],
       // Lighter and darker blue bands only — no green, stays in the blue family
       bands: [
-        { lat:0.18, width:0.18, color:'rgba(100,175,255,0.32)' },  // light blue
-        { lat:0.32, width:0.18, color:'rgba(18, 55,180,0.28)'  },  // dark blue
-        { lat:0.46, width:0.18, color:'rgba(110,188,255,0.30)' },  // light blue
-        { lat:0.60, width:0.18, color:'rgba(20, 58,185,0.28)'  },  // dark blue
-        { lat:0.74, width:0.17, color:'rgba(95, 165,248,0.26)' },  // light blue
+        { lat:0.18, width:0.18, color:'rgba(80,148,255,0.32)'  },  // light blue
+        { lat:0.32, width:0.18, color:'rgba(10, 35,160,0.30)'  },  // dark indigo
+        { lat:0.46, width:0.18, color:'rgba(88,162,255,0.28)'  },  // light blue
+        { lat:0.60, width:0.18, color:'rgba(12, 38,165,0.28)'  },  // dark indigo
+        { lat:0.74, width:0.17, color:'rgba(72, 140,240,0.24)' },  // light blue
       ],
       blobs: [
         // Great Dark Spot

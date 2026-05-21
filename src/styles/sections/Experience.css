@@ -162,6 +162,9 @@
 }
 .patch-btn.active .patch-mission-num { color: rgba(var(--pac), 0.72); }
 
+/* Hidden on desktop, shown on mobile via media query */
+.patch-tl-inline { display: none; }
+
 /* ── Timeline bar ── */
 .patch-timeline {
   position: relative;
@@ -504,18 +507,118 @@
 
 @media (max-width: 768px) {
   #exp-hdr {
-    padding: 24px 0 16px;
+    padding: 28px 0 18px;
   }
 
   #exp-title {
     font-size: 28px;
   }
 
+  /* Patch area becomes a scrollable vertical list filling remaining height */
   #exp-patch-area {
-    padding: 4vh 12px 0;
-    gap: 12px;
+    flex: 1;
+    padding: 0 20px 80px;
+    gap: 0;
+    justify-content: flex-start;
+    overflow-y: auto;
+    align-items: stretch;
+    border-top: none;
   }
 
+  /* Hide horizontal timeline, bay label, mission nums — not needed in vertical list */
+  .patch-timeline,
+  .patch-bay-label,
+  .patch-mission-num {
+    display: none;
+  }
+
+  /* Show year span (hidden on desktop) */
+  .patch-tl-inline {
+    display: block;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 9px;
+    color: rgba(180,170,220,0.40);
+    letter-spacing: 0.12em;
+    margin-left: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Grid becomes vertical column filling full height */
+  .patch-grid {
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch;
+    position: relative;
+    padding-left: 48px;
+    justify-content: space-evenly;
+    flex: 1;
+    width: 100%;
+  }
+
+  /* Vertical timeline line running through all dots */
+  .patch-grid::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 28px;
+    bottom: 28px;
+    width: 1px;
+    background: rgba(180,170,220,0.13);
+  }
+
+  /* Each patch button becomes a horizontal row */
+  .patch-btn {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 0;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    position: relative;
+    text-align: left;
+  }
+
+  /* Colored timeline dot on the left */
+  .patch-btn::before {
+    content: '';
+    position: absolute;
+    left: -36px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(var(--pac), 0.85);
+    box-shadow: 0 0 6px rgba(var(--pac), 0.5);
+  }
+
+  /* Smaller circular icon */
+  .patch-circle {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
+  /* Name label — left aligned, full flex */
+  .patch-name-label {
+    flex: 1;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-align: left;
+  }
+
+  /* Chevron hint */
+  .patch-btn::after {
+    content: '→';
+    font-size: 12px;
+    color: rgba(180,170,220,0.22);
+    flex-shrink: 0;
+  }
+
+  /* Detail modal */
   #exp-detail {
     padding: 24px 20px 28px;
   }
@@ -527,24 +630,5 @@
   #exp-modal-box {
     width: min(92vw, 700px);
     max-height: 88vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .patch-btn {
-    width: 88px;
-  }
-
-  .patch-circle {
-    width: 76px;
-    height: 76px;
-  }
-
-  .patch-timeline {
-    gap: 10px;
-  }
-
-  .patch-tl-node {
-    width: 88px;
   }
 }

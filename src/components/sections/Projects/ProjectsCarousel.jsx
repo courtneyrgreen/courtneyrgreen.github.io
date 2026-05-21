@@ -34,7 +34,7 @@ export default function ProjectsCarousel({ onBack }) {
       <div className="pneb pn3" />
 
       <div id="pcar-hdr">
-        <div id="pcar-eyebrow">Jupiter · Project Cosmos</div>
+        <div id="pcar-eyebrow">Jupiter</div>
         <h1 id="pcar-title">Projects</h1>
         <p id="pcar-hint">swipe to explore</p>
       </div>
@@ -61,16 +61,16 @@ export default function ProjectsCarousel({ onBack }) {
                   }}
                 />
               )}
-              <div className="pcar-badge">{project.eyebrow}</div>
             </div>
 
             <div className="pcar-body">
+              <div className="pcar-badge">{project.eyebrow}</div>
               <div className="pcar-label">{project.label}</div>
               <p className="pcar-desc">
                 {Array.isArray(project.desc) ? project.desc[0] : project.desc}
               </p>
               <div className="pcar-tags">
-                {project.tags.slice(0, 3).map(tag => (
+                {project.tags.slice(0, 4).map(tag => (
                   <span key={tag} className="pcar-tag">{tag}</span>
                 ))}
               </div>

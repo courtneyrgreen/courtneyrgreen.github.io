@@ -439,9 +439,6 @@
     align-items: center;
   }
 
-  #obs-bio {
-    text-align: left;
-  }
 }
 
 @media (max-width: 768px) {
@@ -453,45 +450,45 @@
     overflow-y: auto;
   }
 
-  #obs-journey-wrap {
+  /* In column mode align-items:center shrinks children — override to stretch */
+  #about-layout {
+    align-items: stretch;
+  }
+
+  #obs-info {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    align-items: center;
   }
 
-  #obs-journey-lbl {
-    margin-bottom: 4px;
-  }
-
-  #obs-journey {
+  #obs-panel-hdr {
     display: none;
   }
 
-  .obs-wp {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+  #obs-eyebrow {
+    display: none;
   }
 
-  .obs-wp.active {
-    opacity: 1;
-  }
-
-  .obs-wp-label {
-    margin-top: 0;
-    font-size: 10px;
+  #obs-name {
+    font-size: clamp(18px, 5vw, 24px);
+    letter-spacing: 0.15em;
     white-space: nowrap;
   }
 
-  .obs-wp-desc {
-    font-size: 9px;
-    white-space: normal;
+  #obs-role {
+    font-size: clamp(12px, 3vw, 15px);
   }
+
+  #obs-bio {
+    font-size: 14px;
+    line-height: 1.75;
+    text-align: center;
+  }
+
+  /* Hide the entire transmission log + rocket animation on mobile */
+  #obs-journey-wrap {
+    display: none;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -504,7 +501,5 @@
     width: min(48vmin, 180px);
   }
 
-  #obs-bio {
-    font-size: 11px;
-  }
 }
+

@@ -39,7 +39,7 @@ export default function About({ onBack }) {
           </div>
           <div id="obs-status">
             <span id="obs-status-dot" />
-            <span className="obs-status-txt">Crew · Active</span>
+            <span className="obs-status-txt">Crew</span>
             <span className="obs-status-txt">C. Green</span>
           </div>
         </div>

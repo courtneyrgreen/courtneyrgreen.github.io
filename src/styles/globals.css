@@ -135,24 +135,32 @@ html, body {
     overflow-x: hidden;
   }
 
+  #name-header {
+    top: 15vh;
+  }
+
   .sec-back-btn {
     min-height: 44px;
     padding: 12px 24px;
     bottom: 24px;
   }
 
+
   #name-header h1 {
-    font-size: clamp(12px, 4.5vw, 18px);
+    font-size: clamp(24px, 8vw, 36px);
     letter-spacing: 0.22em;
   }
 
   #name-header p {
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    white-space: normal;
+    font-size: 10px;
+    letter-spacing: 0.08em;
     text-align: center;
-    padding: 0 16px;
+    padding: 0 12px;
+    white-space: nowrap;
   }
+
+  #name-header .role { display: inline; }
+  #name-header .role-sep { display: inline; }
 
   #solar-hint {
     font-size: 11px;

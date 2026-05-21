@@ -23,9 +23,20 @@ import '../../styles/SolarSystem.css'
       horizontal line across the viewport. Labels switch to section names.
 */
 
-const SUN_SIZE = 58 // Sun canvas diameter in pixels
+const SUN_SIZE = 58 // Sun canvas diameter in pixels (desktop)
+const SUN_SIZE_MOBILE = 160
+
+// Decorative ghost planets drifting behind the sun on the mobile landing screen
+const GHOST_PLANETS = [
+  { id: 'g-mercury', colors: ['#918880', '#3a342c'], size: 16, style: { top: '14%', right: '7%'   }, opacity: 0.22, delay: '0s'   },
+  { id: 'g-venus',   colors: ['#deb880', '#6a4e20'], size: 24, style: { bottom: '24%', left: '5%'  }, opacity: 0.20, delay: '0.8s' },
+  { id: 'g-mars',    colors: ['#e06535', '#601808'], size: 18, style: { top: '35%', left: '8%'    }, opacity: 0.18, delay: '1.4s' },
+  { id: 'g-jupiter', colors: ['#d8c498', '#2a2010'], size: 52, style: { bottom: '8%', right: '-14px' }, opacity: 0.13, delay: '0.4s' },
+  { id: 'g-neptune', colors: ['#2878e8', '#010818'], size: 26, style: { top: '8%',  left: '30%'   }, opacity: 0.12, delay: '1.1s' },
+]
 
 export default function SolarSystem({ visible, zooming, entering, mode = 'orbit', onSunClick, onPlanetClick, isMobile }) {
+  const sunSize = isMobile ? SUN_SIZE_MOBILE : SUN_SIZE
   // Ref to the solar-system root div — used to calculate orbit pixel radii
   const sysRef = useRef(null)
 
@@ -47,9 +58,9 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
   const sunCanvasRef = useRef(null)
   useEffect(() => {
     if (sunCanvasRef.current) {
-      paintSun(sunCanvasRef.current, SUN_SIZE)
+      paintSun(sunCanvasRef.current, sunSize)
     }
-  }, [])
+  }, [sunSize])
 
   // ── Paint each planet canvas once on mount ───────────────────────
   // We use a callback ref per planet; the canvas is only available after mount.
@@ -240,6 +251,11 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
     entering ? 'entering' : '',
   ].filter(Boolean).join(' ')
 
+  // Mobile orrery sizing — distribute rows to fill the screen
+  const SECTION_PLANETS = PLANET_DEFS.filter(p => p.section)
+  const orreryH        = isMobile ? Math.max(360, window.innerHeight - 110) : 430
+  const orreryRowSpacing = Math.max(52, Math.min(86, Math.floor((orreryH - 64) / SECTION_PLANETS.length)))
+
   return (
     <div
       id="solar-view"
@@ -252,7 +268,7 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
         <div
           id="sun-wrap"
           ref={sunWrapRef}
-          style={{ width: `${SUN_SIZE}px`, height: `${SUN_SIZE}px` }}
+          style={{ width: `${sunSize}px`, height: `${sunSize}px` }}
           onClick={onSunClick}
         >
           <div style={mode === 'lineup' ? {
@@ -266,9 +282,9 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
             <canvas
               ref={sunCanvasRef}
               id="sun-canvas"
-              width={SUN_SIZE}
-              height={SUN_SIZE}
-              style={{ width: SUN_SIZE, height: SUN_SIZE }}
+              width={sunSize}
+              height={sunSize}
+              style={{ width: sunSize, height: sunSize }}
             />
             <div id="sun-label" className={mode === 'lineup' ? 'sun-label-lineup' : ''}>
             {mode === 'lineup' ? '← Orbit' : 'Enter Portfolio'}
@@ -278,12 +294,12 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
 
         {/* ── Planets ─────────────────────────────────────────────── */}
         {PLANET_DEFS.map((planet, i) => {
-          const sysSize = sysRef.current?.offsetWidth ?? Math.min(window.innerWidth * 0.9, window.innerHeight * 0.9)
+          const sysSize = sysRef.current?.offsetWidth || Math.min(window.innerWidth * 0.9, window.innerHeight * 0.9)
           const pxR = (planet.orbitR / 410) * sysSize * 0.5
           const isClickable = mode === 'lineup' && !!planet.section
 
           return (
-            <div key={planet.id}>
+            <div key={planet.id} className="planet-group" data-planet={planet.id}>
               {/* Orbit ring — hidden in lineup mode */}
               {mode === 'orbit' && (
                 <div
@@ -345,35 +361,71 @@ export default function SolarSystem({ visible, zooming, entering, mode = 'orbit'
 
       </div>
 
-      {/* ── Mobile vertical lineup ──────────────────────────────── */}
+      {/* ── Mobile ghost planets — scattered drift behind sun ──────── */}
+      {isMobile && mode === 'orbit' && GHOST_PLANETS.map(g => (
+        <div
+          key={g.id}
+          className="slm-ghost"
+          style={{
+            ...g.style,
+            width: g.size,
+            height: g.size,
+            opacity: g.opacity,
+            background: `radial-gradient(circle at 36% 33%, ${g.colors[0]}, ${g.colors[1]})`,
+            animationDelay: g.delay,
+          }}
+        />
+      ))}
+
+      {/* ── Mobile vertical orrery navigation ───────────────────────── */}
       {isMobile && mode === 'lineup' && (
         <div id="slm-overlay">
-          <button id="slm-sun-btn" onClick={onSunClick}>
-            <div id="slm-sun-circle" />
-            <span id="slm-sun-label">← Orbit</span>
-          </button>
-          <div id="slm-divider" />
-          <div id="slm-list">
-            {PLANET_DEFS.filter(p => p.section).map(planet => (
-              <button
-                key={planet.id}
-                className="slm-row"
-                style={{ '--pg': planet.glowColor }}
-                onClick={() => onPlanetClick(planet.section)}
-              >
-                <div
-                  className="slm-dot"
-                  style={{
-                    background: `radial-gradient(circle at 35% 35%, ${planet.paintConfig.sphere[0][1]}, ${planet.paintConfig.sphere[2][1]})`,
-                  }}
-                />
-                <div className="slm-text">
-                  <span className="slm-section">{planet.lineupLabel}</span>
-                  <span className="slm-planet">{planet.label}</span>
-                </div>
-                <span className="slm-chevron">→</span>
-              </button>
-            ))}
+          <div id="slm-name-hdr">
+            <div id="slm-name">Courtney Green</div>
+            <div id="slm-roles">Data Scientist · Policy Analyst · Digital Storyteller</div>
+          </div>
+
+          <div id="slm-orrery" style={{ height: orreryH }}>
+            {/* Sun — tapping returns to orbit */}
+            <button id="slm-sun-btn" onClick={onSunClick}>
+              <div id="slm-sun-circle" />
+            </button>
+            <span id="slm-sun-label">← home</span>
+
+            {/* Axis line from sun downward */}
+            <div id="slm-orrery-axis" />
+
+            {/* Planet rows alternating right / left */}
+            {SECTION_PLANETS.map((planet, i) => {
+              const isRight = i % 2 === 0
+              const dotSize = Math.max(22, Math.min(42, planet.lineupSize))
+              const c0 = planet.paintConfig.sphere[0][1]
+              const c2 = (planet.paintConfig.sphere[2] ?? planet.paintConfig.sphere[1])[1]
+              return (
+                <button
+                  key={planet.id}
+                  className={`slm-row ${isRight ? 'slm-row-r' : 'slm-row-l'}`}
+                  style={{ '--pg': planet.glowColor, top: `${54 + i * orreryRowSpacing}px` }}
+                  onClick={() => onPlanetClick(planet.section)}
+                >
+                  <div className="slm-tick" />
+                  <div
+                    className="slm-dot"
+                    style={{
+                      width: dotSize,
+                      height: dotSize,
+                      background: planet.dotGradient ?? `radial-gradient(circle at 35% 32%, ${c0}, ${c2})`,
+                      boxShadow: `0 0 7px ${planet.glowColor}`,
+                    }}
+                  />
+                  <div className="slm-text">
+                    <span className="slm-section">{planet.lineupLabel}</span>
+                    <span className="slm-planet">{planet.label}</span>
+                  </div>
+                  <span className="slm-chevron">{isRight ? '›' : '‹'}</span>
+                </button>
+              )
+            })}
           </div>
         </div>
       )}

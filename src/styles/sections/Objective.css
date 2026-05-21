@@ -313,6 +313,7 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────────── */
+
 @media (max-width: 520px) {
   #obj-pillars {
     flex-direction: column;
@@ -321,24 +322,93 @@
 }
 
 @media (max-width: 480px) {
+
+  /* Hide decorative elements that clutter the narrow header */
   #obj-class {
     display: none;
   }
 
+  #obj-meta-strip {
+    display: none;
+  }
+
+  /* Center the OBJECTIVE title */
   #obj-hdr {
-    padding: 8px 14px;
-    gap: 6px;
+    padding: 10px 14px;
+    justify-content: center;
+    gap: 0;
+  }
+
+  #obj-mission-id {
+    display: none;
+  }
+
+  #obj-title-bar {
+    font-size: clamp(18px, 5vw, 22px);
+    letter-spacing: 0.32em;
   }
 
   #obj-content {
     padding: 10px 12px;
+    max-height: none;
   }
 
   .obj-panel-body {
     padding: 10px 12px;
   }
 
+  /* Pillars: stack as clean label → value rows, centered */
+  #obj-pillars {
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .obj-pillar {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(56, 188, 240, 0.10);
+    gap: 12px;
+  }
+
+  .obj-pillar:last-child {
+    border-bottom: none;
+  }
+
+  .obj-pillar-sep {
+    display: none;
+  }
+
+  .obj-pillar-label {
+    font-size: 9px;
+    flex-shrink: 0;
+    color: rgba(56, 188, 240, 0.60);
+  }
+
+  .obj-pillar-value {
+    font-size: 10px;
+    text-align: right;
+    color: rgba(185, 228, 248, 0.90);
+  }
+
   #obj-footer {
     padding: 10px 14px;
+  }
+
+  #obj-status {
+    flex-direction: column;
+    gap: 3px;
+    font-size: 9px;
+    text-align: center;
+  }
+
+  .obj-degree-sep {
+    display: none;
+  }
+
+  .obj-status-dot {
+    display: none;
   }
 }
