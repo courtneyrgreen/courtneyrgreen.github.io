@@ -71,7 +71,7 @@ export default function About({ onBack }) {
           </div>
 
           <div id="obs-bio">
-            I'm a data scientist and policy analyst based in Washington, D.C., having just finished my M.S. in Data Science &amp; Analytics at Georgetown. I think the most interesting part of any analysis is what you do with it afterward. This year, I've been scraping live election results for the Associated Press and working as a Scholars Program Associate at Georgetown's Prisons and Justice Initiative, and this summer I'm joining Guidehouse as a Tech, Data &amp; AI Consultant. I've always been the kind of person who can't quite call something finished. There's always one more question worth asking.
+            I'm a data scientist based in Washington, D.C., with an M.S. in Data Science & Analytics from Georgetown University. I currently work as an analytics consultant at Guidehouse, helping organizations improve decision-making, streamline operations, and get more value from their data. Outside of consulting, I scrape live election results for the Associated Press.
           </div>
         </div>
       </div>
