@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience Page — Visual Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Karla:wght@400;500;600&family=JetBrains+Mono:wght@400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #05030e;
+  font-family: 'Karla', sans-serif;
+  color: rgba(230,238,255,0.9);
+  min-height: 100vh;
+  padding: 36px 24px 80px;
+}
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-align: center;
+  color: rgba(230,238,255,0.85);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.page-sub {
+  text-align: center;
+  font-family: 'Karla', sans-serif;
+  font-size: 12px;
+  color: rgba(180,170,220,0.45);
+  letter-spacing: 0.1em;
+  margin-bottom: 40px;
+}
+
+/* ── Three-column card grid ── */
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ── Option card ── */
+.opt-card {
+  border: 1px solid rgba(180,170,220,0.12);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: rgba(180,170,220,0.015);
+  user-select: none;
+}
+.opt-card:hover { border-color: rgba(180,170,220,0.28); }
+.opt-card.selected {
+  border-color: rgba(100,160,240,0.65);
+  box-shadow: 0 0 28px rgba(100,160,240,0.1), 0 0 0 1px rgba(100,160,240,0.12) inset;
+}
+
+/* ── Card header ── */
+.opt-head {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(180,170,220,0.07);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.opt-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(180,170,220,0.35);
+  background: rgba(180,170,220,0.06);
+  padding: 2px 7px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.opt-name {
+  font-family: 'Karla', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(220,215,250,0.9);
+}
+.opt-desc {
+  padding: 8px 16px 11px;
+  font-size: 11px;
+  color: rgba(180,170,220,0.5);
+  line-height: 1.55;
+  border-bottom: 1px solid rgba(180,170,220,0.06);
+  min-height: 52px;
+}
+
+/* ─────────────────────────────────────
+   MINI EXPERIENCE PREVIEW
+───────────────────────────────────── */
+.mini-exp {
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Mini Left List (shared) ── */
+.mini-list {
+  border-right: 1px solid rgba(180,170,220,0.07);
+  overflow: hidden;
+  padding: 8px 0;
+}
+.mini-list-sec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(180,170,220,0.25);
+  padding: 8px 10px 4px;
+}
+.mini-item {
+  padding: 6px 10px;
+  border-left: 2px solid transparent;
+}
+.mini-item-org {
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(220,215,248,0.82);
+  line-height: 1.25;
+}
+.mini-item-role {
+  font-size: 7.5px;
+  color: rgba(180,170,220,0.4);
+  margin-top: 1px;
+}
+.mini-item-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  color: rgba(180,170,220,0.28);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.mini-dot-live {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Mini Right Detail (shared base) ── */
+.mini-detail {
+  padding: 14px 15px 10px;
+  overflow: hidden;
+  position: relative;
+}
+.mini-det-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.mini-det-org {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  color: rgba(230,238,255,0.93);
+  margin-bottom: 2px;
+}
+.mini-det-sub {
+  font-size: 7.5px;
+  color: rgba(180,170,220,0.55);
+  margin-bottom: 5px;
+}
+.mini-det-role {
+  font-family: 'Karla', sans-serif;
+  font-size: 9.5px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.mini-det-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  color: rgba(180,170,220,0.45);
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(180,170,220,0.07);
+}
+.mini-sec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.mini-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8.5px;
+  line-height: 1.65;
+  color: rgba(205,200,235,0.72);
+  margin-bottom: 10px;
+}
+.mini-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 6px;
+}
+.mini-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+/* ── Select indicator ── */
+.opt-select {
+  padding: 9px 16px;
+  text-align: center;
+  font-family: 'Karla', sans-serif;
+  font-size: 11px;
+  color: rgba(180,170,220,0.3);
+  letter-spacing: 0.08em;
+  border-top: 1px solid rgba(180,170,220,0.06);
+  transition: color 0.2s;
+}
+.opt-card.selected .opt-select { color: rgba(100,160,240,0.85); }
+
+
+/* ════════════════════════════════════
+   OPTION A  —  Atmospheric Glow
+════════════════════════════════════ */
+.opt-a .mini-item.active {
+  border-left-color: rgba(100,160,240,0.8);
+  background: rgba(100,160,240,0.055);
+}
+.opt-a .mini-dot-live { background: rgba(100,160,240,0.85); box-shadow: 0 0 5px rgba(100,160,240,0.5); }
+.opt-a .mini-item-org.active { color: rgba(220,215,248,0.95); }
+
+.opt-a .mini-detail {
+  background:
+    radial-gradient(ellipse 180px 130px at 70% 15%, rgba(100,160,240,0.11) 0%, transparent 100%),
+    radial-gradient(ellipse 120px 80px at 20% 80%, rgba(100,160,240,0.05) 0%, transparent 100%);
+}
+.opt-a .mini-det-tag { color: rgba(100,160,240,0.65); }
+.opt-a .mini-det-role { color: rgba(100,160,240,0.88); }
+.opt-a .mini-sec-label {
+  color: rgba(100,160,240,0.85);
+  text-shadow: 0 0 8px rgba(100,160,240,0.45);
+}
+.opt-a .mini-tag {
+  color: rgba(100,160,240,0.8);
+  background: rgba(100,160,240,0.06);
+  border-color: rgba(100,160,240,0.18);
+}
+
+
+/* ════════════════════════════════════
+   OPTION B  —  Timeline Sidebar
+════════════════════════════════════ */
+.opt-b .mini-list { padding: 8px 0; }
+.opt-b .tl-track {
+  position: relative;
+  padding-left: 20px;
+}
+.opt-b .tl-track::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    rgba(100,160,240,0.5) 0%,
+    rgba(180,170,220,0.15) 60%,
+    rgba(180,170,220,0.04) 100%
+  );
+}
+.opt-b .tl-item {
+  position: relative;
+  padding: 5px 8px 5px 12px;
+  cursor: pointer;
+}
+.opt-b .tl-item::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(10,8,22,1);
+  border: 1.5px solid rgba(180,170,220,0.25);
+  transition: all 0.2s;
+}
+.opt-b .tl-item.active::before {
+  background: rgba(100,160,240,0.9);
+  border-color: rgba(100,160,240,0.9);
+  box-shadow: 0 0 7px rgba(100,160,240,0.65), 0 0 14px rgba(100,160,240,0.25);
+  width: 9px; height: 9px;
+  left: -13px;
+}
+.opt-b .tl-org {
+  font-family: 'Karla', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(220,215,248,0.85);
+  line-height: 1.2;
+}
+.opt-b .tl-item.active .tl-org { color: rgba(230,225,255,0.96); }
+.opt-b .tl-role {
+  font-size: 7.5px;
+  color: rgba(180,170,220,0.4);
+  margin-top: 1px;
+}
+.opt-b .tl-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  color: rgba(100,160,240,0.5);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.opt-b .tl-item.active .tl-date { color: rgba(100,160,240,0.75); }
+.opt-b .tl-sec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(180,170,220,0.22);
+  padding: 8px 8px 4px 20px;
+}
+
+.opt-b .mini-det-tag { color: rgba(100,160,240,0.62); }
+.opt-b .mini-det-role { color: rgba(100,160,240,0.85); }
+.opt-b .mini-sec-label { color: rgba(100,160,240,0.65); }
+.opt-b .mini-tag {
+  color: rgba(100,160,240,0.75);
+  background: rgba(100,160,240,0.05);
+  border-color: rgba(100,160,240,0.15);
+}
+
+
+/* ════════════════════════════════════
+   OPTION C  —  Star Texture + Stagger
+════════════════════════════════════ */
+.opt-c .mini-item.active {
+  border-left-color: rgba(100,160,240,0.75);
+  background: rgba(100,160,240,0.045);
+}
+.opt-c .mini-dot-live { background: rgba(100,160,240,0.82); box-shadow: 0 0 4px rgba(100,160,240,0.45); }
+
+.opt-c .mini-detail {
+  background-image:
+    radial-gradient(circle, rgba(180,170,220,0.055) 1px, transparent 1px);
+  background-size: 13px 13px;
+  background-position: 3px 3px;
+}
+.opt-c .mini-det-tag { color: rgba(100,160,240,0.6); }
+.opt-c .mini-det-role { color: rgba(100,160,240,0.85); }
+
+.opt-c .mini-sec-label {
+  color: rgba(200,195,235,0.75);
+  font-size: 7px;
+}
+.opt-c .mini-sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(180,170,220,0.18), transparent);
+  display: block;
+}
+
+.opt-c .mini-tag {
+  color: rgba(180,170,220,0.65);
+  background: rgba(180,170,220,0.04);
+  border-color: rgba(180,170,220,0.13);
+}
+
+/* Stagger entrance animation */
+.stagger { opacity: 0; }
+.opt-c .mini-detail .stagger-1 { animation: fadeUp 0.45s ease forwards 0.08s; }
+.opt-c .mini-detail .stagger-2 { animation: fadeUp 0.45s ease forwards 0.22s; }
+.opt-c .mini-detail .stagger-3 { animation: fadeUp 0.45s ease forwards 0.36s; }
+.opt-c .mini-detail .stagger-4 { animation: fadeUp 0.45s ease forwards 0.50s; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Font note banner ── */
+.font-note {
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 10px 16px;
+  background: rgba(180,170,220,0.04);
+  border: 1px solid rgba(180,170,220,0.1);
+  border-radius: 4px;
+  font-size: 11px;
+  color: rgba(180,170,220,0.55);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.font-note strong { color: rgba(200,195,235,0.8); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<p class="page-title">Experience Page — Visual Options</p>
+<p class="page-sub">All three use DM Sans for body/description text · Click a card to select</p>
+
+<div class="font-note">
+  <span>✦</span>
+  <span>Body text font changed from <strong>Cormorant Garamond</strong> to <strong>DM Sans</strong> in all three — see the scholarship/description text in each preview</span>
+</div>
+
+<div class="cards-row">
+
+  <!-- ═══ OPTION A: Atmospheric Glow ═══ -->
+  <div class="opt-card opt-a" data-choice="a" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">A</span>
+      <span class="opt-name">Atmospheric Glow</span>
+    </div>
+    <div class="opt-desc">Accent colors bloom as a nebula-like glow behind the detail panel. Section labels shine. Active entry has a stronger color pulse. Most cohesive with the space theme.</div>
+
+    <div class="mini-exp">
+      <!-- Left list -->
+      <div class="mini-list">
+        <div class="mini-list-sec">Education</div>
+        <div class="mini-item active">
+          <div class="mini-item-org active">Georgetown</div>
+          <div class="mini-item-role">M.S. Data Science</div>
+          <div class="mini-item-date"><span class="mini-dot-live"></span>2024–2026</div>
+        </div>
+        <div class="mini-item">
+          <div class="mini-item-org">U. of Virginia</div>
+          <div class="mini-item-role">B.A. Public Policy</div>
+          <div class="mini-item-date">2020–2024</div>
+        </div>
+        <div class="mini-list-sec">Work</div>
+        <div class="mini-item">
+          <div class="mini-item-org">Associated Press</div>
+          <div class="mini-item-role">Elections Scraper</div>
+          <div class="mini-item-date"><span class="mini-dot-live"></span>2025–Present</div>
+        </div>
+        <div class="mini-item">
+          <div class="mini-item-org">Georgetown PJI</div>
+          <div class="mini-item-role">Program Associate</div>
+          <div class="mini-item-date"><span class="mini-dot-live"></span>2024–2026</div>
+        </div>
+        <div class="mini-item">
+          <div class="mini-item-org">Guidehouse</div>
+          <div class="mini-item-role">Sustainability Intern</div>
+          <div class="mini-item-date">2025</div>
+        </div>
+      </div>
+      <!-- Right detail -->
+      <div class="mini-detail">
+        <div class="mini-det-tag">Education · Georgetown University</div>
+        <div class="mini-det-org">Georgetown University</div>
+        <div class="mini-det-sub">Graduate School of Arts & Sciences</div>
+        <div class="mini-det-role">M.S. Data Science & Analytics</div>
+        <div class="mini-det-meta">2024 – 2026 &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; GPA 4.0</div>
+        <div class="mini-sec-label">Awards</div>
+        <div class="mini-body">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+        <div class="mini-sec-label">Skills &amp; Tools</div>
+        <div class="mini-tags">
+          <span class="mini-tag">Python</span>
+          <span class="mini-tag">R</span>
+          <span class="mini-tag">Machine Learning</span>
+          <span class="mini-tag">SQL</span>
+          <span class="mini-tag">Deep Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt-select">Click to select</div>
+  </div>
+
+
+  <!-- ═══ OPTION B: Timeline Sidebar ═══ -->
+  <div class="opt-card opt-b" data-choice="b" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">B</span>
+      <span class="opt-name">Timeline Sidebar</span>
+    </div>
+    <div class="opt-desc">Left panel becomes a glowing vertical timeline — connecting dots with dates. Tells your story as a chronological journey rather than a plain list.</div>
+
+    <div class="mini-exp">
+      <!-- Left timeline -->
+      <div class="mini-list opt-b">
+        <div class="tl-sec">Education</div>
+        <div class="tl-track">
+          <div class="tl-item active">
+            <div class="tl-org">Georgetown</div>
+            <div class="tl-role">M.S. Data Science</div>
+            <div class="tl-date"><span class="mini-dot-live" style="background:rgba(100,160,240,0.85);box-shadow:0 0 4px rgba(100,160,240,0.5);width:4px;height:4px;border-radius:50%;flex-shrink:0;display:inline-block"></span>2024–2026</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-org">U. of Virginia</div>
+            <div class="tl-role">B.A. Public Policy</div>
+            <div class="tl-date">2020–2024</div>
+          </div>
+        </div>
+        <div class="tl-sec">Work</div>
+        <div class="tl-track">
+          <div class="tl-item">
+            <div class="tl-org">Associated Press</div>
+            <div class="tl-role">Elections Scraper</div>
+            <div class="tl-date"><span style="width:4px;height:4px;border-radius:50%;background:rgba(195,90,80,0.85);box-shadow:0 0 4px rgba(195,90,80,0.5);display:inline-block;flex-shrink:0"></span>2025–Now</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-org">Georgetown PJI</div>
+            <div class="tl-role">Program Associate</div>
+            <div class="tl-date"><span style="width:4px;height:4px;border-radius:50%;background:rgba(100,160,240,0.85);display:inline-block;flex-shrink:0"></span>2024–2026</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-org">Guidehouse</div>
+            <div class="tl-role">Sustainability Intern</div>
+            <div class="tl-date">2025</div>
+          </div>
+        </div>
+      </div>
+      <!-- Right detail -->
+      <div class="mini-detail">
+        <div class="mini-det-tag">Education · Georgetown University</div>
+        <div class="mini-det-org">Georgetown University</div>
+        <div class="mini-det-sub">Graduate School of Arts & Sciences</div>
+        <div class="mini-det-role">M.S. Data Science & Analytics</div>
+        <div class="mini-det-meta">2024 – 2026 &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; GPA 4.0</div>
+        <div class="mini-sec-label">Awards</div>
+        <div class="mini-body">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+        <div class="mini-sec-label">Skills &amp; Tools</div>
+        <div class="mini-tags">
+          <span class="mini-tag">Python</span>
+          <span class="mini-tag">R</span>
+          <span class="mini-tag">Machine Learning</span>
+          <span class="mini-tag">SQL</span>
+          <span class="mini-tag">Deep Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt-select">Click to select</div>
+  </div>
+
+
+  <!-- ═══ OPTION C: Star Texture + Stagger ═══ -->
+  <div class="opt-card opt-c" data-choice="c" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">C</span>
+      <span class="opt-name">Star Texture + Reveal</span>
+    </div>
+    <div class="opt-desc">Detail panel gets a subtle starfield dot texture. Section labels have decorative ruled lines. Content stagger-animates in when you switch entries — watch the preview load.</div>
+
+    <div class="mini-exp">
+      <!-- Left list -->
+      <div class="mini-list">
+        <div class="mini-list-sec">Education</div>
+        <div class="mini-item active" style="border-left-color:rgba(100,160,240,0.75);background:rgba(100,160,240,0.04)">
+          <div class="mini-item-org">Georgetown</div>
+          <div class="mini-item-role">M.S. Data Science</div>
+          <div class="mini-item-date"><span class="mini-dot-live"></span>2024–2026</div>
+        </div>
+        <div class="mini-item">
+          <div class="mini-item-org">U. of Virginia</div>
+          <div class="mini-item-role">B.A. Public Policy</div>
+          <div class="mini-item-date">2020–2024</div>
+        </div>
+        <div class="mini-list-sec">Work</div>
+        <div class="mini-item">
+          <div class="mini-item-org">Associated Press</div>
+          <div class="mini-item-role">Elections Scraper</div>
+          <div class="mini-item-date"><span class="mini-dot-live"></span>2025–Present</div>
+        </div>
+        <div class="mini-item">
+          <div class="mini-item-org">Georgetown PJI</div>
+          <div class="mini-item-role">Program Associate</div>
+          <div class="mini-item-date"><span class="mini-dot-live"></span>2024–2026</div>
+        </div>
+        <div class="mini-item">
+          <div class="mini-item-org">Guidehouse</div>
+          <div class="mini-item-role">Sustainability Intern</div>
+          <div class="mini-item-date">2025</div>
+        </div>
+      </div>
+      <!-- Right detail with texture + stagger -->
+      <div class="mini-detail">
+        <div class="mini-det-tag stagger stagger-1" style="color:rgba(100,160,240,0.6)">Education · Georgetown University</div>
+        <div class="mini-det-org stagger stagger-1">Georgetown University</div>
+        <div class="mini-det-sub stagger stagger-1">Graduate School of Arts & Sciences</div>
+        <div class="mini-det-role stagger stagger-2" style="color:rgba(100,160,240,0.85)">M.S. Data Science & Analytics</div>
+        <div class="mini-det-meta stagger stagger-2">2024 – 2026 &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; GPA 4.0</div>
+        <div class="mini-sec-label stagger stagger-3">Awards</div>
+        <div class="mini-body stagger stagger-3">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+        <div class="mini-sec-label stagger stagger-4">Skills &amp; Tools</div>
+        <div class="mini-tags stagger stagger-4">
+          <span class="mini-tag">Python</span>
+          <span class="mini-tag">R</span>
+          <span class="mini-tag">Machine Learning</span>
+          <span class="mini-tag">SQL</span>
+          <span class="mini-tag">Deep Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt-select">Click to select</div>
+  </div>
+
+</div><!-- /cards-row -->
+
+<script>
+function toggleSelect(el) {
+  const wasSelected = el.classList.contains('selected');
+  document.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
+  if (!wasSelected) el.classList.add('selected');
+
+  // Re-trigger stagger animation on Option C when clicked
+  if (el.classList.contains('opt-c') && el.classList.contains('selected')) {
+    const staggerEls = el.querySelectorAll('.stagger');
+    staggerEls.forEach(s => {
+      s.style.animation = 'none';
+      s.offsetHeight; // reflow
+      s.style.animation = '';
+    });
+  }
+
+  // Emit event if helper is available
+  if (typeof window.__sp_emit === 'function') {
+    const choice = el.dataset.choice;
+    const name = el.querySelector('.opt-name')?.textContent || choice;
+    window.__sp_emit({ type: 'click', choice, text: name });
+  }
+}
+</script>
+</body>
+</html>

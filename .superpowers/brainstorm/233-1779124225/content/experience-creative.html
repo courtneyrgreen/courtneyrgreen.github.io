@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience — Creative Directions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Karla:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #04020c;
+  font-family: 'Karla', sans-serif;
+  color: rgba(230,238,255,0.9);
+  min-height: 100vh;
+  padding: 36px 20px 80px;
+}
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-align: center;
+  color: rgba(230,238,255,0.8);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.page-sub {
+  text-align: center;
+  font-size: 11.5px;
+  color: rgba(180,170,220,0.4);
+  letter-spacing: 0.1em;
+  margin-bottom: 40px;
+}
+
+.cards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ── Card shell ── */
+.opt-card {
+  border: 1px solid rgba(180,170,220,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: rgba(180,170,220,0.012);
+  user-select: none;
+}
+.opt-card:hover { border-color: rgba(180,170,220,0.25); }
+.opt-card.selected {
+  border-color: rgba(210,182,88,0.6);
+  box-shadow: 0 0 32px rgba(210,182,88,0.08), 0 0 0 1px rgba(210,182,88,0.1) inset;
+}
+.opt-head {
+  padding: 13px 16px 10px;
+  border-bottom: 1px solid rgba(180,170,220,0.07);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.opt-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: rgba(210,182,88,0.5);
+  background: rgba(210,182,88,0.06);
+  padding: 2px 7px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.opt-name {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: rgba(220,215,250,0.9);
+}
+.opt-desc {
+  padding: 8px 16px 11px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: rgba(180,170,220,0.48);
+  line-height: 1.55;
+  border-bottom: 1px solid rgba(180,170,220,0.06);
+  min-height: 50px;
+}
+.opt-select {
+  padding: 9px 16px;
+  text-align: center;
+  font-family: 'Karla', sans-serif;
+  font-size: 11px;
+  color: rgba(180,170,220,0.28);
+  letter-spacing: 0.08em;
+  border-top: 1px solid rgba(180,170,220,0.06);
+  transition: color 0.2s;
+}
+.opt-card.selected .opt-select { color: rgba(210,182,88,0.8); }
+
+/* ══════════════════════════════════════════════════
+   OPTION A — MISSION PATCHES
+══════════════════════════════════════════════════ */
+.patches-preview {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  height: 380px;
+  overflow: hidden;
+  background: #04020c;
+}
+
+/* Patch grid sidebar */
+.patch-sidebar {
+  border-right: 1px solid rgba(180,170,220,0.07);
+  padding: 18px 12px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 0%, rgba(210,182,88,0.03) 0%, transparent 70%);
+}
+.patch-sidebar-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(210,182,88,0.4);
+  margin-bottom: 14px;
+  text-align: center;
+}
+.patch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: center;
+}
+.patch {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+.patch:hover { transform: scale(1.08); }
+.patch.active { transform: scale(1.1); }
+
+/* Patch embroidery-style double border */
+.patch::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid;
+  opacity: 0.6;
+}
+.patch::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed;
+  opacity: 0.25;
+}
+
+/* Georgetown patch */
+.patch-gu {
+  background: radial-gradient(135deg, rgba(15,25,60,1) 0%, rgba(5,12,40,1) 100%);
+  border: 2px solid rgba(100,160,240,0.5);
+  box-shadow: 0 0 12px rgba(100,160,240,0.2), inset 0 0 8px rgba(100,160,240,0.05);
+}
+.patch-gu::before { border-color: rgba(100,160,240,0.4); }
+.patch-gu::after { border-color: rgba(100,160,240,0.6); }
+.patch-gu.active { box-shadow: 0 0 20px rgba(100,160,240,0.5), 0 0 40px rgba(100,160,240,0.15), inset 0 0 12px rgba(100,160,240,0.08); }
+
+/* UVA patch */
+.patch-uva {
+  background: radial-gradient(135deg, rgba(40,12,8,1) 0%, rgba(20,5,3,1) 100%);
+  border: 2px solid rgba(200,80,60,0.5);
+  box-shadow: 0 0 10px rgba(200,80,60,0.15), inset 0 0 6px rgba(200,80,60,0.04);
+}
+.patch-uva::before { border-color: rgba(200,80,60,0.35); }
+.patch-uva::after { border-color: rgba(200,80,60,0.5); }
+
+/* AP patch */
+.patch-ap {
+  background: radial-gradient(135deg, rgba(40,10,12,1) 0%, rgba(20,5,6,1) 100%);
+  border: 2px solid rgba(195,90,80,0.5);
+  box-shadow: 0 0 10px rgba(195,90,80,0.15);
+}
+.patch-ap::before { border-color: rgba(195,90,80,0.35); }
+.patch-ap::after { border-color: rgba(195,90,80,0.5); }
+.patch-ap.active { box-shadow: 0 0 18px rgba(195,90,80,0.4), 0 0 36px rgba(195,90,80,0.12); }
+
+/* PJI patch */
+.patch-pji {
+  background: radial-gradient(135deg, rgba(10,20,50,1) 0%, rgba(5,10,28,1) 100%);
+  border: 2px solid rgba(100,140,220,0.45);
+  box-shadow: 0 0 8px rgba(100,140,220,0.12);
+}
+.patch-pji::before { border-color: rgba(100,140,220,0.3); }
+.patch-pji::after { border-color: rgba(100,140,220,0.45); }
+
+/* Guidehouse patch */
+.patch-gh {
+  background: radial-gradient(135deg, rgba(8,30,12,1) 0%, rgba(4,16,6,1) 100%);
+  border: 2px solid rgba(80,200,100,0.45);
+  box-shadow: 0 0 8px rgba(80,200,100,0.12);
+}
+.patch-gh::before { border-color: rgba(80,200,100,0.3); }
+.patch-gh::after { border-color: rgba(80,200,100,0.45); }
+
+/* EVgo patch */
+.patch-evgo {
+  background: radial-gradient(135deg, rgba(5,25,32,1) 0%, rgba(3,14,20,1) 100%);
+  border: 2px solid rgba(60,190,210,0.45);
+  box-shadow: 0 0 8px rgba(60,190,210,0.12);
+}
+.patch-evgo::before { border-color: rgba(60,190,210,0.3); }
+.patch-evgo::after { border-color: rgba(60,190,210,0.45); }
+
+/* VOX patch */
+.patch-vox {
+  background: radial-gradient(135deg, rgba(5,22,30,1) 0%, rgba(3,12,18,1) 100%);
+  border: 2px solid rgba(80,185,205,0.4);
+  box-shadow: 0 0 8px rgba(80,185,205,0.1);
+}
+.patch-vox::before { border-color: rgba(80,185,205,0.28); }
+.patch-vox::after { border-color: rgba(80,185,205,0.42); }
+
+/* Mindset patch */
+.patch-ms {
+  background: radial-gradient(135deg, rgba(8,28,10,1) 0%, rgba(4,15,5,1) 100%);
+  border: 2px solid rgba(80,195,95,0.4);
+  box-shadow: 0 0 8px rgba(80,195,95,0.1);
+}
+.patch-ms::before { border-color: rgba(80,195,95,0.28); }
+.patch-ms::after { border-color: rgba(80,195,95,0.42); }
+
+.patch-abbr {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.patch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+  margin-top: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stars behind patches */
+.patch-sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+  background-size: 22px 22px, 15px 15px;
+  background-position: 4px 6px, 11px 14px;
+  opacity: 0.08;
+  pointer-events: none;
+  border-radius: 0;
+}
+.patch-sidebar { position: relative; }
+
+/* Patch detail panel */
+.patch-detail {
+  padding: 18px 20px;
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(ellipse 220px 180px at 65% 25%, rgba(100,160,240,0.07) 0%, transparent 100%);
+}
+.pd-mission-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: rgba(210,182,88,0.55);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.pd-patch-badge {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(135deg, rgba(15,25,60,1) 0%, rgba(5,12,40,1) 100%);
+  border: 2px solid rgba(100,160,240,0.5);
+  box-shadow: 0 0 14px rgba(100,160,240,0.35), inset 0 0 8px rgba(100,160,240,0.06);
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(180,210,255,0.9);
+  margin-bottom: 10px;
+}
+.pd-org {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(230,238,255,0.93);
+  margin-bottom: 2px;
+}
+.pd-sub {
+  font-size: 9px;
+  color: rgba(180,170,220,0.55);
+  margin-bottom: 6px;
+}
+.pd-role {
+  font-family: 'Karla', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(100,160,240,0.88);
+  margin-bottom: 4px;
+}
+.pd-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  color: rgba(180,170,220,0.45);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(180,170,220,0.07);
+}
+.pd-sec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(100,160,240,0.8);
+  text-shadow: 0 0 8px rgba(100,160,240,0.4);
+  margin-bottom: 6px;
+}
+.pd-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5px;
+  line-height: 1.65;
+  color: rgba(205,200,235,0.72);
+  margin-bottom: 12px;
+}
+.pd-tags {
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+.pd-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  color: rgba(100,160,240,0.78);
+  background: rgba(100,160,240,0.06);
+  border: 1px solid rgba(100,160,240,0.16);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+
+/* ══════════════════════════════════════════════════
+   OPTION B — MISSION CONTROL DASHBOARD
+══════════════════════════════════════════════════ */
+.dashboard-preview {
+  height: 380px;
+  overflow: hidden;
+  background: #04020c;
+  display: grid;
+  grid-template-columns: 185px 1fr;
+  position: relative;
+}
+
+/* Subtle scanline overlay */
+.dashboard-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(180,170,220,0.012) 2px,
+    rgba(180,170,220,0.012) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Dashboard left panel */
+.dash-left {
+  border-right: 1px solid rgba(100,160,240,0.12);
+  padding: 14px 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(100,160,240,0.02) 0%, transparent 100%);
+  position: relative;
+}
+.dash-left-header {
+  padding: 0 14px 10px;
+  border-bottom: 1px solid rgba(100,160,240,0.1);
+  margin-bottom: 8px;
+}
+.dash-left-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.28em;
+  color: rgba(100,160,240,0.6);
+  text-transform: uppercase;
+}
+.dash-left-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  color: rgba(180,170,220,0.28);
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+
+/* Mission roster item */
+.mission-item {
+  padding: 8px 14px;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+}
+.mission-item.active {
+  border-left-color: rgba(100,160,240,0.8);
+  background: rgba(100,160,240,0.05);
+}
+.mission-item-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+.mission-status-light {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.mission-status-light.active-pulse {
+  background: rgba(80,220,120,0.9);
+  box-shadow: 0 0 5px rgba(80,220,120,0.7);
+  animation: statusPulse 1.8s ease-in-out infinite;
+}
+.mission-status-light.inactive {
+  background: rgba(180,170,220,0.18);
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 5px rgba(80,220,120,0.7); }
+  50% { opacity: 0.5; box-shadow: 0 0 2px rgba(80,220,120,0.3); }
+}
+.mission-callsign {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  color: rgba(210,182,88,0.7);
+}
+.mission-item.active .mission-callsign { color: rgba(210,182,88,0.95); }
+.mission-org-name {
+  font-family: 'Karla', sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: rgba(220,215,248,0.82);
+  line-height: 1.2;
+}
+.mission-item.active .mission-org-name { color: rgba(230,225,255,0.95); }
+.mission-role-text {
+  font-size: 7.5px;
+  color: rgba(180,170,220,0.38);
+  margin-top: 1px;
+}
+/* Timeline bar */
+.mission-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+.mission-bar-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(180,170,220,0.08);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.mission-bar-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: linear-gradient(to right, rgba(100,160,240,0.6), rgba(100,160,240,0.2));
+}
+.mission-bar-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  color: rgba(180,170,220,0.3);
+  white-space: nowrap;
+}
+
+/* ── Dashboard right panel ── */
+.dash-right {
+  padding: 16px 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* HUD corner brackets */
+.dash-right::before {
+  content: '';
+  position: absolute;
+  top: 12px; left: 12px;
+  width: 18px; height: 18px;
+  border-top: 1px solid rgba(100,160,240,0.35);
+  border-left: 1px solid rgba(100,160,240,0.35);
+}
+.dash-right::after {
+  content: '';
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 18px; height: 18px;
+  border-top: 1px solid rgba(100,160,240,0.35);
+  border-right: 1px solid rgba(100,160,240,0.35);
+}
+
+.hud-mission-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.32em;
+  color: rgba(210,182,88,0.6);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* Data readout grid */
+.hud-readouts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.hud-readout {
+  background: rgba(100,160,240,0.03);
+  border: 1px solid rgba(100,160,240,0.1);
+  border-radius: 3px;
+  padding: 7px 9px;
+  position: relative;
+  overflow: hidden;
+}
+.hud-readout::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(100,160,240,0.25), transparent);
+}
+.hud-readout-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.2em;
+  color: rgba(180,170,220,0.4);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.hud-readout-value {
+  font-family: 'Karla', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(220,215,250,0.9);
+  line-height: 1.2;
+}
+.hud-readout-value.accent { color: rgba(100,160,240,0.95); }
+.hud-readout-value.gold { color: rgba(210,182,88,0.9); }
+
+/* Mission brief section */
+.hud-brief-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  color: rgba(100,160,240,0.7);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-brief-label::before {
+  content: '▶';
+  font-size: 5px;
+  color: rgba(100,160,240,0.5);
+}
+.hud-brief-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  line-height: 1.65;
+  color: rgba(205,200,235,0.7);
+  padding-left: 11px;
+  margin-bottom: 12px;
+  border-left: 1px solid rgba(100,160,240,0.15);
+}
+
+/* Skills row */
+.hud-skills-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  color: rgba(100,160,240,0.7);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-skills-label::before { content: '▶'; font-size: 5px; color: rgba(100,160,240,0.5); }
+.hud-skills {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  padding-left: 11px;
+}
+.hud-skill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  color: rgba(100,160,240,0.75);
+  background: rgba(100,160,240,0.05);
+  border: 1px solid rgba(100,160,240,0.15);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+/* Bottom HUD corners */
+.dash-bottom-l, .dash-bottom-r {
+  position: absolute;
+  bottom: 12px;
+  width: 18px; height: 18px;
+}
+.dash-bottom-l {
+  left: 12px;
+  border-bottom: 1px solid rgba(100,160,240,0.35);
+  border-left: 1px solid rgba(100,160,240,0.35);
+}
+.dash-bottom-r {
+  right: 12px;
+  border-bottom: 1px solid rgba(100,160,240,0.35);
+  border-right: 1px solid rgba(100,160,240,0.35);
+}
+
+/* ── Note strip ── */
+.compare-note {
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 10px 16px;
+  background: rgba(210,182,88,0.04);
+  border: 1px solid rgba(210,182,88,0.1);
+  border-radius: 4px;
+  font-size: 11px;
+  color: rgba(180,170,220,0.45);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.compare-note strong { color: rgba(210,182,88,0.75); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<p class="page-title">Experience Page — Creative Directions</p>
+<p class="page-sub">Two new concepts inspired by mission patches &amp; spacecraft cockpits</p>
+
+<div class="compare-note">
+  <span>✦</span>
+  <span>Both concepts use <strong>DM Sans</strong> for body text · You can also mix them (e.g. patch sidebar + dashboard detail panel)</span>
+</div>
+
+<div class="cards-row">
+
+  <!-- ═══ OPTION A: MISSION PATCHES ═══ -->
+  <div class="opt-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">A</span>
+      <span class="opt-name">Mission Patches</span>
+    </div>
+    <div class="opt-desc">Each experience gets its own circular mission patch in the sidebar — like a NASA crew patch collection. Click a patch to open its briefing. The active patch glows.</div>
+
+    <div class="patches-preview">
+      <!-- Patch sidebar -->
+      <div class="patch-sidebar">
+        <div class="patch-sidebar-label">Mission Roster</div>
+        <div class="patch-grid">
+
+          <!-- Georgetown -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-gu active">
+              <span class="patch-abbr" style="color:rgba(160,200,255,0.95)">GU</span>
+              <span class="patch-num" style="color:rgba(100,160,240,0.6)">M·01</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">GEORGET.</span>
+          </div>
+
+          <!-- UVA -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-uva">
+              <span class="patch-abbr" style="color:rgba(255,160,140,0.9)">UVA</span>
+              <span class="patch-num" style="color:rgba(200,80,60,0.6)">M·02</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">VIRGINIA</span>
+          </div>
+
+          <!-- AP -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-ap">
+              <span class="patch-abbr" style="color:rgba(255,150,140,0.9)">AP</span>
+              <span class="patch-num" style="color:rgba(195,90,80,0.6)">M·03</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">ASSOC.PRESS</span>
+          </div>
+
+          <!-- PJI -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-pji">
+              <span class="patch-abbr" style="color:rgba(150,185,255,0.9)">PJI</span>
+              <span class="patch-num" style="color:rgba(100,140,220,0.6)">M·04</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">GU PJI</span>
+          </div>
+
+          <!-- Guidehouse -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-gh">
+              <span class="patch-abbr" style="color:rgba(130,230,150,0.9)">GH</span>
+              <span class="patch-num" style="color:rgba(80,200,100,0.6)">M·05</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">GUIDEHSE.</span>
+          </div>
+
+          <!-- EVgo -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-evgo">
+              <span class="patch-abbr" style="color:rgba(120,220,240,0.9)">EV</span>
+              <span class="patch-num" style="color:rgba(60,190,210,0.6)">M·06</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">EVGO</span>
+          </div>
+
+          <!-- VOX -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-vox">
+              <span class="patch-abbr" style="color:rgba(110,215,230,0.9)">VOX</span>
+              <span class="patch-num" style="color:rgba(80,185,205,0.55)">M·07</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">VOX GLOBAL</span>
+          </div>
+
+          <!-- Mindset -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="patch patch-ms">
+              <span class="patch-abbr" style="color:rgba(125,230,145,0.9)">MS</span>
+              <span class="patch-num" style="color:rgba(80,195,95,0.55)">M·08</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(180,170,220,0.35);letter-spacing:0.12em;text-align:center">MINDSET</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Patch detail panel -->
+      <div class="patch-detail">
+        <div class="pd-mission-num">Mission 01 · Active</div>
+        <div class="pd-patch-badge">GU</div>
+        <div class="pd-org">Georgetown University</div>
+        <div class="pd-sub">Graduate School of Arts &amp; Sciences</div>
+        <div class="pd-role">M.S. Data Science &amp; Analytics</div>
+        <div class="pd-meta">2024 – 2026 &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; GPA 4.0 / 4.0</div>
+        <div class="pd-sec">Awards</div>
+        <div class="pd-body">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+        <div class="pd-sec">Skills &amp; Tools</div>
+        <div class="pd-tags">
+          <span class="pd-tag">Python</span><span class="pd-tag">R</span><span class="pd-tag">Machine Learning</span><span class="pd-tag">SQL</span><span class="pd-tag">Deep Learning</span><span class="pd-tag">Cloud Computing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt-select">Click to select</div>
+  </div>
+
+
+  <!-- ═══ OPTION B: MISSION CONTROL DASHBOARD ═══ -->
+  <div class="opt-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">B</span>
+      <span class="opt-name">Mission Control Dashboard</span>
+    </div>
+    <div class="opt-desc">The page looks like a spacecraft cockpit. Left panel is a mission roster with live status lights and timeline bars. Right panel is a HUD briefing with data readouts and corner brackets.</div>
+
+    <div class="dashboard-preview">
+      <!-- Left mission roster -->
+      <div class="dash-left">
+        <div class="dash-left-header">
+          <div class="dash-left-title">Mission Roster</div>
+          <div class="dash-left-sub">3 active · 5 complete</div>
+        </div>
+
+        <div class="mission-item active">
+          <div class="mission-item-top">
+            <div class="mission-status-light active-pulse"></div>
+            <span class="mission-callsign">MSN-001</span>
+          </div>
+          <div class="mission-org-name">Georgetown Univ.</div>
+          <div class="mission-role-text">M.S. Data Science</div>
+          <div class="mission-bar-wrap">
+            <div class="mission-bar-track"><div class="mission-bar-fill" style="width:55%"></div></div>
+            <span class="mission-bar-date">2024–26</span>
+          </div>
+        </div>
+
+        <div class="mission-item">
+          <div class="mission-item-top">
+            <div class="mission-status-light inactive"></div>
+            <span class="mission-callsign">MSN-002</span>
+          </div>
+          <div class="mission-org-name">U. of Virginia</div>
+          <div class="mission-role-text">B.A. Public Policy</div>
+          <div class="mission-bar-wrap">
+            <div class="mission-bar-track"><div class="mission-bar-fill" style="width:100%;opacity:0.4"></div></div>
+            <span class="mission-bar-date">2020–24</span>
+          </div>
+        </div>
+
+        <div class="mission-item">
+          <div class="mission-item-top">
+            <div class="mission-status-light active-pulse" style="background:rgba(195,90,80,0.9);box-shadow:0 0 5px rgba(195,90,80,0.7)"></div>
+            <span class="mission-callsign">MSN-003</span>
+          </div>
+          <div class="mission-org-name">Associated Press</div>
+          <div class="mission-role-text">Elections Web Scraper</div>
+          <div class="mission-bar-wrap">
+            <div class="mission-bar-track"><div class="mission-bar-fill" style="width:35%;background:linear-gradient(to right,rgba(195,90,80,0.6),rgba(195,90,80,0.2))"></div></div>
+            <span class="mission-bar-date">2025–Now</span>
+          </div>
+        </div>
+
+        <div class="mission-item">
+          <div class="mission-item-top">
+            <div class="mission-status-light active-pulse" style="background:rgba(100,160,240,0.9);box-shadow:0 0 5px rgba(100,160,240,0.7)"></div>
+            <span class="mission-callsign">MSN-004</span>
+          </div>
+          <div class="mission-org-name">Georgetown PJI</div>
+          <div class="mission-role-text">Program Associate</div>
+          <div class="mission-bar-wrap">
+            <div class="mission-bar-track"><div class="mission-bar-fill" style="width:50%"></div></div>
+            <span class="mission-bar-date">2024–26</span>
+          </div>
+        </div>
+
+        <div class="mission-item">
+          <div class="mission-item-top">
+            <div class="mission-status-light inactive"></div>
+            <span class="mission-callsign">MSN-005</span>
+          </div>
+          <div class="mission-org-name">Guidehouse</div>
+          <div class="mission-role-text">Sustainability Intern</div>
+          <div class="mission-bar-wrap">
+            <div class="mission-bar-track"><div class="mission-bar-fill" style="width:100%;background:linear-gradient(to right,rgba(80,200,100,0.5),rgba(80,200,100,0.15));opacity:0.5"></div></div>
+            <span class="mission-bar-date">2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right HUD panel -->
+      <div class="dash-right">
+        <div class="hud-mission-label">◈ &nbsp; Mission Briefing — MSN-001 &nbsp; ◈</div>
+
+        <div class="hud-readouts">
+          <div class="hud-readout">
+            <div class="hud-readout-label">Organization</div>
+            <div class="hud-readout-value">Georgetown Univ.</div>
+          </div>
+          <div class="hud-readout">
+            <div class="hud-readout-label">Status</div>
+            <div class="hud-readout-value accent">● Active</div>
+          </div>
+          <div class="hud-readout">
+            <div class="hud-readout-label">Duration</div>
+            <div class="hud-readout-value">2024 – 2026</div>
+          </div>
+          <div class="hud-readout">
+            <div class="hud-readout-label">Performance</div>
+            <div class="hud-readout-value gold">GPA 4.0 / 4.0</div>
+          </div>
+        </div>
+
+        <div class="hud-brief-label">Mission Notes</div>
+        <div class="hud-brief-text">Merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+
+        <div class="hud-skills-label">Systems &amp; Tools</div>
+        <div class="hud-skills">
+          <span class="hud-skill">Python</span>
+          <span class="hud-skill">R</span>
+          <span class="hud-skill">Machine Learning</span>
+          <span class="hud-skill">SQL</span>
+          <span class="hud-skill">Deep Learning</span>
+          <span class="hud-skill">Cloud Computing</span>
+        </div>
+
+        <div class="dash-bottom-l"></div>
+        <div class="dash-bottom-r"></div>
+      </div>
+    </div>
+
+    <div class="opt-select">Click to select</div>
+  </div>
+
+</div>
+
+<script>
+function toggleSelect(el) {
+  const wasSelected = el.classList.contains('selected');
+  document.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
+  if (!wasSelected) el.classList.add('selected');
+  if (typeof window.__sp_emit === 'function') {
+    window.__sp_emit({ type: 'click', choice: el.dataset.choice, text: el.querySelector('.opt-name')?.textContent });
+  }
+}
+</script>
+</body>
+</html>

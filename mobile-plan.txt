@@ -1,0 +1,31 @@
+MOBILE COMPATIBILITY PLAN
+=========================
+
+Goal: Make the portfolio usable on mobile without a full rewrite.
+
+PHASE 1 — Solar System Lineup (vertical on mobile)
+- Detect mobile screen width in SolarSystem.jsx
+- Switch lineup mode from horizontal → vertical layout
+- Enable scroll so all planets are reachable
+- Orbit view already scales fine, no changes needed
+
+PHASE 2 — Section Responsiveness (CSS media queries)
+- Experience: stack the 220px fixed sidebar above the content panel
+- Projects card: already min(520px, 90vw) but needs padding/font tweaks
+- Interests: radio display + channel buttons need to stack/shrink
+- About: mostly fine, minor tweaks
+- Skills: user confirmed fine, skip
+- Objective: mostly fine, skip
+- Resume: mostly fine, skip
+- Contact: mostly fine, minor tweaks
+
+PHASE 3 — Touch / Canvas (if needed)
+- Constellation canvas in Projects: add touchend listener for star taps
+- Solar system canvas: add touchend for planet taps
+- Replace hover-only feedback with active/focus states
+
+BREAKPOINTS TO USE
+- Mobile: max-width 768px (stack layouts)
+- Small mobile: max-width 480px (shrink fonts further)
+
+ESTIMATED EFFORT: ~4-6 hours

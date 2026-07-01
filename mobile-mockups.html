@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Home Screen Mockups</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Karla:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0810;
+    font-family: 'Karla', sans-serif;
+    color: #e8f0ff;
+    min-height: 100vh;
+    padding: 40px 24px 60px;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: rgba(200,168,80,0.7);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(138,143,168,0.55);
+    margin-bottom: 48px;
+  }
+
+  .grid {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .concept {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .concept-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(200,168,80,0.65);
+    text-transform: uppercase;
+  }
+
+  .concept-desc {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(138,143,168,0.7);
+    text-align: center;
+    max-width: 200px;
+    line-height: 1.6;
+  }
+
+  /* Phone frame */
+  .phone {
+    width: 240px;
+    height: 480px;
+    background: #07080f;
+    border-radius: 32px;
+    border: 1.5px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.5),
+      0 24px 60px rgba(0,0,0,0.6),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* Stars background */
+  .stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 18% 12%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 72% 8%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 22%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 88% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 12% 48%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 82% 78%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 88%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 8% 92%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 93% 15%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 38% 40%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 77% 62%, rgba(255,255,255,0.3) 0%, transparent 100%);
+  }
+
+  /* Name header */
+  .name-hdr {
+    position: absolute;
+    top: 32px;
+    left: 0; right: 0;
+    text-align: center;
+  }
+  .name-hdr h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: #c8cad8;
+    text-shadow: 0 0 18px rgba(200,210,255,0.45);
+    text-transform: uppercase;
+  }
+  .name-hdr p {
+    margin-top: 5px;
+    font-family: 'Karla', sans-serif;
+    font-size: 7.5px;
+    letter-spacing: 0.08em;
+    color: rgba(160,148,210,0.65);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ══════════════════════════════════════════════
+     CONCEPT A — SCATTERED DRIFT
+  ══════════════════════════════════════════════ */
+
+  .a-sun {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -54%);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #ffe9a0, #f5a623, #c06010);
+    box-shadow:
+      0 0 22px rgba(245,166,35,0.5),
+      0 0 50px rgba(245,166,35,0.2),
+      0 0 90px rgba(200,100,0,0.1);
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .a-hint {
+    position: absolute;
+    bottom: 18%;
+    left: 0; right: 0;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(220,190,100,0.75);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  /* Drifting background planets */
+  .a-planet {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.28;
+    filter: blur(0.5px);
+  }
+  /* Mercury — top right */
+  .a-p1 {
+    width: 18px; height: 18px;
+    background: radial-gradient(circle at 35% 32%, #c0b8b0, #7a7068, #3a342c);
+    top: 18%; right: 8%;
+    transform: rotate(-15deg);
+  }
+  /* Venus — bottom left */
+  .a-p2 {
+    width: 26px; height: 26px;
+    background: radial-gradient(circle at 38% 32%, #f0e0b0, #d4a020, #8a5010);
+    bottom: 28%; left: 4%;
+    box-shadow: 0 0 12px rgba(200,150,30,0.3);
+  }
+  /* Mars — top left */
+  .a-p3 {
+    width: 20px; height: 20px;
+    background: radial-gradient(circle at 38% 32%, #e07050, #b83818, #601808);
+    top: 28%; left: 10%;
+  }
+  /* Jupiter — bottom right, partial */
+  .a-p4 {
+    width: 44px; height: 44px;
+    background: radial-gradient(circle at 38% 32%, #e8c890, #c8882a, #783808);
+    bottom: 14%; right: -8%;
+    opacity: 0.18;
+    box-shadow: 0 0 18px rgba(200,120,30,0.2);
+  }
+  /* Neptune — top, very faint */
+  .a-p5 {
+    width: 30px; height: 30px;
+    background: radial-gradient(circle at 38% 32%, #80b8f0, #2860c8, #0828a0);
+    top: 8%; left: 30%;
+    opacity: 0.13;
+  }
+
+  /* ══════════════════════════════════════════════
+     CONCEPT B — RADIAL BLOOM
+  ══════════════════════════════════════════════ */
+
+  .b-sun {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #ffe9a0, #f5a623, #c06010);
+    box-shadow:
+      0 0 18px rgba(245,166,35,0.5),
+      0 0 40px rgba(245,166,35,0.2);
+    cursor: pointer;
+    z-index: 5;
+  }
+
+  .b-planet {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  .b-sphere {
+    border-radius: 50%;
+  }
+  .b-label {
+    font-family: 'Cinzel', serif;
+    font-size: 6.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,202,216,0.8);
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* Connector lines from center */
+  .b-line {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1px;
+    background: linear-gradient(to var(--dir, bottom), rgba(138,143,168,0.3), transparent);
+    transform-origin: top center;
+    pointer-events: none;
+  }
+
+  /* 6 planets evenly around center */
+  /* Objective — top */
+  .b-p1 { top: 9%; left: 50%; transform: translateX(-50%); }
+  .b-p1 .b-sphere { width: 22px; height: 22px; background: radial-gradient(circle at 38% 32%, #c0b8b0, #7a7068, #3a342c); }
+
+  /* About — top-right */
+  .b-p2 { top: 18%; right: 10%; }
+  .b-p2 .b-sphere { width: 24px; height: 24px; background: radial-gradient(circle at 38% 32%, #f0e0b0, #d4a020, #8a5010); box-shadow: 0 0 8px rgba(200,150,30,0.35); }
+
+  /* Experience — right */
+  .b-p3 { top: 46%; right: 6%; transform: translateY(-50%); }
+  .b-p3 .b-sphere { width: 26px; height: 26px; background: radial-gradient(circle at 38% 32%, #a0c8f0, #3070c8, #0830a0); box-shadow: 0 0 8px rgba(60,130,220,0.35); }
+
+  /* Resume — bottom-right */
+  .b-p4 { bottom: 16%; right: 10%; }
+  .b-p4 .b-sphere { width: 22px; height: 22px; background: radial-gradient(circle at 38% 32%, #e07050, #b83818, #601808); box-shadow: 0 0 8px rgba(180,60,30,0.35); }
+
+  /* Projects — bottom-left */
+  .b-p5 { bottom: 16%; left: 10%; }
+  .b-p5 .b-sphere { width: 28px; height: 28px; background: radial-gradient(circle at 38% 32%, #e8c890, #c8882a, #783808); box-shadow: 0 0 8px rgba(200,140,50,0.35); }
+
+  /* Skills — left */
+  .b-p6 { top: 46%; left: 6%; transform: translateY(-50%); }
+  .b-p6 .b-sphere { width: 28px; height: 28px; background: radial-gradient(circle at 38% 32%, #f0d890, #c8a018, #785008); box-shadow: 0 0 10px rgba(200,160,30,0.35); }
+
+  /* Interests — top-left */
+  .b-p7 { top: 18%; left: 10%; }
+  .b-p7 .b-sphere { width: 22px; height: 22px; background: radial-gradient(circle at 38% 32%, #90e0f0, #18a8c8, #087890); box-shadow: 0 0 8px rgba(30,180,210,0.35); }
+
+  /* Contact — bottom */
+  .b-p8 { bottom: 7%; left: 50%; transform: translateX(-50%); }
+  .b-p8 .b-sphere { width: 22px; height: 22px; background: radial-gradient(circle at 38% 32%, #a090e0, #5038b8, #201870); box-shadow: 0 0 8px rgba(90,70,200,0.35); }
+
+  /* Radial lines */
+  .b-spoke {
+    position: absolute;
+    left: 50%; top: 50%;
+    height: 1px;
+    background: rgba(138,143,168,0.15);
+    transform-origin: left center;
+    pointer-events: none;
+  }
+
+
+  /* ══════════════════════════════════════════════
+     CONCEPT C — VERTICAL ORRERY
+  ══════════════════════════════════════════════ */
+
+  .c-wrap {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    padding: 28px 0 32px;
+    scrollbar-width: none;
+  }
+  .c-wrap::-webkit-scrollbar { display: none; }
+
+  .c-header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .c-header .c-name {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: #c8cad8;
+    text-shadow: 0 0 18px rgba(200,210,255,0.45);
+    text-transform: uppercase;
+  }
+  .c-header .c-role {
+    margin-top: 4px;
+    font-family: 'Karla', sans-serif;
+    font-size: 7px;
+    letter-spacing: 0.08em;
+    color: rgba(160,148,210,0.55);
+    text-transform: uppercase;
+  }
+
+  .c-sun-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    gap: 0;
+    position: relative;
+  }
+  .c-sun-sphere {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #ffe9a0, #f5a623, #c06010);
+    box-shadow: 0 0 16px rgba(245,166,35,0.45), 0 0 32px rgba(245,166,35,0.15);
+    flex-shrink: 0;
+  }
+  .c-sun-label {
+    font-family: 'Cinzel', serif;
+    font-size: 7px;
+    letter-spacing: 0.22em;
+    color: rgba(200,168,80,0.5);
+    text-transform: uppercase;
+    position: absolute;
+    right: 20px;
+  }
+
+  .c-axis {
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(245,166,35,0.3) 0%, rgba(138,143,168,0.15) 50%, rgba(90,70,200,0.2) 100%);
+    height: 320px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .c-planet-row {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    width: 200px;
+    gap: 0;
+    cursor: pointer;
+  }
+  .c-planet-row.right {
+    flex-direction: row;
+    left: -20px;
+    transform: none;
+  }
+  .c-planet-row.left {
+    flex-direction: row-reverse;
+    right: -20px;
+    left: auto;
+    transform: none;
+  }
+
+  .c-tick {
+    width: 20px;
+    height: 1px;
+    background: rgba(138,143,168,0.3);
+    flex-shrink: 0;
+  }
+  .c-planet-row.left .c-tick { order: 0; }
+  .c-planet-row.left .c-psphere { order: 1; }
+  .c-planet-row.left .c-pinfo { order: 2; text-align: right; }
+
+  .c-psphere {
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .c-pinfo {
+    padding: 0 8px;
+    flex: 1;
+  }
+  .c-pname {
+    font-family: 'Cinzel', serif;
+    font-size: 7px;
+    letter-spacing: 0.18em;
+    color: rgba(230,238,255,0.82);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .c-pplanet {
+    font-family: 'Karla', sans-serif;
+    font-size: 6px;
+    color: rgba(138,143,168,0.45);
+    letter-spacing: 0.06em;
+    margin-top: 1px;
+  }
+  .c-chevron {
+    font-size: 8px;
+    color: rgba(180,170,220,0.25);
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════════════════ */
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes sunGlow {
+    0%, 100% { box-shadow: 0 0 18px rgba(245,166,35,0.5), 0 0 40px rgba(245,166,35,0.2); }
+    50% { box-shadow: 0 0 28px rgba(245,166,35,0.7), 0 0 60px rgba(245,166,35,0.3); }
+  }
+  .a-sun, .b-sun, .c-sun-sphere {
+    animation: sunGlow 3.5s ease-in-out infinite;
+  }
+
+  @keyframes floatP1 { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-4px)} }
+  @keyframes floatP2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+  @keyframes floatP3 { 0%,100%{transform:translateY(-50%) translateX(0)} 50%{transform:translateY(-50%) translateX(3px)} }
+  @keyframes floatP4 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(3px)} }
+  @keyframes floatP5 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(3px)} }
+  @keyframes floatP6 { 0%,100%{transform:translateY(-50%) translateX(0)} 50%{transform:translateY(-50%) translateX(-3px)} }
+  @keyframes floatP7 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+  @keyframes floatP8 { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(4px)} }
+
+  .b-p1 { animation: floatP1 4.0s ease-in-out infinite; }
+  .b-p2 { animation: floatP2 3.7s ease-in-out infinite; }
+  .b-p3 { animation: floatP3 4.3s ease-in-out infinite; }
+  .b-p4 { animation: floatP4 3.5s ease-in-out infinite; }
+  .b-p5 { animation: floatP5 4.8s ease-in-out infinite; }
+  .b-p6 { animation: floatP6 3.9s ease-in-out infinite; }
+  .b-p7 { animation: floatP7 4.2s ease-in-out infinite; }
+  .b-p8 { animation: floatP8 3.6s ease-in-out infinite; }
+
+  /* Separator label */
+  .vs-label {
+    font-family: 'Karla', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: rgba(138,143,168,0.3);
+    writing-mode: vertical-rl;
+    align-self: center;
+    padding: 0 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Mobile Home Screen Concepts</h1>
+<p class="subtitle">courtneyrgreen.github.io · tap to explore interactions</p>
+
+<div class="grid">
+
+  <!-- ══ CONCEPT A ══ -->
+  <div class="concept">
+    <div class="concept-label">A — Scattered Drift</div>
+    <div class="phone">
+      <div class="stars"></div>
+
+      <!-- Drifting background planets -->
+      <div class="a-planet a-p5"></div>
+      <div class="a-planet a-p1"></div>
+      <div class="a-planet a-p3"></div>
+      <div class="a-planet a-p2"></div>
+      <div class="a-planet a-p4"></div>
+
+      <!-- Name header -->
+      <div class="name-hdr">
+        <h2>Courtney Green</h2>
+        <p>Data Scientist · Policy Analyst · Digital Storyteller</p>
+      </div>
+
+      <!-- Sun -->
+      <div class="a-sun"></div>
+
+      <!-- Hint -->
+      <div class="a-hint">tap the sun to enter</div>
+    </div>
+    <div class="concept-desc">Planets drift at angles behind sun. Tap sun → opens current list menu. Atmospheric depth, minimal friction.</div>
+  </div>
+
+  <!-- ══ CONCEPT B ══ -->
+  <div class="concept">
+    <div class="concept-label">B — Radial Bloom</div>
+    <div class="phone">
+      <div class="stars"></div>
+
+      <!-- Radial spokes -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.2" viewBox="0 0 240 480">
+        <line x1="120" y1="240" x2="120" y2="60"  stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="215" y2="110" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="220" y2="240" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="215" y2="368" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="35"  y2="368" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="22"  y2="240" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="35"  y2="110" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="120" y1="240" x2="120" y2="415" stroke="rgba(138,143,168,0.6)" stroke-width="0.5" stroke-dasharray="3,4"/>
+      </svg>
+
+      <!-- Sun center -->
+      <div class="b-sun"></div>
+
+      <!-- Planets bloomed out -->
+      <div class="b-planet b-p1">
+        <div class="b-sphere"></div>
+        <div class="b-label">Objective</div>
+      </div>
+      <div class="b-planet b-p2">
+        <div class="b-sphere"></div>
+        <div class="b-label">About</div>
+      </div>
+      <div class="b-planet b-p3">
+        <div class="b-sphere"></div>
+        <div class="b-label">Experience</div>
+      </div>
+      <div class="b-planet b-p4">
+        <div class="b-sphere"></div>
+        <div class="b-label">Resume</div>
+      </div>
+      <div class="b-planet b-p5">
+        <div class="b-sphere"></div>
+        <div class="b-label">Projects</div>
+      </div>
+      <div class="b-planet b-p6">
+        <div class="b-sphere"></div>
+        <div class="b-label">Skills</div>
+      </div>
+      <div class="b-planet b-p7">
+        <div class="b-sphere"></div>
+        <div class="b-label">Off Clock</div>
+      </div>
+      <div class="b-planet b-p8">
+        <div class="b-sphere"></div>
+        <div class="b-label">Contact</div>
+      </div>
+    </div>
+    <div class="concept-desc">Planets bloom outward from the sun in all directions. Tap any planet to enter. Tap sun to return. No list — pure solar mechanic.</div>
+  </div>
+
+  <!-- ══ CONCEPT C ══ -->
+  <div class="concept">
+    <div class="concept-label">C — Vertical Orrery</div>
+    <div class="phone">
+      <div class="stars"></div>
+      <div class="c-wrap">
+
+        <div class="c-header">
+          <div class="c-name">Courtney Green</div>
+          <div class="c-role">Data Scientist · Policy Analyst · Digital Storyteller</div>
+        </div>
+
+        <!-- Sun -->
+        <div class="c-sun-row">
+          <div class="c-sun-sphere"></div>
+          <div class="c-sun-label">Sol</div>
+        </div>
+
+        <!-- Vertical axis with planets -->
+        <div class="c-axis">
+
+          <!-- Objective — right, 18px from top -->
+          <div class="c-planet-row right" style="top:18px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:14px;height:14px;background:radial-gradient(circle at 38% 32%,#c0b8b0,#7a7068,#3a342c)"></div>
+            <div class="c-pinfo">
+              <div class="c-pname">Objective</div>
+              <div class="c-pplanet">Mercury</div>
+            </div>
+            <div class="c-chevron">›</div>
+          </div>
+
+          <!-- About — left, 58px -->
+          <div class="c-planet-row left" style="top:56px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:16px;height:16px;background:radial-gradient(circle at 38% 32%,#f0e0b0,#d4a020,#8a5010);box-shadow:0 0 6px rgba(200,150,30,0.4)"></div>
+            <div class="c-pinfo" style="text-align:right">
+              <div class="c-pname">About</div>
+              <div class="c-pplanet">Venus</div>
+            </div>
+            <div class="c-chevron">‹</div>
+          </div>
+
+          <!-- Experience — right, 100px -->
+          <div class="c-planet-row right" style="top:98px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:18px;height:18px;background:radial-gradient(circle at 38% 32%,#a0c8f0,#3070c8,#0830a0);box-shadow:0 0 6px rgba(60,130,220,0.4)"></div>
+            <div class="c-pinfo">
+              <div class="c-pname">Experience</div>
+              <div class="c-pplanet">Earth</div>
+            </div>
+            <div class="c-chevron">›</div>
+          </div>
+
+          <!-- Resume — left, 144px -->
+          <div class="c-planet-row left" style="top:144px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:16px;height:16px;background:radial-gradient(circle at 38% 32%,#e07050,#b83818,#601808);box-shadow:0 0 6px rgba(180,60,30,0.4)"></div>
+            <div class="c-pinfo" style="text-align:right">
+              <div class="c-pname">Resume</div>
+              <div class="c-pplanet">Mars</div>
+            </div>
+            <div class="c-chevron">‹</div>
+          </div>
+
+          <!-- Projects — right, 194px -->
+          <div class="c-planet-row right" style="top:192px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:22px;height:22px;background:radial-gradient(circle at 38% 32%,#e8c890,#c8882a,#783808);box-shadow:0 0 8px rgba(200,140,50,0.4)"></div>
+            <div class="c-pinfo">
+              <div class="c-pname">Projects</div>
+              <div class="c-pplanet">Jupiter</div>
+            </div>
+            <div class="c-chevron">›</div>
+          </div>
+
+          <!-- Skills — left, 244px -->
+          <div class="c-planet-row left" style="top:244px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:20px;height:20px;background:radial-gradient(circle at 38% 32%,#f0d890,#c8a018,#785008);box-shadow:0 0 8px rgba(200,160,30,0.4)"></div>
+            <div class="c-pinfo" style="text-align:right">
+              <div class="c-pname">Skills</div>
+              <div class="c-pplanet">Saturn</div>
+            </div>
+            <div class="c-chevron">‹</div>
+          </div>
+
+          <!-- Interests — right, 284px -->
+          <div class="c-planet-row right" style="top:284px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:16px;height:16px;background:radial-gradient(circle at 38% 32%,#90e0f0,#18a8c8,#087890);box-shadow:0 0 6px rgba(30,180,210,0.4)"></div>
+            <div class="c-pinfo">
+              <div class="c-pname">Off The Clock</div>
+              <div class="c-pplanet">Uranus</div>
+            </div>
+            <div class="c-chevron">›</div>
+          </div>
+
+          <!-- Contact — left, 302px -->
+          <div class="c-planet-row left" style="top:302px">
+            <div class="c-tick"></div>
+            <div class="c-psphere" style="width:15px;height:15px;background:radial-gradient(circle at 38% 32%,#a090e0,#5038b8,#201870);box-shadow:0 0 6px rgba(90,70,200,0.4)"></div>
+            <div class="c-pinfo" style="text-align:right">
+              <div class="c-pname">Contact</div>
+              <div class="c-pplanet">Neptune</div>
+            </div>
+            <div class="c-chevron">‹</div>
+          </div>
+
+        </div><!-- /c-axis -->
+      </div><!-- /c-wrap -->
+    </div>
+    <div class="concept-desc">Sun at top, planets branch left/right down a vertical axis. Sized to scale. Tap any row to enter. Scroll if needed.</div>
+  </div>
+
+</div><!-- /grid -->
+
+<p style="text-align:center;margin-top:48px;font-size:11px;letter-spacing:0.08em;color:rgba(138,143,168,0.35)">
+  These are static mockups — animations are approximated · actual build will be fully interactive
+</p>
+
+</body>
+</html>

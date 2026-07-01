@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience — Reimagined</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Karla:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #03010a;
+  font-family: 'Karla', sans-serif;
+  color: rgba(230,238,255,0.9);
+  padding: 32px 20px 80px;
+  min-height: 100vh;
+}
+.pg-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-align: center;
+  color: rgba(230,238,255,0.7);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.pg-sub {
+  text-align: center;
+  font-size: 11px;
+  color: rgba(180,170,220,0.35);
+  letter-spacing: 0.1em;
+  margin-bottom: 38px;
+}
+.cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.opt-card {
+  border: 1px solid rgba(180,170,220,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: rgba(180,170,220,0.012);
+  user-select: none;
+}
+.opt-card:hover { border-color: rgba(180,170,220,0.22); }
+.opt-card.selected {
+  border-color: rgba(210,182,88,0.55);
+  box-shadow: 0 0 40px rgba(210,182,88,0.07);
+}
+.opt-head {
+  padding: 13px 20px 10px;
+  border-bottom: 1px solid rgba(180,170,220,0.07);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.opt-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: rgba(210,182,88,0.5);
+  background: rgba(210,182,88,0.06);
+  padding: 2px 8px; border-radius: 2px;
+  flex-shrink: 0;
+}
+.opt-name {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: rgba(220,215,250,0.92);
+}
+.opt-desc {
+  padding: 9px 20px 11px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: rgba(180,170,220,0.45);
+  line-height: 1.55;
+  border-bottom: 1px solid rgba(180,170,220,0.06);
+}
+.opt-select {
+  padding: 8px 20px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(180,170,220,0.28);
+  letter-spacing: 0.08em;
+  border-top: 1px solid rgba(180,170,220,0.06);
+  transition: color 0.2s;
+}
+.opt-card.selected .opt-select { color: rgba(210,182,88,0.8); }
+
+/* ═══════════════════════════════════════════════════════════
+   OPTION A — LIVING ORBITAL MAP
+   Experiences orbit a central hub like planets.
+   Click an orb to see its details.
+═══════════════════════════════════════════════════════════ */
+.orbital-preview {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 400px;
+  background: #03010a;
+  overflow: hidden;
+}
+.orbital-stage {
+  position: relative;
+  border-right: 1px solid rgba(100,140,255,0.08);
+  overflow: hidden;
+}
+/* Starfield dots */
+.orbital-stage::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px);
+  background-size: 40px 40px, 27px 27px, 18px 18px;
+  background-position: 6px 8px, 14px 20px, 3px 11px;
+  opacity: 0.25;
+}
+/* Orbit rings */
+.orbit-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid;
+  pointer-events: none;
+}
+.ring-1 { width: 110px; height: 110px; border-color: rgba(100,160,240,0.12); }
+.ring-2 { width: 170px; height: 170px; border-color: rgba(100,160,240,0.08); border-style: dashed; }
+.ring-3 { width: 230px; height: 230px; border-color: rgba(100,160,240,0.05); border-style: dotted; }
+/* Center hub */
+.orbit-hub {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(210,182,88,0.9) 0%, rgba(180,140,50,0.4) 60%, transparent 100%);
+  box-shadow: 0 0 18px rgba(210,182,88,0.6), 0 0 40px rgba(210,182,88,0.2);
+  z-index: 5;
+  display: flex; align-items: center; justify-content: center;
+}
+.hub-label {
+  font-family: 'Cinzel', serif;
+  font-size: 6px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255,240,180,0.9);
+  text-align: center;
+  line-height: 1.2;
+}
+/* Planet arms — rotate around center */
+.arm {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  transform-origin: 0 0;
+}
+.planet-dot {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  transition: box-shadow 0.2s;
+}
+.planet-label {
+  position: absolute;
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  top: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Education ring (55px radius) */
+.arm-gu { animation: spin 9s linear infinite; }
+.arm-uva { animation: spin 9s linear infinite -4.5s; }
+.planet-gu {
+  left: 55px; top: 0;
+  width: 22px; height: 22px;
+  background: radial-gradient(circle, rgba(100,160,240,0.9), rgba(60,100,180,0.6));
+  box-shadow: 0 0 10px rgba(100,160,240,0.7), 0 0 20px rgba(100,160,240,0.25);
+  animation: counter 9s linear infinite;
+}
+.planet-uva {
+  left: 55px; top: 0;
+  width: 18px; height: 18px;
+  background: radial-gradient(circle, rgba(200,80,65,0.85), rgba(140,45,35,0.6));
+  box-shadow: 0 0 8px rgba(200,80,65,0.6), 0 0 16px rgba(200,80,65,0.2);
+  animation: counter 9s linear infinite -4.5s;
+}
+
+/* Work ring 1 (82px) */
+.arm-ap { animation: spin 13s linear infinite; }
+.arm-pji { animation: spin 13s linear infinite -4.3s; }
+.arm-gh { animation: spin 13s linear infinite -8.6s; }
+.planet-ap {
+  left: 82px; top: 0;
+  width: 16px; height: 16px;
+  background: radial-gradient(circle, rgba(195,90,80,0.85), rgba(140,55,45,0.6));
+  box-shadow: 0 0 7px rgba(195,90,80,0.65), 0 0 14px rgba(195,90,80,0.2);
+  animation: counter 13s linear infinite;
+}
+.planet-pji {
+  left: 82px; top: 0;
+  width: 14px; height: 14px;
+  background: radial-gradient(circle, rgba(100,145,230,0.8), rgba(70,100,180,0.5));
+  box-shadow: 0 0 6px rgba(100,145,230,0.6);
+  animation: counter 13s linear infinite -4.3s;
+}
+.planet-gh {
+  left: 82px; top: 0;
+  width: 14px; height: 14px;
+  background: radial-gradient(circle, rgba(80,205,100,0.8), rgba(45,145,60,0.5));
+  box-shadow: 0 0 6px rgba(80,205,100,0.55);
+  animation: counter 13s linear infinite -8.6s;
+}
+
+/* Work ring 2 (112px) */
+.arm-evgo { animation: spin 18s linear infinite; }
+.arm-vox { animation: spin 18s linear infinite -6s; }
+.arm-ms { animation: spin 18s linear infinite -12s; }
+.planet-evgo {
+  left: 112px; top: 0;
+  width: 13px; height: 13px;
+  background: radial-gradient(circle, rgba(60,195,215,0.8), rgba(35,135,155,0.5));
+  box-shadow: 0 0 6px rgba(60,195,215,0.55);
+  animation: counter 18s linear infinite;
+}
+.planet-vox {
+  left: 112px; top: 0;
+  width: 12px; height: 12px;
+  background: radial-gradient(circle, rgba(80,185,205,0.75), rgba(45,130,150,0.5));
+  box-shadow: 0 0 5px rgba(80,185,205,0.5);
+  animation: counter 18s linear infinite -6s;
+}
+.planet-ms {
+  left: 112px; top: 0;
+  width: 12px; height: 12px;
+  background: radial-gradient(circle, rgba(80,200,95,0.75), rgba(45,140,55,0.5));
+  box-shadow: 0 0 5px rgba(80,200,95,0.5);
+  animation: counter 18s linear infinite -12s;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes counter {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* Orbital detail panel */
+.orb-detail {
+  padding: 24px 28px;
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(ellipse 220px 160px at 70% 20%, rgba(100,160,240,0.07) 0%, transparent 100%);
+}
+.orb-legend {
+  position: absolute;
+  bottom: 20px; left: 0; right: 0;
+  display: flex; justify-content: center;
+  gap: 10px; flex-wrap: wrap;
+  padding: 0 10px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px; color: rgba(180,170,220,0.4);
+}
+.legend-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OPTION B — REAL MISSION PATCHES
+   Large patches with actual SVG iconography per role.
+   Patch grid on left. Detail opens on right.
+═══════════════════════════════════════════════════════════ */
+.patches-preview {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  height: 400px;
+  background: #03010a;
+  overflow: hidden;
+}
+.patch-bay {
+  border-right: 1px solid rgba(180,170,220,0.07);
+  padding: 16px 12px;
+  overflow: hidden;
+  position: relative;
+}
+/* Deep space bg for patch bay */
+.patch-bay::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(100,160,240,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(210,182,88,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+.patch-bay-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px; letter-spacing: 0.26em;
+  color: rgba(210,182,88,0.45);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 14px;
+  position: relative;
+}
+.patch-grid-b {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  justify-items: center;
+  position: relative;
+}
+.patch-b {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.patch-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.patch-b:hover .patch-circle { transform: scale(1.1); }
+.patch-b.active .patch-circle { transform: scale(1.12); }
+/* Outer dashed ring */
+.patch-circle::before {
+  content: '';
+  position: absolute;
+  inset: -5px; border-radius: 50%;
+  border: 1.5px dashed;
+  opacity: 0.4;
+}
+/* Inner ring */
+.patch-circle::after {
+  content: '';
+  position: absolute;
+  inset: 3px; border-radius: 50%;
+  border: 1px solid;
+  opacity: 0.25;
+}
+.patch-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px; letter-spacing: 0.1em;
+  color: rgba(180,170,220,0.35);
+  text-align: center; white-space: nowrap;
+  max-width: 58px; overflow: hidden; text-overflow: ellipsis;
+}
+.patch-b.active .patch-name { color: rgba(210,182,88,0.7); }
+
+/* Individual patch colors */
+.p-gu   { background: radial-gradient(135deg, #0d1a3e 0%, #060e26 100%); border: 2.5px solid rgba(100,160,240,0.6); box-shadow: 0 0 14px rgba(100,160,240,0.3), inset 0 0 10px rgba(100,160,240,0.07); }
+.p-gu::before { border-color: rgba(100,160,240,0.5); }
+.p-gu::after { border-color: rgba(100,160,240,0.4); }
+.p-gu.active-p { box-shadow: 0 0 22px rgba(100,160,240,0.6), 0 0 44px rgba(100,160,240,0.2), inset 0 0 12px rgba(100,160,240,0.1); }
+.p-uva  { background: radial-gradient(135deg, #2a0c09 0%, #170604 100%); border: 2.5px solid rgba(200,80,60,0.55); box-shadow: 0 0 12px rgba(200,80,60,0.25); }
+.p-uva::before { border-color: rgba(200,80,60,0.45); }
+.p-uva::after { border-color: rgba(200,80,60,0.35); }
+.p-ap   { background: radial-gradient(135deg, #2d0e0c 0%, #180807 100%); border: 2.5px solid rgba(195,90,80,0.55); box-shadow: 0 0 12px rgba(195,90,80,0.25); }
+.p-ap::before { border-color: rgba(195,90,80,0.45); }
+.p-ap::after { border-color: rgba(195,90,80,0.35); }
+.p-pji  { background: radial-gradient(135deg, #0a1432 0%, #050b1d 100%); border: 2.5px solid rgba(100,140,225,0.5); box-shadow: 0 0 10px rgba(100,140,225,0.2); }
+.p-pji::before { border-color: rgba(100,140,225,0.4); }
+.p-pji::after { border-color: rgba(100,140,225,0.3); }
+.p-gh   { background: radial-gradient(135deg, #071e0c 0%, #040f07 100%); border: 2.5px solid rgba(80,205,100,0.5); box-shadow: 0 0 10px rgba(80,205,100,0.2); }
+.p-gh::before { border-color: rgba(80,205,100,0.4); }
+.p-gh::after { border-color: rgba(80,205,100,0.3); }
+.p-evgo { background: radial-gradient(135deg, #051820 0%, #030d14 100%); border: 2.5px solid rgba(60,195,215,0.5); box-shadow: 0 0 10px rgba(60,195,215,0.2); }
+.p-evgo::before { border-color: rgba(60,195,215,0.4); }
+.p-evgo::after { border-color: rgba(60,195,215,0.3); }
+.p-vox  { background: radial-gradient(135deg, #051b22 0%, #030e16 100%); border: 2.5px solid rgba(80,185,205,0.45); box-shadow: 0 0 8px rgba(80,185,205,0.18); }
+.p-vox::before { border-color: rgba(80,185,205,0.35); }
+.p-vox::after { border-color: rgba(80,185,205,0.25); }
+.p-ms   { background: radial-gradient(135deg, #071e0c 0%, #040f07 100%); border: 2.5px solid rgba(80,195,95,0.45); box-shadow: 0 0 8px rgba(80,195,95,0.18); }
+.p-ms::before { border-color: rgba(80,195,95,0.35); }
+.p-ms::after { border-color: rgba(80,195,95,0.25); }
+
+/* Patch SVG icons */
+.patch-icon { position: relative; z-index: 1; }
+
+/* Patch detail */
+.patch-detail-b {
+  padding: 22px 28px;
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(ellipse 200px 150px at 60% 25%, rgba(100,160,240,0.07) 0%, transparent 100%);
+}
+.pdb-badge-row {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(180,170,220,0.07);
+}
+.pdb-large-patch {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.pdb-large-patch::before {
+  content: '';
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px dashed rgba(100,160,240,0.3);
+}
+.pdb-large-patch::after {
+  content: '';
+  position: absolute; inset: 3px; border-radius: 50%;
+  border: 1px solid rgba(100,160,240,0.2);
+}
+.pdb-header { flex: 1; }
+.pdb-mission-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px; letter-spacing: 0.28em;
+  color: rgba(210,182,88,0.55);
+  margin-bottom: 3px;
+}
+.pdb-org {
+  font-family: 'Cinzel', serif;
+  font-size: 15px; font-weight: 400; letter-spacing: 0.07em;
+  color: rgba(230,238,255,0.93);
+  line-height: 1.2; margin-bottom: 2px;
+}
+.pdb-sub { font-size: 9px; color: rgba(180,170,220,0.5); margin-bottom: 4px; }
+.pdb-role { font-family: 'Karla', sans-serif; font-size: 10.5px; font-weight: 500; color: rgba(100,160,240,0.9); }
+.pdb-meta { font-family: 'JetBrains Mono', monospace; font-size: 7px; color: rgba(180,170,220,0.4); margin-bottom: 12px; }
+.pdb-sec { font-family: 'JetBrains Mono', monospace; font-size: 7px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(100,160,240,0.75); margin-bottom: 5px; text-shadow: 0 0 7px rgba(100,160,240,0.3); }
+.pdb-body { font-family: 'DM Sans', sans-serif; font-size: 9.5px; line-height: 1.65; color: rgba(205,200,235,0.7); margin-bottom: 10px; }
+.pdb-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.pdb-tag { font-family: 'JetBrains Mono', monospace; font-size: 6.5px; color: rgba(100,160,240,0.75); background: rgba(100,160,240,0.05); border: 1px solid rgba(100,160,240,0.14); padding: 2px 7px; border-radius: 2px; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   OPTION C — AMBER TRANSMISSION TERMINAL
+   Full amber/gold CRT aesthetic. Every element is a
+   decoded transmission. Completely different visual language.
+═══════════════════════════════════════════════════════════ */
+.terminal-preview {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 400px;
+  background: #08060a;
+  overflow: hidden;
+  position: relative;
+  font-family: 'JetBrains Mono', monospace;
+}
+/* Scanlines */
+.terminal-preview::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(200,155,40,0.025) 3px, rgba(200,155,40,0.025) 4px
+  );
+  pointer-events: none; z-index: 10;
+}
+/* CRT vignette */
+.terminal-preview::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  pointer-events: none; z-index: 9;
+}
+
+/* Left — transmission log */
+.tx-log {
+  border-right: 1px solid rgba(200,155,40,0.15);
+  padding: 14px 12px;
+  overflow: hidden;
+  position: relative;
+}
+.tx-log-header {
+  font-size: 7.5px; letter-spacing: 0.25em;
+  color: rgba(200,155,40,0.6);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(200,155,40,0.12);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tx-blink {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(200,155,40,0.9);
+  box-shadow: 0 0 5px rgba(200,155,40,0.8);
+  animation: txBlink 1.2s ease-in-out infinite;
+}
+@keyframes txBlink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+
+.tx-entry {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(200,155,40,0.06);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.tx-entry:hover { background: rgba(200,155,40,0.03); }
+.tx-entry.active { background: rgba(200,155,40,0.05); }
+.tx-id {
+  font-size: 7px; letter-spacing: 0.18em;
+  color: rgba(200,155,40,0.8);
+  margin-bottom: 2px;
+}
+.tx-entry.active .tx-id { color: rgba(230,185,70,1); }
+.tx-org { font-size: 9px; font-weight: 500; color: rgba(230,185,70,0.85); margin-bottom: 1px; }
+.tx-role { font-size: 7.5px; color: rgba(180,140,45,0.55); margin-bottom: 3px; }
+.tx-status-row { display: flex; align-items: center; gap: 5px; }
+.tx-status {
+  font-size: 6.5px; letter-spacing: 0.12em;
+  padding: 1px 5px;
+  border-radius: 1px;
+}
+.tx-status.live {
+  color: rgba(100,220,130,0.9);
+  border: 1px solid rgba(100,220,130,0.25);
+  background: rgba(100,220,130,0.06);
+}
+.tx-status.done {
+  color: rgba(200,155,40,0.45);
+  border: 1px solid rgba(200,155,40,0.12);
+}
+.tx-date { font-size: 6.5px; color: rgba(180,140,45,0.4); }
+
+/* Right — decoded briefing */
+.tx-briefing {
+  padding: 16px 20px;
+  overflow: hidden;
+  position: relative;
+}
+.txb-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(200,155,40,0.1);
+}
+.txb-id-block {}
+.txb-channel {
+  font-size: 7px; letter-spacing: 0.25em;
+  color: rgba(200,155,40,0.5);
+  margin-bottom: 3px;
+}
+.txb-signal {
+  display: flex; gap: 2px; align-items: flex-end; height: 14px;
+}
+.sig-bar {
+  width: 3px; border-radius: 1px;
+  background: rgba(200,155,40,0.7);
+}
+.txb-org-name {
+  font-family: 'Cinzel', serif;
+  font-size: 18px; font-weight: 400; letter-spacing: 0.08em;
+  color: rgba(240,200,90,0.95);
+  margin-bottom: 2px;
+}
+.txb-sub-name { font-size: 8.5px; color: rgba(180,140,45,0.55); margin-bottom: 5px; }
+.txb-role-line { font-size: 10px; font-weight: 500; color: rgba(200,155,40,0.9); margin-bottom: 4px; }
+.txb-meta {
+  font-size: 7px; letter-spacing: 0.08em;
+  color: rgba(180,140,45,0.45);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(200,155,40,0.08);
+}
+.txb-section-label {
+  font-size: 7px; letter-spacing: 0.25em;
+  color: rgba(200,155,40,0.65); text-transform: uppercase;
+  margin-bottom: 5px;
+  display: flex; align-items: center; gap: 6px;
+}
+.txb-section-label::before { content: '▶'; font-size: 5px; color: rgba(200,155,40,0.4); }
+.txb-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9.5px; line-height: 1.65;
+  color: rgba(220,185,80,0.65);
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(200,155,40,0.12);
+}
+.txb-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.txb-tag {
+  font-size: 6.5px;
+  color: rgba(200,155,40,0.6);
+  background: rgba(200,155,40,0.04);
+  border: 1px solid rgba(200,155,40,0.14);
+  padding: 2px 7px; border-radius: 2px;
+}
+/* Cursor blink on last text */
+.cursor-blink::after {
+  content: '█';
+  font-size: 9px;
+  color: rgba(200,155,40,0.8);
+  animation: cursorBlink 1s step-end infinite;
+  margin-left: 1px;
+}
+@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Bottom status bar */
+.tx-status-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 22px;
+  background: rgba(200,155,40,0.05);
+  border-top: 1px solid rgba(200,155,40,0.1);
+  display: flex; align-items: center; gap: 0;
+  padding: 0 16px;
+  z-index: 5;
+}
+.sb-item {
+  font-size: 6.5px; letter-spacing: 0.12em;
+  color: rgba(180,140,45,0.45);
+  padding: 0 12px;
+  border-right: 1px solid rgba(200,155,40,0.1);
+}
+.sb-item:first-child { padding-left: 0; }
+.sb-item.active-sb { color: rgba(100,220,130,0.75); }
+
+</style>
+</head>
+<body>
+
+<p class="pg-title">Experience — Three Reimagined Concepts</p>
+<p class="pg-sub">Completely different layouts and visual languages · Click any card to select</p>
+
+<div class="cards-col">
+
+  <!-- ═══════ OPTION A: ORBITAL MAP ═══════ -->
+  <div class="opt-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">A</span>
+      <span class="opt-name">Living Orbital Map</span>
+    </div>
+    <div class="opt-desc">Your experiences become orbiting planets around a central star. Education in the inner ring, recent work in the middle, older roles in the outer orbit — each one moving in real time. Click any planet to read its details. No list. No text. Just a living solar system of your career.</div>
+
+    <div class="orbital-preview">
+      <div class="orbital-stage">
+        <!-- Orbit rings -->
+        <div class="orbit-ring ring-1"></div>
+        <div class="orbit-ring ring-2"></div>
+        <div class="orbit-ring ring-3"></div>
+        <!-- Hub -->
+        <div class="orbit-hub"><div class="hub-label">C · R · G</div></div>
+
+        <!-- Georgetown -->
+        <div class="arm arm-gu" style="--r:55px">
+          <div class="planet-dot planet-gu">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:6px;color:rgba(180,215,255,0.95);font-weight:500">GU</span>
+          </div>
+        </div>
+        <!-- UVA -->
+        <div class="arm arm-uva" style="--r:55px">
+          <div class="planet-dot planet-uva">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5px;color:rgba(255,170,155,0.9)">UVA</span>
+          </div>
+        </div>
+        <!-- AP -->
+        <div class="arm arm-ap" style="--r:82px">
+          <div class="planet-dot planet-ap">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5.5px;color:rgba(255,165,155,0.9)">AP</span>
+          </div>
+        </div>
+        <!-- PJI -->
+        <div class="arm arm-pji" style="--r:82px">
+          <div class="planet-dot planet-pji">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5px;color:rgba(160,195,255,0.9)">PJI</span>
+          </div>
+        </div>
+        <!-- GH -->
+        <div class="arm arm-gh" style="--r:82px">
+          <div class="planet-dot planet-gh">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5px;color:rgba(155,240,175,0.9)">GH</span>
+          </div>
+        </div>
+        <!-- EVgo -->
+        <div class="arm arm-evgo" style="--r:112px">
+          <div class="planet-dot planet-evgo">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5px;color:rgba(130,230,245,0.9)">EV</span>
+          </div>
+        </div>
+        <!-- VOX -->
+        <div class="arm arm-vox" style="--r:112px">
+          <div class="planet-dot planet-vox">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5px;color:rgba(130,220,235,0.85)">VOX</span>
+          </div>
+        </div>
+        <!-- Mindset -->
+        <div class="arm arm-ms" style="--r:112px">
+          <div class="planet-dot planet-ms">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:5px;color:rgba(140,235,160,0.85)">MS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <div class="orb-detail">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.28em;color:rgba(210,182,88,0.55);margin-bottom:10px">◈ &nbsp; OBJECT SELECTED — ORBIT-01</div>
+        <div style="font-family:'Cinzel',serif;font-size:20px;font-weight:400;letter-spacing:0.07em;color:rgba(230,238,255,0.93);margin-bottom:3px">Georgetown University</div>
+        <div style="font-size:9px;color:rgba(180,170,220,0.5);margin-bottom:5px">Graduate School of Arts &amp; Sciences</div>
+        <div style="font-family:'Karla',sans-serif;font-size:11px;font-weight:500;color:rgba(100,160,240,0.9);margin-bottom:5px">M.S. Data Science &amp; Analytics</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:7.5px;color:rgba(180,170,220,0.42);margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(180,170,220,0.07)">2024 – 2026 &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; GPA 4.0 / 4.0</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.22em;color:rgba(100,160,240,0.75);text-shadow:0 0 8px rgba(100,160,240,0.35);margin-bottom:5px;text-transform:uppercase">Awards</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:9.5px;line-height:1.65;color:rgba(205,200,235,0.7);margin-bottom:12px">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+
+        <!-- Orbital legend -->
+        <div class="orb-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(100,160,240,0.9);box-shadow:0 0 4px rgba(100,160,240,0.6)"></div>Education</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(195,90,80,0.9)"></div>Active Work</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(80,205,100,0.9)"></div>Past Work</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(60,195,215,0.8)"></div>Earlier Roles</div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-select">Click to select</div>
+  </div>
+
+
+  <!-- ═══════ OPTION B: REAL MISSION PATCHES ═══════ -->
+  <div class="opt-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">B</span>
+      <span class="opt-name">Mission Patch Gallery</span>
+    </div>
+    <div class="opt-desc">Each experience gets a real mission patch — not just initials in a circle, but a unique circular badge with its own icon (mortar board for Georgetown, lightning bolt for EVgo, scales for PJI, leaf for Guidehouse, etc). The sidebar is a gallery of 8 collectible patches. Click one to open its full briefing.</div>
+
+    <div class="patches-preview">
+      <div class="patch-bay">
+        <div class="patch-bay-title">▸ &nbsp; Mission Patch Collection &nbsp; ◂</div>
+        <div class="patch-grid-b">
+
+          <!-- Georgetown — mortar board -->
+          <div class="patch-b active">
+            <div class="patch-circle p-gu active-p">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <polygon points="16,6 28,12 16,18 4,12" fill="rgba(100,160,240,0.8)" stroke="rgba(140,190,255,0.6)" stroke-width="0.8"/>
+                <rect x="10" y="17" width="12" height="7" rx="1" fill="rgba(80,130,210,0.7)" stroke="rgba(120,170,240,0.5)" stroke-width="0.7"/>
+                <line x1="25" y1="12" x2="25" y2="20" stroke="rgba(140,190,255,0.6)" stroke-width="1.2"/>
+                <circle cx="25" cy="21" r="1.5" fill="rgba(210,182,88,0.8)"/>
+                <line x1="16" y1="18" x2="16" y2="24" stroke="rgba(120,170,240,0.5)" stroke-width="0.8" stroke-dasharray="2,1.5"/>
+              </svg>
+            </div>
+            <span class="patch-name">GEORGETOWN</span>
+          </div>
+
+          <!-- UVA — rotunda columns -->
+          <div class="patch-b">
+            <div class="patch-circle p-uva">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <path d="M4,24 L6,14 Q16,4 26,14 L28,24" fill="rgba(200,80,60,0.3)" stroke="rgba(220,110,90,0.7)" stroke-width="1"/>
+                <rect x="4" y="23" width="24" height="3" rx="0.5" fill="rgba(200,80,60,0.7)" stroke="rgba(220,110,90,0.5)" stroke-width="0.6"/>
+                <rect x="8" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+                <rect x="14.5" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+                <rect x="21" y="14" width="3" height="10" fill="rgba(200,80,60,0.6)"/>
+              </svg>
+            </div>
+            <span class="patch-name">VIRGINIA</span>
+          </div>
+
+          <!-- AP — globe with signal arc -->
+          <div class="patch-b">
+            <div class="patch-circle p-ap">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="9" stroke="rgba(195,90,80,0.7)" stroke-width="1.2" fill="rgba(195,90,80,0.08)"/>
+                <line x1="7" y1="13" x2="25" y2="13" stroke="rgba(195,90,80,0.4)" stroke-width="0.8"/>
+                <line x1="7" y1="19" x2="25" y2="19" stroke="rgba(195,90,80,0.4)" stroke-width="0.8"/>
+                <path d="M16,7 Q19,16 16,25 Q13,16 16,7" stroke="rgba(195,90,80,0.6)" stroke-width="1" fill="none"/>
+                <path d="M22,6 Q26,9 26,13" stroke="rgba(210,182,88,0.8)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M24,4 Q30,8 30,14" stroke="rgba(210,182,88,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="patch-name">ASSOC. PRESS</span>
+          </div>
+
+          <!-- PJI — scales of justice -->
+          <div class="patch-b">
+            <div class="patch-circle p-pji">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <line x1="16" y1="6" x2="16" y2="26" stroke="rgba(100,140,225,0.6)" stroke-width="1.2"/>
+                <line x1="7" y1="12" x2="25" y2="12" stroke="rgba(100,140,225,0.7)" stroke-width="1"/>
+                <circle cx="16" cy="9" r="1.8" fill="rgba(100,140,225,0.8)"/>
+                <path d="M7,12 L5,18 Q7,21 9,18 L11,12" stroke="rgba(100,140,225,0.65)" stroke-width="0.9" fill="rgba(100,140,225,0.1)"/>
+                <path d="M21,12 L19,18 Q21,21 23,18 L25,12" stroke="rgba(100,140,225,0.65)" stroke-width="0.9" fill="rgba(100,140,225,0.1)"/>
+                <rect x="13.5" y="24" width="5" height="2" rx="0.5" fill="rgba(100,140,225,0.6)"/>
+              </svg>
+            </div>
+            <span class="patch-name">GU PJI</span>
+          </div>
+
+          <!-- Guidehouse — leaf -->
+          <div class="patch-b">
+            <div class="patch-circle p-gh">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <path d="M16,26 Q7,20 9,11 Q11,4 22,7 Q25,15 16,26Z" fill="rgba(80,205,100,0.25)" stroke="rgba(100,220,120,0.7)" stroke-width="1.1"/>
+                <path d="M16,26 Q14,20 13,14" stroke="rgba(80,205,100,0.5)" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M13,14 Q17,12 20,10" stroke="rgba(80,205,100,0.35)" stroke-width="0.7" stroke-linecap="round"/>
+                <path d="M13,17 Q16,16 18,14" stroke="rgba(80,205,100,0.3)" stroke-width="0.7" stroke-linecap="round"/>
+                <path d="M14,20 Q16.5,19 18.5,17" stroke="rgba(80,205,100,0.3)" stroke-width="0.7" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span class="patch-name">GUIDEHOUSE</span>
+          </div>
+
+          <!-- EVgo — lightning bolt -->
+          <div class="patch-b">
+            <div class="patch-circle p-evgo">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <polygon points="19,5 10,17 16,17 13,29 22,16 16,16" fill="rgba(60,195,215,0.85)" stroke="rgba(90,220,240,0.7)" stroke-width="0.8" stroke-linejoin="round"/>
+                <circle cx="8" cy="22" r="3" stroke="rgba(60,195,215,0.3)" stroke-width="0.8" fill="none"/>
+                <circle cx="24" cy="22" r="2.2" stroke="rgba(60,195,215,0.25)" stroke-width="0.7" fill="none"/>
+              </svg>
+            </div>
+            <span class="patch-name">EVGO</span>
+          </div>
+
+          <!-- VOX — microphone/wave -->
+          <div class="patch-b">
+            <div class="patch-circle p-vox">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <rect x="12" y="5" width="8" height="13" rx="4" fill="rgba(80,185,205,0.35)" stroke="rgba(100,200,220,0.7)" stroke-width="1"/>
+                <path d="M7,17 Q7,26 16,26 Q25,26 25,17" stroke="rgba(80,185,205,0.65)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <line x1="16" y1="26" x2="16" y2="30" stroke="rgba(80,185,205,0.5)" stroke-width="1"/>
+                <line x1="12" y1="30" x2="20" y2="30" stroke="rgba(80,185,205,0.5)" stroke-width="1"/>
+                <line x1="4" y1="14" x2="7" y2="14" stroke="rgba(80,185,205,0.4)" stroke-width="0.8"/>
+                <line x1="25" y1="14" x2="28" y2="14" stroke="rgba(80,185,205,0.4)" stroke-width="0.8"/>
+              </svg>
+            </div>
+            <span class="patch-name">VOX GLOBAL</span>
+          </div>
+
+          <!-- Mindset — shield + lock -->
+          <div class="patch-b">
+            <div class="patch-circle p-ms">
+              <svg class="patch-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+                <path d="M16,4 L27,9 L27,18 Q27,26 16,30 Q5,26 5,18 L5,9 Z" fill="rgba(80,195,95,0.15)" stroke="rgba(100,215,115,0.65)" stroke-width="1"/>
+                <rect x="12" y="17" width="8" height="7" rx="1.5" fill="rgba(80,195,95,0.5)" stroke="rgba(100,215,115,0.6)" stroke-width="0.8"/>
+                <path d="M13,17 Q13,12 16,12 Q19,12 19,17" stroke="rgba(100,215,115,0.65)" stroke-width="1" fill="none"/>
+                <circle cx="16" cy="20.5" r="1.2" fill="rgba(100,215,115,0.8)"/>
+              </svg>
+            </div>
+            <span class="patch-name">MINDSET</span>
+          </div>
+
+        </div><!-- /grid -->
+      </div><!-- /patch-bay -->
+
+      <!-- Patch detail panel -->
+      <div class="patch-detail-b">
+        <div class="pdb-badge-row">
+          <div class="pdb-large-patch p-gu">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <polygon points="16,6 28,12 16,18 4,12" fill="rgba(100,160,240,0.8)" stroke="rgba(140,190,255,0.5)" stroke-width="0.7"/>
+              <rect x="10" y="17" width="12" height="7" rx="1" fill="rgba(80,130,210,0.7)" stroke="rgba(120,170,240,0.4)" stroke-width="0.6"/>
+              <line x1="25" y1="12" x2="25" y2="20" stroke="rgba(140,190,255,0.5)" stroke-width="1"/>
+              <circle cx="25" cy="21" r="1.5" fill="rgba(210,182,88,0.8)"/>
+            </svg>
+          </div>
+          <div class="pdb-header">
+            <div class="pdb-mission-num">MISSION-01 &nbsp;·&nbsp; EDUCATION &nbsp;·&nbsp; ACTIVE</div>
+            <div class="pdb-org">Georgetown University</div>
+            <div class="pdb-sub">Graduate School of Arts &amp; Sciences</div>
+            <div class="pdb-role">M.S. Data Science &amp; Analytics</div>
+          </div>
+        </div>
+        <div class="pdb-meta">2024 – 2026 &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; GPA 4.0 / 4.0</div>
+        <div class="pdb-sec">Awards</div>
+        <div class="pdb-body">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+        <div class="pdb-sec">Skills &amp; Tools</div>
+        <div class="pdb-tags">
+          <span class="pdb-tag">Python</span><span class="pdb-tag">R</span><span class="pdb-tag">Machine Learning</span><span class="pdb-tag">SQL</span><span class="pdb-tag">Deep Learning</span><span class="pdb-tag">Cloud Computing</span>
+        </div>
+      </div>
+    </div><!-- /patches-preview -->
+    <div class="opt-select">Click to select</div>
+  </div>
+
+
+  <!-- ═══════ OPTION C: AMBER TERMINAL ═══════ -->
+  <div class="opt-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="opt-head">
+      <span class="opt-letter">C</span>
+      <span class="opt-name">Amber Transmission Terminal</span>
+    </div>
+    <div class="opt-desc">The whole page becomes an amber/gold CRT terminal — like receiving classified mission transmissions. Left panel is a live transmission log with signal status and blinking indicators. Right panel decodes the selected entry as a mission briefing. Scanlines, phosphor glow, the cursor blinks. Completely different visual language from anything else on your site.</div>
+
+    <div class="terminal-preview">
+      <!-- Left: transmission log -->
+      <div class="tx-log">
+        <div class="tx-log-header">
+          <span>TRANSMISSIONS</span>
+          <div class="tx-blink"></div>
+        </div>
+
+        <div class="tx-entry active">
+          <div class="tx-id">TRX-001 &nbsp;//&nbsp; EDUCATION</div>
+          <div class="tx-org">Georgetown Univ.</div>
+          <div class="tx-role">M.S. Data Science</div>
+          <div class="tx-status-row">
+            <span class="tx-status live">● ACTIVE</span>
+            <span class="tx-date">2024–2026</span>
+          </div>
+        </div>
+        <div class="tx-entry">
+          <div class="tx-id">TRX-002 &nbsp;//&nbsp; EDUCATION</div>
+          <div class="tx-org">Univ. of Virginia</div>
+          <div class="tx-role">B.A. Public Policy</div>
+          <div class="tx-status-row">
+            <span class="tx-status done">COMPLETE</span>
+            <span class="tx-date">2020–2024</span>
+          </div>
+        </div>
+        <div class="tx-entry">
+          <div class="tx-id">TRX-003 &nbsp;//&nbsp; WORK</div>
+          <div class="tx-org">Associated Press</div>
+          <div class="tx-role">Elections Scraper</div>
+          <div class="tx-status-row">
+            <span class="tx-status live">● ACTIVE</span>
+            <span class="tx-date">2025–NOW</span>
+          </div>
+        </div>
+        <div class="tx-entry">
+          <div class="tx-id">TRX-004 &nbsp;//&nbsp; WORK</div>
+          <div class="tx-org">Georgetown PJI</div>
+          <div class="tx-role">Program Associate</div>
+          <div class="tx-status-row">
+            <span class="tx-status live">● ACTIVE</span>
+            <span class="tx-date">2024–2026</span>
+          </div>
+        </div>
+        <div class="tx-entry">
+          <div class="tx-id">TRX-005 &nbsp;//&nbsp; WORK</div>
+          <div class="tx-org">Guidehouse</div>
+          <div class="tx-role">Sustainability Intern</div>
+          <div class="tx-status-row">
+            <span class="tx-status done">COMPLETE</span>
+            <span class="tx-date">2025</span>
+          </div>
+        </div>
+        <div class="tx-entry">
+          <div class="tx-id">TRX-006 &nbsp;//&nbsp; WORK</div>
+          <div class="tx-org">EVgo</div>
+          <div class="tx-role">Policy Intern</div>
+          <div class="tx-status-row">
+            <span class="tx-status done">COMPLETE</span>
+            <span class="tx-date">2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: decoded briefing -->
+      <div class="tx-briefing">
+        <div class="txb-top">
+          <div class="txb-id-block">
+            <div class="txb-channel">INCOMING TRANSMISSION &nbsp;·&nbsp; TRX-001 DECODED</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:7.5px;color:rgba(200,155,40,0.4);margin-top:2px">SIGNAL STRENGTH</div>
+            <div class="txb-signal">
+              <div class="sig-bar" style="height:4px;opacity:0.9"></div>
+              <div class="sig-bar" style="height:6px;opacity:0.85"></div>
+              <div class="sig-bar" style="height:9px;opacity:0.8"></div>
+              <div class="sig-bar" style="height:11px;opacity:0.75"></div>
+              <div class="sig-bar" style="height:13px;opacity:0.7"></div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:rgba(100,220,130,0.7);letter-spacing:0.12em">STATUS: ACTIVE</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:6.5px;color:rgba(200,155,40,0.35);margin-top:3px">ORBIT: INNER RING</div>
+          </div>
+        </div>
+
+        <div class="txb-org-name">Georgetown University</div>
+        <div class="txb-sub-name">Graduate School of Arts &amp; Sciences</div>
+        <div class="txb-role-line">M.S. Data Science &amp; Analytics</div>
+        <div class="txb-meta">COORDINATES: Washington, D.C. &nbsp;·&nbsp; DURATION: 2024 – 2026 &nbsp;·&nbsp; PERFORMANCE: GPA 4.0</div>
+
+        <div class="txb-section-label">TRANSMISSION LOG — AWARDS</div>
+        <div class="txb-body cursor-blink">Competitive merit-based scholarship awarded through anonymous faculty review, recognized for <em>Humanitarian Shield: A Data-Driven Exploration of Humanitarian Aid Worker Vulnerability.</em></div>
+
+        <div class="txb-section-label">SYSTEMS DEPLOYED</div>
+        <div class="txb-tags">
+          <span class="txb-tag">PYTHON</span><span class="txb-tag">R</span><span class="txb-tag">MACHINE LEARNING</span><span class="txb-tag">SQL</span><span class="txb-tag">DEEP LEARNING</span><span class="txb-tag">CLOUD COMPUTING</span>
+        </div>
+
+        <div class="tx-status-bar">
+          <span class="sb-item active-sb">● 3 ACTIVE</span>
+          <span class="sb-item">5 COMPLETE</span>
+          <span class="sb-item">8 TOTAL MISSIONS</span>
+          <span class="sb-item">GPA 4.0 ON RECORD</span>
+        </div>
+      </div>
+    </div>
+    <div class="opt-select">Click to select</div>
+  </div>
+
+</div>
+
+<script>
+function toggleSelect(el) {
+  const wasSelected = el.classList.contains('selected');
+  document.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
+  if (!wasSelected) el.classList.add('selected');
+  if (typeof window.__sp_emit === 'function') {
+    window.__sp_emit({ type: 'click', choice: el.dataset.choice, text: el.querySelector('.opt-name')?.textContent });
+  }
+}
+</script>
+</body>
+</html>

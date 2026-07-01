@@ -1,0 +1,138 @@
+<h2>Mobile Lineup Layout</h2>
+<p class="subtitle">How the planet navigation looks on a phone after tapping the sun. Scroll the phone mockup to see all planets.</p>
+
+<div class="split">
+
+  <div class="mockup">
+    <div class="mockup-header">Orbit screen (unchanged)</div>
+    <div class="mockup-body" style="background:#060810;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;">
+      <!-- Star field suggestion -->
+      <div style="position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center;">
+        <!-- Orbit rings -->
+        <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);"></div>
+        <div style="position:absolute;width:155px;height:155px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);"></div>
+        <div style="position:absolute;width:110px;height:110px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);"></div>
+        <div style="position:absolute;width:70px;height:70px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);"></div>
+        <!-- Sun -->
+        <div style="width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9a0,#f5a623,#c06010);box-shadow:0 0 20px rgba(245,166,35,0.5);z-index:2;"></div>
+        <!-- Planets scattered -->
+        <div style="position:absolute;top:20px;left:30px;width:8px;height:8px;border-radius:50%;background:#918880;"></div>
+        <div style="position:absolute;top:60px;right:18px;width:10px;height:10px;border-radius:50%;background:#deb880;"></div>
+        <div style="position:absolute;bottom:25px;left:22px;width:11px;height:11px;border-radius:50%;background:#2878d8;"></div>
+        <div style="position:absolute;bottom:40px;right:30px;width:9px;height:9px;border-radius:50%;background:#cc5020;"></div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:rgba(232,240,255,0.7);margin-bottom:4px;">COURTNEY GREEN</div>
+        <div style="font-size:9px;color:rgba(180,170,220,0.45);letter-spacing:1.5px;">click the sun to explore</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">Lineup mode (mobile vertical)</div>
+    <div class="mockup-body" style="background:#060810;min-height:360px;padding:0;overflow:hidden;">
+      <!-- Phone screen content -->
+      <div style="height:360px;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:20px 16px 32px;gap:0;scrollbar-width:none;">
+        <!-- Sun / back button -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:14px;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.06);width:100%;">
+          <div style="width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9a0,#f5a623,#c06010);box-shadow:0 0 14px rgba(245,166,35,0.4);"></div>
+          <div style="font-size:8px;color:rgba(200,168,80,0.65);letter-spacing:2px;text-transform:uppercase;">← Orbit</div>
+        </div>
+
+        <!-- Planet rows -->
+        <div style="display:flex;flex-direction:column;width:100%;gap:2px;">
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#b8a898,#918880,#524840);box-shadow:0 0 6px rgba(190,178,165,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">OBJECTIVE</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Mercury</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e8c880,#c8a060,#6a4e20);box-shadow:0 0 6px rgba(225,195,130,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">ABOUT</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Venus</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4898e8,#2878d8,#082060);box-shadow:0 0 6px rgba(72,155,255,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">EXPERIENCE</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Earth</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e08045,#cc5020,#6a2208);box-shadow:0 0 6px rgba(220,75,35,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">RESUME</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Mars</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e8d498,#c8b480,#806840);box-shadow:0 0 6px rgba(205,180,120,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">PROJECTS</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Jupiter</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="position:relative;width:36px;height:26px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;width:54px;height:10px;border-radius:50%;border:1.5px solid rgba(200,175,90,0.45);top:50%;transform:translateY(-50%);z-index:0;"></div>
+              <div style="width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f0d888,#ccb060,#7a6220);box-shadow:0 0 6px rgba(215,190,80,0.3);z-index:1;"></div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">SKILLS</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Saturn</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c8e8e8,#88c0c0,#102828);box-shadow:0 0 6px rgba(95,205,205,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">OFF THE CLOCK</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Uranus</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);cursor:pointer;">
+            <div style="width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#4898e8,#1c62d0,#010818);box-shadow:0 0 6px rgba(55,115,240,0.3);flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:10px;color:rgba(230,238,255,0.85);letter-spacing:1.5px;font-family:'Cinzel',serif;">CONTACT</div>
+              <div style="font-size:7.5px;color:rgba(180,170,220,0.4);letter-spacing:1px;margin-top:1px;">Neptune</div>
+            </div>
+            <div style="font-size:8px;color:rgba(180,170,220,0.25);">→</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:24px;">
+  <h3>How it works</h3>
+  <ul style="color:rgba(200,195,232,0.75);font-size:13px;line-height:2;padding-left:20px;">
+    <li>Orbit screen stays exactly as-is on mobile (the animated solar system scales naturally)</li>
+    <li>Tapping the sun triggers the same veil + lineup transition — but vertical instead of horizontal</li>
+    <li>Sun anchors to top-center as the "← Orbit" back button</li>
+    <li>8 planet rows stack below, each showing the planet canvas + section name + planet name</li>
+    <li>Column is scrollable if it overflows (unlikely on most phones, all 8 fit in ~560px)</li>
+    <li>Planets animate from orbit positions into rows with the same cubic-bezier as desktop</li>
+    <li>Tapping a row navigates to that section — same veil transition as desktop</li>
+  </ul>
+</div>

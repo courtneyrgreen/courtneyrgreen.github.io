@@ -1,0 +1,115 @@
+<h2>How dramatic is the depth effect?</h2>
+<p class="subtitle">How much do background planets shrink and dim as they recede into the back of the ring?</p>
+
+<style>
+.orbit-demo {
+  background: #040208;
+  border-radius: 8px;
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.13);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 86%; height: 110px;
+  pointer-events: none;
+}
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.label-hint {
+  position: absolute;
+  bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  font-family: Karla, sans-serif;
+  font-size: 10px;
+  color: rgba(200,195,230,0.45);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.orbit-wrap {
+  padding: 0;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+.orbit-wrap:hover { border-color: rgba(180,150,255,0.4); }
+</style>
+
+<div class="cards" style="grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px;">
+
+  <!-- Option A: Subtle -->
+  <div class="card orbit-wrap" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0; background:none;">
+      <div class="orbit-demo">
+        <div class="orbit-ring"></div>
+        <!-- back top -->
+        <div class="planet" style="left:50%;top:16%;width:36px;height:36px;opacity:0.50;background:radial-gradient(circle at 36% 32%, rgba(140,200,218,1) 0%, rgba(140,200,218,0.6) 50%, transparent 100%);box-shadow:0 0 12px rgba(140,200,218,0.25);"></div>
+        <!-- left -->
+        <div class="planet" style="left:10%;top:50%;width:44px;height:44px;opacity:0.60;background:radial-gradient(circle at 36% 32%, rgba(95,62,168,1) 0%, rgba(95,62,168,0.6) 50%, transparent 100%);box-shadow:0 0 14px rgba(95,62,168,0.30);"></div>
+        <!-- right -->
+        <div class="planet" style="left:90%;top:50%;width:44px;height:44px;opacity:0.60;background:radial-gradient(circle at 36% 32%, rgba(188,138,60,1) 0%, rgba(188,138,60,0.6) 50%, transparent 100%);box-shadow:0 0 14px rgba(188,138,60,0.30);"></div>
+        <!-- front active -->
+        <div class="planet" style="left:50%;top:83%;width:82px;height:82px;opacity:1.0;background:radial-gradient(circle at 36% 32%, rgba(55,82,152,1) 0%, rgba(55,82,152,0.75) 50%, rgba(4,2,8,1) 100%);box-shadow:0 0 0 3px rgba(55,82,152,0.22),0 0 28px rgba(55,82,152,0.55),0 0 55px rgba(55,82,152,0.22);"></div>
+        <div class="label-hint">back ~44% · sides ~54%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Subtle</h3>
+      <p>Background planets stay large. Feels spacious, easy to identify all planets at a glance.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Moderate -->
+  <div class="card orbit-wrap" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0; background:none;">
+      <div class="orbit-demo">
+        <div class="orbit-ring"></div>
+        <!-- back top -->
+        <div class="planet" style="left:50%;top:16%;width:22px;height:22px;opacity:0.28;background:radial-gradient(circle at 36% 32%, rgba(140,200,218,1) 0%, rgba(140,200,218,0.6) 50%, transparent 100%);box-shadow:0 0 8px rgba(140,200,218,0.15);"></div>
+        <!-- left -->
+        <div class="planet" style="left:10%;top:50%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%, rgba(95,62,168,1) 0%, rgba(95,62,168,0.6) 50%, transparent 100%);box-shadow:0 0 10px rgba(95,62,168,0.22);"></div>
+        <!-- right -->
+        <div class="planet" style="left:90%;top:50%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%, rgba(188,138,60,1) 0%, rgba(188,138,60,0.6) 50%, transparent 100%);box-shadow:0 0 10px rgba(188,138,60,0.22);"></div>
+        <!-- front active -->
+        <div class="planet" style="left:50%;top:83%;width:82px;height:82px;opacity:1.0;background:radial-gradient(circle at 36% 32%, rgba(55,82,152,1) 0%, rgba(55,82,152,0.75) 50%, rgba(4,2,8,1) 100%);box-shadow:0 0 0 3px rgba(55,82,152,0.22),0 0 28px rgba(55,82,152,0.55),0 0 55px rgba(55,82,152,0.22);"></div>
+        <div class="label-hint">back ~27% · sides ~44%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Moderate</h3>
+      <p>Clear size hierarchy. Active planet dominates; background reads as supporting cast.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Cinematic -->
+  <div class="card orbit-wrap" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0; background:none;">
+      <div class="orbit-demo">
+        <div class="orbit-ring"></div>
+        <!-- back top -->
+        <div class="planet" style="left:50%;top:16%;width:14px;height:14px;opacity:0.16;background:radial-gradient(circle at 36% 32%, rgba(140,200,218,1) 0%, rgba(140,200,218,0.6) 50%, transparent 100%);box-shadow:0 0 5px rgba(140,200,218,0.10);"></div>
+        <!-- left -->
+        <div class="planet" style="left:10%;top:50%;width:26px;height:26px;opacity:0.28;background:radial-gradient(circle at 36% 32%, rgba(95,62,168,1) 0%, rgba(95,62,168,0.6) 50%, transparent 100%);box-shadow:0 0 7px rgba(95,62,168,0.15);"></div>
+        <!-- right -->
+        <div class="planet" style="left:90%;top:50%;width:26px;height:26px;opacity:0.28;background:radial-gradient(circle at 36% 32%, rgba(188,138,60,1) 0%, rgba(188,138,60,0.6) 50%, transparent 100%);box-shadow:0 0 7px rgba(188,138,60,0.15);"></div>
+        <!-- front active -->
+        <div class="planet" style="left:50%;top:83%;width:82px;height:82px;opacity:1.0;background:radial-gradient(circle at 36% 32%, rgba(55,82,152,1) 0%, rgba(55,82,152,0.75) 50%, rgba(4,2,8,1) 100%);box-shadow:0 0 0 3px rgba(55,82,152,0.22),0 0 28px rgba(55,82,152,0.55),0 0 55px rgba(55,82,152,0.22);"></div>
+        <div class="label-hint">back ~17% · sides ~32%</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Cinematic</h3>
+      <p>Maximum drama. Only the active planet matters — others are barely ghosts on the ring.</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,93 @@
+<h2>Projects Mobile — Swipeable Card Carousel</h2>
+<p class="subtitle">Built with CSS scroll-snap — no JS library needed. Native swipe feel on touch, drag on desktop.</p>
+
+<div class="split">
+
+  <div class="mockup">
+    <div class="mockup-header">Card view (swipe ←→)</div>
+    <div class="mockup-body" style="background:#07020f;min-height:400px;padding:20px 0 0;display:flex;flex-direction:column;align-items:center;gap:12px;overflow:hidden;">
+      <!-- Header -->
+      <div style="text-align:center;padding:0 16px;">
+        <div style="font-size:7px;color:rgba(190,170,255,0.5);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:4px;">Jupiter · Project Cosmos</div>
+        <div style="font-family:'Cinzel',serif;font-size:18px;letter-spacing:3px;color:rgba(225,215,255,0.9);">PROJECTS</div>
+        <div style="font-size:8px;color:rgba(190,170,255,0.35);letter-spacing:1px;margin-top:4px;">swipe to explore</div>
+      </div>
+
+      <!-- Card -->
+      <div style="width:260px;background:rgba(18,8,40,0.95);border:1px solid rgba(190,170,255,0.18);border-radius:8px;overflow:hidden;flex-shrink:0;">
+        <!-- Image -->
+        <div style="width:100%;height:110px;background:linear-gradient(135deg,rgba(190,170,255,0.08) 0%,rgba(100,80,200,0.12) 100%);display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(190,170,255,0.08);position:relative;overflow:hidden;">
+          <!-- Fake chart lines to suggest a data viz image -->
+          <svg width="200" height="80" viewBox="0 0 200 80" style="opacity:0.25">
+            <polyline points="10,65 35,48 60,55 85,30 110,38 135,18 160,25 190,12" fill="none" stroke="rgba(190,170,255,0.8)" stroke-width="1.5"/>
+            <polyline points="10,72 35,60 60,65 85,45 110,52 135,38 160,42 190,28" fill="none" stroke="rgba(140,120,220,0.5)" stroke-width="1"/>
+          </svg>
+          <div style="position:absolute;top:8px;right:8px;font-size:7px;background:rgba(190,170,255,0.1);border:1px solid rgba(190,170,255,0.2);color:rgba(190,170,255,0.65);padding:2px 7px;border-radius:2px;letter-spacing:1px;">RESEARCH · 2024</div>
+        </div>
+        <!-- Body -->
+        <div style="padding:14px;">
+          <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:1.5px;color:rgba(225,215,255,0.9);margin-bottom:6px;">Chicago Exonerations</div>
+          <div style="font-size:9px;line-height:1.6;color:rgba(190,170,255,0.55);margin-bottom:10px;">Probabilistic modeling of prosecutorial misconduct and over-policing patterns across Illinois counties.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
+            <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 6px;border-radius:2px;">Python</span>
+            <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 6px;border-radius:2px;">GeoPandas</span>
+            <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 6px;border-radius:2px;">Scikit-learn</span>
+          </div>
+          <div style="font-size:8px;color:rgba(190,170,255,0.45);letter-spacing:1px;text-align:center;border-top:1px solid rgba(190,170,255,0.08);padding-top:10px;">tap to open full details ↗</div>
+        </div>
+      </div>
+
+      <!-- Dot indicators -->
+      <div style="display:flex;gap:5px;align-items:center;">
+        <div style="width:16px;height:3px;background:rgba(190,170,255,0.75);border-radius:2px;"></div>
+        <div style="width:5px;height:3px;background:rgba(190,170,255,0.2);border-radius:2px;"></div>
+        <div style="width:5px;height:3px;background:rgba(190,170,255,0.2);border-radius:2px;"></div>
+        <div style="width:5px;height:3px;background:rgba(190,170,255,0.2);border-radius:2px;"></div>
+        <div style="width:5px;height:3px;background:rgba(190,170,255,0.2);border-radius:2px;"></div>
+        <div style="width:5px;height:3px;background:rgba(190,170,255,0.2);border-radius:2px;"></div>
+        <div style="width:5px;height:3px;background:rgba(190,170,255,0.2);border-radius:2px;"></div>
+      </div>
+
+      <div style="font-size:7px;color:rgba(190,170,255,0.25);letter-spacing:1px;">1 of 7</div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">After tap — detail modal (same as desktop)</div>
+    <div class="mockup-body" style="background:#07020f;min-height:400px;padding:16px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+        <div style="font-size:7px;color:rgba(190,170,255,0.5);letter-spacing:2px;text-transform:uppercase;">Research · 2024</div>
+        <div style="font-size:9px;color:rgba(190,170,255,0.3);cursor:pointer;">✕</div>
+      </div>
+      <div style="font-family:'Cinzel',serif;font-size:12px;letter-spacing:1.5px;color:rgba(225,215,255,0.92);line-height:1.5;">Probabilistic Modeling of Prosecutorial Misconduct and Over-Policing in Chicago</div>
+      <!-- Image -->
+      <div style="width:100%;height:80px;background:linear-gradient(135deg,rgba(190,170,255,0.08),rgba(100,80,200,0.12));border-radius:4px;border:1px solid rgba(190,170,255,0.1);"></div>
+      <!-- Description -->
+      <div style="font-size:9px;line-height:1.7;color:rgba(190,170,255,0.55);">Chicago has led the nation in exonerations for five consecutive years. This project investigates why, drawing on Illinois arrest records...</div>
+      <!-- Tags -->
+      <div style="display:flex;flex-wrap:wrap;gap:3px;">
+        <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 5px;border-radius:2px;">Python</span>
+        <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 5px;border-radius:2px;">Pandas</span>
+        <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 5px;border-radius:2px;">GeoPandas</span>
+        <span style="font-size:7px;background:rgba(190,170,255,0.07);border:1px solid rgba(190,170,255,0.16);color:rgba(190,170,255,0.65);padding:2px 5px;border-radius:2px;">Plotly</span>
+      </div>
+      <!-- Links -->
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <div style="font-size:8px;color:rgba(190,170,255,0.7);border:1px solid rgba(190,170,255,0.22);padding:6px 12px;border-radius:2px;flex:1;text-align:center;">View Project ↗</div>
+        <div style="font-size:8px;color:rgba(190,170,255,0.7);border:1px solid rgba(190,170,255,0.22);padding:6px 12px;border-radius:2px;flex:1;text-align:center;">Repository ↗</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:20px;">
+  <h3>Implementation notes</h3>
+  <ul style="color:rgba(200,195,232,0.75);font-size:13px;line-height:2;padding-left:20px;">
+    <li>New <code>ProjectsCarousel.jsx</code> component — rendered on mobile instead of the canvas version</li>
+    <li>Uses CSS <code>scroll-snap-type: x mandatory</code> — native swipe, no JS animation library</li>
+    <li>Tapping a card opens the existing <code>ProjectCard</code> modal unchanged</li>
+    <li>Dot indicators update as you scroll (IntersectionObserver)</li>
+    <li>Desktop constellation canvas is completely untouched</li>
+  </ul>
+</div>

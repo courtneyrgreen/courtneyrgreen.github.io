@@ -4,10 +4,10 @@ import '../../styles/sections/About.css'
 
 export default function About({ onBack }) {
   const cometRef = useRef(null)
-  const wp0Ref   = useRef(null)
-  const wp1Ref   = useRef(null)
-  const wp2Ref   = useRef(null)
-  const wp3Ref   = useRef(null)
+  const wp0Ref = useRef(null)
+  const wp1Ref = useRef(null)
+  const wp2Ref = useRef(null)
+  const wp3Ref = useRef(null)
 
   useEffect(() => {
     const t1 = setTimeout(() => wp0Ref.current?.classList.add('active'), 400)
@@ -49,7 +49,7 @@ export default function About({ onBack }) {
           <div id="obs-panel-hdr">▸ signal received</div>
           <div id="obs-eyebrow">The Observatory</div>
           <div id="obs-name">Courtney Green</div>
-          <div id="obs-role">Incoming Tech, Data, &amp; AI Consultant II @ Guidehouse</div>
+          <div id="obs-role">Consultant II, Technology AI &amp; Data @ Guidehouse</div>
 
           <div id="obs-cards">
             <div className="asc-card">
@@ -97,13 +97,13 @@ export default function About({ onBack }) {
 
           <div className="obs-wp" ref={wp2Ref} style={{ left: '65%' }}>
             <div className="obs-wp-dot" />
-            <div className="obs-wp-label">Now</div>
-            <div className="obs-wp-desc">AP Elections Web Scraper</div>
+            <div className="obs-wp-label">The Associated Press</div>
+            <div className="obs-wp-desc">Elections Web Scraper</div>
           </div>
 
           <div className="obs-wp" ref={wp3Ref} style={{ left: '95%' }}>
             <div className="obs-wp-dot" />
-            <div className="obs-wp-label">Next</div>
+            <div className="obs-wp-label">Now</div>
             <div className="obs-wp-desc">Consultant II @ Guidehouse</div>
           </div>
         </div>

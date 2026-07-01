@@ -1,0 +1,92 @@
+<h2>How steeply is the orbital ring tilted?</h2>
+<p class="subtitle">The tilt determines how "3D" the ring feels — shallow is subtle, steep is dramatic</p>
+
+<style>
+.tilt-demo {
+  background: #040208;
+  border-radius: 8px;
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+.planet { position:absolute; border-radius:50%; transform:translate(-50%,-50%); }
+.ring-label {
+  position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+  font-family:Karla,sans-serif; font-size:10px;
+  color:rgba(200,195,230,0.40); white-space:nowrap; letter-spacing:0.04em;
+}
+</style>
+
+<div class="cards" style="grid-template-columns:repeat(3,1fr); gap:16px; margin-top:8px;">
+
+  <!-- 15° shallow -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)" style="cursor:pointer;">
+    <div class="card-image" style="padding:0;background:none;">
+      <div class="tilt-demo">
+        <!-- ring: height = 280*sin(15°)≈72px, center shifted up a bit -->
+        <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:82%;height:64px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);pointer-events:none;"></div>
+        <!-- back top: R*sin(15°)≈36px above center -->
+        <div class="planet" style="left:50%;top:32%;width:22px;height:22px;opacity:0.28;background:radial-gradient(circle at 36% 32%,rgba(140,200,218,1) 0%,rgba(140,200,218,0.5) 50%,transparent 100%);box-shadow:0 0 8px rgba(140,200,218,0.15);"></div>
+        <!-- left -->
+        <div class="planet" style="left:9%;top:46%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%,rgba(95,62,168,1) 0%,rgba(95,62,168,0.5) 50%,transparent 100%);box-shadow:0 0 10px rgba(95,62,168,0.22);"></div>
+        <!-- right -->
+        <div class="planet" style="left:91%;top:46%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%,rgba(188,138,60,1) 0%,rgba(188,138,60,0.5) 50%,transparent 100%);box-shadow:0 0 10px rgba(188,138,60,0.22);"></div>
+        <!-- front bottom: 36px below center -->
+        <div class="planet" style="left:50%;top:62%;width:82px;height:82px;opacity:1;background:radial-gradient(circle at 36% 32%,rgba(55,82,152,1) 0%,rgba(55,82,152,0.75) 50%,rgba(4,2,8,1) 100%);box-shadow:0 0 0 3px rgba(55,82,152,0.22),0 0 28px rgba(55,82,152,0.55),0 0 55px rgba(55,82,152,0.2);"></div>
+        <div class="ring-label">15° tilt — nearly flat</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Shallow (15°)</h3>
+      <p>Subtle tilt. Ring feels like a gently inclined orbit, nearly overhead view.</p>
+    </div>
+  </div>
+
+  <!-- 25° medium -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)" style="cursor:pointer;">
+    <div class="card-image" style="padding:0;background:none;">
+      <div class="tilt-demo">
+        <!-- ring: height ≈ 280*sin(25°)≈118px -->
+        <div style="position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:82%;height:108px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);pointer-events:none;"></div>
+        <!-- back top: ~59px above center -->
+        <div class="planet" style="left:50%;top:22%;width:22px;height:22px;opacity:0.28;background:radial-gradient(circle at 36% 32%,rgba(140,200,218,1) 0%,rgba(140,200,218,0.5) 50%,transparent 100%);box-shadow:0 0 8px rgba(140,200,218,0.15);"></div>
+        <!-- left -->
+        <div class="planet" style="left:9%;top:44%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%,rgba(95,62,168,1) 0%,rgba(95,62,168,0.5) 50%,transparent 100%);box-shadow:0 0 10px rgba(95,62,168,0.22);"></div>
+        <!-- right -->
+        <div class="planet" style="left:91%;top:44%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%,rgba(188,138,60,1) 0%,rgba(188,138,60,0.5) 50%,transparent 100%);box-shadow:0 0 10px rgba(188,138,60,0.22);"></div>
+        <!-- front bottom: ~59px below center -->
+        <div class="planet" style="left:50%;top:70%;width:82px;height:82px;opacity:1;background:radial-gradient(circle at 36% 32%,rgba(55,82,152,1) 0%,rgba(55,82,152,0.75) 50%,rgba(4,2,8,1) 100%);box-shadow:0 0 0 3px rgba(55,82,152,0.22),0 0 28px rgba(55,82,152,0.55),0 0 55px rgba(55,82,152,0.2);"></div>
+        <div class="ring-label">25° tilt — clear 3D</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Medium (25°)</h3>
+      <p>Clearly 3D. Ring reads as an inclined orbit — like an orrery at eye level.</p>
+    </div>
+  </div>
+
+  <!-- 38° steep -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)" style="cursor:pointer;">
+    <div class="card-image" style="padding:0;background:none;">
+      <div class="tilt-demo">
+        <!-- ring: height ≈ 280*sin(38°)≈172px -->
+        <div style="position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:82%;height:155px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);pointer-events:none;"></div>
+        <!-- back top: ~86px above center -->
+        <div class="planet" style="left:50%;top:12%;width:22px;height:22px;opacity:0.28;background:radial-gradient(circle at 36% 32%,rgba(140,200,218,1) 0%,rgba(140,200,218,0.5) 50%,transparent 100%);box-shadow:0 0 8px rgba(140,200,218,0.15);"></div>
+        <!-- left -->
+        <div class="planet" style="left:9%;top:42%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%,rgba(95,62,168,1) 0%,rgba(95,62,168,0.5) 50%,transparent 100%);box-shadow:0 0 10px rgba(95,62,168,0.22);"></div>
+        <!-- right -->
+        <div class="planet" style="left:91%;top:42%;width:36px;height:36px;opacity:0.42;background:radial-gradient(circle at 36% 32%,rgba(188,138,60,1) 0%,rgba(188,138,60,0.5) 50%,transparent 100%);box-shadow:0 0 10px rgba(188,138,60,0.22);"></div>
+        <!-- front bottom: ~86px below center -->
+        <div class="planet" style="left:50%;top:76%;width:82px;height:82px;opacity:1;background:radial-gradient(circle at 36% 32%,rgba(55,82,152,1) 0%,rgba(55,82,152,0.75) 50%,rgba(4,2,8,1) 100%);box-shadow:0 0 0 3px rgba(55,82,152,0.22),0 0 28px rgba(55,82,152,0.55),0 0 55px rgba(55,82,152,0.2);"></div>
+        <div class="ring-label">38° tilt — dramatic</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Steep (38°)</h3>
+      <p>Maximum drama. Front planet surges forward, back planet recedes sharply upward.</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,89 @@
+<h2>Card → Expanded Card</h2>
+<p class="subtitle">Same structure, same aesthetic — just grown to full size. Tap to open, tap outside or ✕ to return to the carousel.</p>
+
+<div class="split">
+
+  <div class="mockup">
+    <div class="mockup-header">Compact (carousel)</div>
+    <div class="mockup-body" style="background:#07020f;padding:24px 16px;display:flex;align-items:center;justify-content:center;">
+      <div style="width:200px;background:rgba(18,8,40,0.95);border:1px solid rgba(180,150,255,0.18);border-radius:8px;overflow:hidden;">
+        <!-- Image strip -->
+        <div style="width:100%;height:90px;background:linear-gradient(135deg,rgba(90,40,180,0.25) 0%,rgba(30,60,160,0.18) 100%);border-bottom:1px solid rgba(180,150,255,0.08);position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+            <svg width="120" height="60" viewBox="0 0 120 60" style="opacity:0.2">
+              <polyline points="5,50 20,35 38,42 55,20 72,28 90,10 108,16" fill="none" stroke="rgba(200,180,255,0.9)" stroke-width="1.2"/>
+              <polyline points="5,55 20,44 38,50 55,34 72,40 90,26 108,30" fill="none" stroke="rgba(150,120,240,0.5)" stroke-width="0.8"/>
+            </svg>
+          </div>
+          <div style="position:absolute;top:7px;right:7px;font-size:6px;background:rgba(180,150,255,0.1);border:1px solid rgba(180,150,255,0.2);color:rgba(180,150,255,0.65);padding:2px 6px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;">Research · 2024</div>
+        </div>
+        <!-- Body -->
+        <div style="padding:12px 13px 13px;">
+          <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1.5px;color:rgba(225,215,255,0.9);margin-bottom:6px;line-height:1.4;">Chicago Exonerations</div>
+          <div style="font-size:8px;line-height:1.6;color:rgba(180,160,255,0.5);margin-bottom:9px;">Probabilistic modeling of prosecutorial misconduct and over-policing patterns across Illinois counties.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:10px;">
+            <span style="font-size:6.5px;border:1px solid rgba(180,150,255,0.35);color:rgba(200,180,255,0.85);padding:2px 5px;border-radius:1px;">Python</span>
+            <span style="font-size:6.5px;border:1px solid rgba(180,150,255,0.35);color:rgba(200,180,255,0.85);padding:2px 5px;border-radius:1px;">GeoPandas</span>
+            <span style="font-size:6.5px;border:1px solid rgba(180,150,255,0.35);color:rgba(200,180,255,0.85);padding:2px 5px;border-radius:1px;">Scikit-learn</span>
+          </div>
+          <div style="border-top:1px solid rgba(180,150,255,0.08);padding-top:9px;text-align:center;font-size:7px;color:rgba(180,150,255,0.35);letter-spacing:1px;">tap to expand ↗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">Expanded (after tap)</div>
+    <div class="mockup-body" style="background:#07020f;padding:0;display:flex;align-items:stretch;justify-content:center;min-height:400px;">
+      <!-- Dim backdrop -->
+      <div style="position:relative;width:100%;display:flex;align-items:center;justify-content:center;background:rgba(4,2,14,0.75);padding:12px;">
+        <!-- Same card, bigger -->
+        <div style="width:100%;max-width:320px;background:rgba(10,6,28,0.98);border:1px solid rgba(180,150,255,0.2);border-radius:8px;overflow:hidden;position:relative;max-height:380px;overflow-y:auto;scrollbar-width:none;">
+          <!-- Close -->
+          <button style="position:absolute;top:10px;left:12px;background:none;border:none;font-size:8px;color:rgba(180,150,255,0.5);letter-spacing:2px;cursor:pointer;font-family:'Cinzel',serif;text-transform:uppercase;z-index:2;">✕ Close</button>
+          <!-- Image strip — taller -->
+          <div style="width:100%;height:130px;background:linear-gradient(135deg,rgba(90,40,180,0.28) 0%,rgba(30,60,160,0.2) 100%);border-bottom:1px solid rgba(180,150,255,0.1);position:relative;overflow:hidden;flex-shrink:0;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <svg width="220" height="90" viewBox="0 0 220 90" style="opacity:0.25">
+                <polyline points="10,75 40,52 70,62 100,30 130,42 160,15 195,22" fill="none" stroke="rgba(200,180,255,0.9)" stroke-width="1.5"/>
+                <polyline points="10,82 40,65 70,74 100,48 130,58 160,35 195,40" fill="none" stroke="rgba(150,120,240,0.5)" stroke-width="1"/>
+                <!-- dots -->
+                <circle cx="40" cy="52" r="2.5" fill="rgba(200,180,255,0.7)"/>
+                <circle cx="100" cy="30" r="2.5" fill="rgba(200,180,255,0.7)"/>
+                <circle cx="160" cy="15" r="2.5" fill="rgba(200,180,255,0.7)"/>
+              </svg>
+            </div>
+            <div style="position:absolute;top:10px;right:10px;font-size:6.5px;background:rgba(180,150,255,0.1);border:1px solid rgba(180,150,255,0.22);color:rgba(180,150,255,0.7);padding:2px 7px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;">Research · 2024</div>
+          </div>
+          <!-- Body — same layout, more room -->
+          <div style="padding:16px 18px 18px;">
+            <!-- Title — bigger, italic like real card -->
+            <div style="font-size:14px;color:rgba(232,240,255,0.93);font-style:italic;line-height:1.3;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(180,150,255,0.1);">Probabilistic Modeling of Prosecutorial Misconduct and Over-Policing in Chicago</div>
+            <!-- Award -->
+            <div style="font-size:8.5px;color:rgba(180,150,255,0.85);font-style:italic;line-height:1.6;margin-bottom:10px;">✦ 2025 Georgetown University Merit Scholarship recipient, awarded through anonymous faculty review.</div>
+            <!-- Full description -->
+            <div style="font-size:9px;line-height:1.75;color:rgba(175,180,215,0.80);margin-bottom:12px;">Chicago has led the nation in exonerations for five consecutive years. This project investigates why, drawing on Illinois arrest records from the Illinois Criminal Justice Information Authority, exoneration and misconduct data, and incarceration demographics. Through geospatial mapping, disproportionality indexes, and clustering, the analysis traces how perjury and evidence suppression disproportionately drive wrongful convictions.</div>
+            <!-- Tags -->
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px;">
+              <span style="font-size:7px;border:1px solid rgba(180,150,255,0.38);color:rgba(200,180,255,0.9);padding:2px 6px;border-radius:1px;letter-spacing:0.5px;text-transform:uppercase;">Python</span>
+              <span style="font-size:7px;border:1px solid rgba(180,150,255,0.38);color:rgba(200,180,255,0.9);padding:2px 6px;border-radius:1px;letter-spacing:0.5px;text-transform:uppercase;">GeoPandas</span>
+              <span style="font-size:7px;border:1px solid rgba(180,150,255,0.38);color:rgba(200,180,255,0.9);padding:2px 6px;border-radius:1px;letter-spacing:0.5px;text-transform:uppercase;">Scikit-learn</span>
+              <span style="font-size:7px;border:1px solid rgba(180,150,255,0.38);color:rgba(200,180,255,0.9);padding:2px 6px;border-radius:1px;letter-spacing:0.5px;text-transform:uppercase;">Plotly</span>
+              <span style="font-size:7px;border:1px solid rgba(180,150,255,0.38);color:rgba(200,180,255,0.9);padding:2px 6px;border-radius:1px;letter-spacing:0.5px;text-transform:uppercase;">t-SNE</span>
+            </div>
+            <!-- Links — same style as desktop card -->
+            <div style="display:flex;align-items:center;gap:16px;padding-top:12px;border-top:1px solid rgba(180,150,255,0.08);">
+              <div style="width:16px;height:16px;color:rgba(180,150,255,0.5);">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </div>
+              <div style="font-size:8px;color:rgba(180,150,255,0.85);letter-spacing:1.5px;border-bottom:1px solid rgba(180,150,255,0.22);padding-bottom:2px;text-transform:uppercase;font-family:'Cinzel',serif;">View Project →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;">Same card DNA — image strip → eyebrow badge → italic title → description → tags → links. Just bigger, with the full text.</p>

@@ -1,0 +1,154 @@
+<h2>Mobile Navigation: How should the lineup work on a phone?</h2>
+<p class="subtitle">Right now the planets line up horizontally — that won't fit on a narrow screen. Pick the approach that feels right for your portfolio.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="vertical" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0a0d1a;border-radius:8px;padding:20px 16px;font-family:'Georgia',serif;">
+        <!-- Phone frame -->
+        <div style="width:160px;margin:0 auto;background:#08090f;border-radius:16px;border:1.5px solid #2a2d3e;padding:16px 12px;min-height:260px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <!-- Sun at top -->
+          <div style="width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9a0,#f5a623,#c06010);margin-bottom:4px;flex-shrink:0;"></div>
+          <div style="font-size:8px;color:rgba(200,168,80,0.7);letter-spacing:1px;margin-bottom:6px;">← ORBIT</div>
+          <!-- Planets stacked vertically -->
+          <div style="display:flex;flex-direction:column;gap:6px;width:100%;overflow-y:auto;">
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #5b8fd4;">
+              <div style="width:10px;height:10px;border-radius:50%;background:#5b8fd4;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Objective</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #d4a456;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#d4a456;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">About</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #e8c87a;">
+              <div style="width:16px;height:16px;border-radius:50%;background:#e8c87a;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Experience</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #c87a5a;">
+              <div style="width:9px;height:9px;border-radius:50%;background:#c87a5a;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Resume</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #d4b87a;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#d4b87a;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Projects</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #6ab8d4;">
+              <div style="width:14px;height:14px;border-radius:50%;background:#6ab8d4;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Skills</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #84c8d4;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#84c8d4;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Interests</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 8px;background:rgba(255,255,255,0.05);border-radius:6px;border-left:2px solid #4878b8;">
+              <div style="width:11px;height:11px;border-radius:50%;background:#4878b8;flex-shrink:0;"></div>
+              <span style="font-size:9px;color:rgba(232,240,255,0.8);">Contact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Vertical Lineup</h3>
+      <p>Planets stack top-to-bottom in a scrollable column. Same planet-glyph + label pattern as desktop, just rotated. Feels most faithful to the existing design. Close to what the plan describes.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="grid" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0a0d1a;border-radius:8px;padding:20px 16px;font-family:'Georgia',serif;">
+        <div style="width:160px;margin:0 auto;background:#08090f;border-radius:16px;border:1.5px solid #2a2d3e;padding:16px 10px;min-height:260px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9a0,#f5a623,#c06010);flex-shrink:0;"></div>
+          <div style="font-size:7px;color:rgba(200,168,80,0.7);letter-spacing:1px;margin-bottom:4px;">← ORBIT</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;">
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:14px;height:14px;border-radius:50%;background:#5b8fd4;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Objective</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:14px;height:14px;border-radius:50%;background:#d4a456;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">About</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:18px;height:18px;border-radius:50%;background:#e8c87a;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Experience</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:10px;height:10px;border-radius:50%;background:#c87a5a;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Resume</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#d4b87a;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Projects</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:14px;height:14px;border-radius:50%;background:#6ab8d4;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Skills</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:13px;height:13px;border-radius:50%;background:#84c8d4;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Interests</span>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="width:12px;height:12px;border-radius:50%;background:#4878b8;"></div>
+              <span style="font-size:7.5px;color:rgba(232,240,255,0.8);">Contact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — 2×4 Planet Grid</h3>
+      <p>Planets arranged in two columns, all visible at once — no scrolling needed. More compact, each planet gets a tile. Good for showing the full solar system at a glance.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="horizontal-scroll" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0a0d1a;border-radius:8px;padding:20px 16px;font-family:'Georgia',serif;">
+        <div style="width:160px;margin:0 auto;background:#08090f;border-radius:16px;border:1.5px solid #2a2d3e;padding:16px 10px;min-height:260px;display:flex;flex-direction:column;justify-content:center;gap:10px;">
+          <!-- Orbit screen (unchanged) -->
+          <div style="text-align:center;margin-bottom:4px;">
+            <div style="width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ffe9a0,#f5a623,#c06010);margin:0 auto 6px;"></div>
+            <div style="font-size:8px;color:rgba(232,240,255,0.6);letter-spacing:1px;">click the sun to explore</div>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">
+            <div style="font-size:7px;color:rgba(138,143,168,0.6);text-align:center;margin-bottom:6px;">ORBIT MODE UNCHANGED ON MOBILE</div>
+            <!-- arrows indicating scroll -->
+            <div style="display:flex;align-items:center;gap:4px;overflow:hidden;padding:0 4px;">
+              <div style="display:flex;gap:6px;transform:translateX(-20px);">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:10px;height:10px;border-radius:50%;background:#5b8fd4;opacity:0.5;"></div>
+                  <span style="font-size:6px;color:rgba(232,240,255,0.5);">Obj.</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:10px;height:10px;border-radius:50%;background:#d4a456;"></div>
+                  <span style="font-size:6px;color:rgba(232,240,255,0.8);">About</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:14px;height:14px;border-radius:50%;background:#e8c87a;"></div>
+                  <span style="font-size:6px;color:rgba(232,240,255,0.8);">Exp.</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#c87a5a;"></div>
+                  <span style="font-size:6px;color:rgba(232,240,255,0.8);">Res.</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;">
+                  <div style="width:18px;height:18px;border-radius:50%;background:#d4b87a;"></div>
+                  <span style="font-size:6px;color:rgba(232,240,255,0.8);">Proj.</span>
+                </div>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:7px;color:rgba(138,143,168,0.5);margin-top:4px;">← swipe →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Horizontal Scroll (Swipe)</h3>
+      <p>Keep the horizontal lineup exactly as-is but make it swipeable. Planets scroll off-screen and users swipe to reveal them. Most faithful to desktop feel, but requires swiping to find sections.</p>
+    </div>
+  </div>
+
+</div>
